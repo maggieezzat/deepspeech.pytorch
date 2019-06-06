@@ -1,0 +1,12 @@
+python-levenshtein
+torch
+visdom
+wget
+librosa
+tqdm
+nltk>=3.3
+pandas>=0.23.3
+soundfile>=0.10.2
+sox>=1.3.3
+requests
+num2words
