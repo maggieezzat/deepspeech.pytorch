@@ -369,13 +369,7 @@ def generate_csv():
         processed_files = 0
         total_files = len(files)
 
-        counter = 0
-
         for file in files:
-            counter +=1
-
-            if counter >= 20:
-                break
 
             file_path = os.path.join(dir_path, file)
             processed_files+=1
@@ -406,10 +400,9 @@ def generate_csv():
         print()
         output_file = os.path.join(directory, path + ".csv")
 
-        with open(output_file, 'r+') as f:
+        with open(output_file, 'w') as f:
             for line in csv:
-                print(line)
-                f.write(line)
+                f.write(line[0]+","+line[1])
 
         
         print("Successfully generated csv file {}.csv".format(path))
