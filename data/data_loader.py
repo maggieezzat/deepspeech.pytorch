@@ -31,13 +31,14 @@ def load_audio(path):
 
 
 class AudioParser(object):
+    """
     def parse_transcript(self, transcript_path):
         """
         :param transcript_path: Path where transcript is stored from the manifest file
         :return: Transcript in training/testing format
         """
         raise NotImplementedError
-
+    """
     def parse_audio(self, audio_path):
         """
         :param audio_path: Path where audio is stored from the manifest file
@@ -126,9 +127,10 @@ class SpectrogramParser(AudioParser):
             spect.div_(std)
 
         return spect
-
+    """
     def parse_transcript(self, transcript_path):
         raise NotImplementedError
+    """
 
 
 class SpectrogramDataset(Dataset, SpectrogramParser):
@@ -148,7 +150,7 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         """
         with open(manifest_filepath) as f:
             ids = f.readlines()
-        ids = [x.strip().split(',') for x in ids]
+        ids = [x.strip().split(',', 1) for x in ids]
         self.ids = ids
         self.size = len(ids)
         self.labels_map = dict([(labels[i], i) for i in range(len(labels))])
@@ -158,7 +160,8 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         sample = self.ids[index]
         audio_path, transcript_path = sample[0], sample[1]
         spect = self.parse_audio(audio_path)
-        transcript = self.parse_transcript(transcript_path)
+        transcript = list(filter(None, [self.labels_map.get(x) for x in list(transcript_path)]))
+        #transcript = self.parse_transcript(transcript_path)
         return spect, transcript
 
     def parse_transcript(self, transcript_path):
