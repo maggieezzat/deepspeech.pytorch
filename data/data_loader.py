@@ -34,8 +34,8 @@ class AudioParser(object):
     """
     def parse_transcript(self, transcript_path):
         """
-        :param transcript_path: Path where transcript is stored from the manifest file
-        :return: Transcript in training/testing format
+        #:param transcript_path: Path where transcript is stored from the manifest file
+        #:return: Transcript in training/testing format
         """
         raise NotImplementedError
     """
