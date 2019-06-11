@@ -15,8 +15,6 @@ import math
 from torch.utils.data import DataLoader
 from torch.utils.data import Dataset
 
-import codecs
-
 windows = {'hamming': scipy.signal.hamming, 'hann': scipy.signal.hann, 'blackman': scipy.signal.blackman,
            'bartlett': scipy.signal.bartlett}
 
@@ -150,7 +148,7 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         :param normalize: Apply standard mean and deviation normalization to audio tensor
         :param augment(default False):  Apply random tempo and gain perturbations
         """
-        with codecs.open(manifest_filepath, "r", "utf8" ) as f:
+        with open(manifest_filepath, "rb", encoding="utf-8" ) as f:
             ids = f.readlines()
         print(type(ids))
         print(len(ids))
