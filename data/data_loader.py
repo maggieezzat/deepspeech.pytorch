@@ -149,9 +149,13 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         :param augment(default False):  Apply random tempo and gain perturbations
         """
         with open(manifest_filepath, 'r', encoding="utf8" ) as f:
-            ids = f.readlines()
+            ids = f.read().splitlines()
+        print(ids[:10])
+        #[line0, ;line1]
+        #[[line0p,line0t], [] ]
         ids = [x.strip().split(',', 1) for x in ids]
-        print(id[0])
+        print(ids)
+        print(ids[0])
         self.ids = ids
         self.size = len(ids)
         self.labels_map = dict([(labels[i], i) for i in range(len(labels))])
