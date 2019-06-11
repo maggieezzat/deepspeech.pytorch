@@ -31,14 +31,14 @@ def load_audio(path):
 
 
 class AudioParser(object):
-    """
+    '''
     def parse_transcript(self, transcript_path):
         """
         :param transcript_path: Path where transcript is stored from the manifest file
         :return: Transcript in training/testing format
         """
         raise NotImplementedError
-    """
+    '''
     def parse_audio(self, audio_path):
         """
         :param audio_path: Path where audio is stored from the manifest file
@@ -148,9 +148,13 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         :param normalize: Apply standard mean and deviation normalization to audio tensor
         :param augment(default False):  Apply random tempo and gain perturbations
         """
-        with open(manifest_filepath) as f:
+        with open(manifest_filepath, "rb", encoding="utf-8" ) as f:
             ids = f.readlines()
+        print(type(ids))
+        print(len(ids))
+        print(ids[0:2])
         ids = [x.strip().split(',', 1) for x in ids]
+        print(ids[0:2])
         self.ids = ids
         self.size = len(ids)
         self.labels_map = dict([(labels[i], i) for i in range(len(labels))])
