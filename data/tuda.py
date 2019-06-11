@@ -293,8 +293,7 @@ def delete():
                 cor.append(content[jk])
 
 
-    paths = ["test"]
-    #, "dev", "train"]
+    paths = ["test", "dev", "train"]
     for path in paths:
         files = [
             f
@@ -402,7 +401,7 @@ def generate_csv():
 
         with open(output_file, 'w') as f:
             for line in csv:
-                f.write(line[0]+","+line[1])
+                f.write(line[0]+","+line[1] + "\n")
 
         
         print("Successfully generated csv file {}.csv".format(path))
@@ -418,7 +417,7 @@ def main(_):
     #else:
     #    generate_second_list_corrupted_files(directory)
     
-    #delete()
+    delete()
     generate_csv()
    
 
