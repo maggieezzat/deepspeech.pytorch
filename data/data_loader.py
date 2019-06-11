@@ -148,9 +148,10 @@ class SpectrogramDataset(Dataset, SpectrogramParser):
         :param normalize: Apply standard mean and deviation normalization to audio tensor
         :param augment(default False):  Apply random tempo and gain perturbations
         """
-        with open(manifest_filepath, encoding="utf8" ) as f:
+        with open(manifest_filepath, 'r', encoding="utf8" ) as f:
             ids = f.readlines()
         ids = [x.strip().split(',', 1) for x in ids]
+        print(id[0])
         self.ids = ids
         self.size = len(ids)
         self.labels_map = dict([(labels[i], i) for i in range(len(labels))])
