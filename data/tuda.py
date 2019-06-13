@@ -231,7 +231,7 @@ def download_and_extract(directory, url):
             tar.extractall(directory)
     finally:
         tf.gfile.Remove(tar_filepath)
-''''
+'''
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data
