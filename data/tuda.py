@@ -31,9 +31,8 @@ import re
 import num2words
 
 
-download_dir = "/home/maggieezzat9/TUDA/"
-#directory = "/home/maggieezzat9/TUDA/german-speechdata-package-v2"
-directory = "/content/drive/My Drive/german-speechdata-package-v2/"
+download_dir = "/home/GPUAdmin1/TUDA/"
+directory = "/home/GPUAdmin1/german-speechdata-package-v2/"
 tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
 
 # =============================== Vocab ===================================
@@ -351,13 +350,6 @@ def generate_csv():
     
     for path in paths:
         
-        folder = "/content/drive/My Drive/german-speechdata-package-v2/" + path+ "/text_files"
-        exists = os.path.isdir(folder)
-
-        if not exists:
-            os.makedirs("/content/drive/My Drive/german-speechdata-package-v2/" + path+ "/text_files")
-        text_dir = os.path.join(directory, path , "text_files")
-        
         csv = []
         files = [
             f
@@ -380,17 +372,14 @@ def generate_csv():
                 sent = sent.text.lower()
                 transcript = clean_sentence(sent)
 
-                output_text = join(text_dir, file[:-4]+ ".txt")
-                with open(output_text, 'w') as out_text:
-                    out_text.write(transcript)
 
                 file_xml, _ = file.split(".", 1)
                 found = 0
                 for wav_file in files:
                     if wav_file.startswith(file_xml) and wav_file.endswith(".wav"):
+
                         wav_file_dir = os.path.join(dir_path, wav_file)
-                        #wav_file_size = os.path.getsize(wav_file_dir)
-                        csv.append((wav_file_dir, output_text))
+                        csv.append((wav_file_dir, transcript))
                         found += 1
                     #remove that check if you keep more than 2 microphones    
                     if found >= 2:
