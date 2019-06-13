@@ -23,7 +23,7 @@ from absl import app as absl_app
 from absl import flags as absl_flags
 import pandas
 from six.moves import urllib
-import tensorflow as tf
+#import tensorflow as tf
 
 import string
 import collections
@@ -196,7 +196,7 @@ def clean_sentence(sentence):
     return " ".join(cleaned_words)
 
 # =============================== End Vocab ===================================
-
+'''
 def download_and_extract(directory, url):
     """Download and extract tuda-de dataset.
 
@@ -231,7 +231,7 @@ def download_and_extract(directory, url):
             tar.extractall(directory)
     finally:
         tf.gfile.Remove(tar_filepath)
-
+''''
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data
@@ -412,5 +412,5 @@ def main(_):
 
 
 if __name__ == "__main__":
-    tf.logging.set_verbosity(tf.logging.INFO)
+    #tf.logging.set_verbosity(tf.logging.INFO)
     absl_app.run(main)
