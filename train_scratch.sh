@@ -10,4 +10,4 @@ python -m multiproc train.py \
 --hidden-layers 3 \
 --hidden-size 700 \
 --cuda \
---model-path "/home/GPUAdmin1/asr/ds_pytorch_models/"
+--model-path "/home/GPUAdmin1/asr/ds_pytorch_models/deepspeech_final.pth"
