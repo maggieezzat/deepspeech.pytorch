@@ -32,7 +32,7 @@ import num2words
 
 
 download_dir = "/home/GPUAdmin1/TUDA/"
-directory = "/home/GPUAdmin1/german-speechdata-package-v2/"
+directory = "/home/GPUAdmin1/asr/german-speechdata-package-v2/"
 tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
 
 # =============================== Vocab ===================================
