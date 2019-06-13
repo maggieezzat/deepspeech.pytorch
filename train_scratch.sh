@@ -6,7 +6,7 @@ python -m multiproc train.py \
 --epochs 40 \
 --checkpoint \
 --checkpoint-per-batch 50 \
---save-folder "/home/GPUAdmin1/asr/ds_pytorch_chkpts" \
+--save-folder "/home/GPUAdmin1/asr/ds_pytorch_chkpts/" \
 --hidden-layers 3 \
 --hidden-size 700 \
 --cuda
