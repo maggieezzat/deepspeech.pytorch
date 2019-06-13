@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "train.py", line 196, in <module>
+    normalize=True, augment=args.augment)
+  File "/data/home/GPUAdmin1/asr/deepspeech.pytorch/data/data_loader.py", line 151, in __init__
+    with open(manifest_filepath, encoding='utf-8-sig') as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/GPUAdmin1/asr/german-speechdata-package-v2/train/train.csv'
