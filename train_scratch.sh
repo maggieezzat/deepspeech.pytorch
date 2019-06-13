@@ -8,4 +8,5 @@ python train.py \
 --checkpoint-per-batch 5 \
 --save-folder "/home/GPUAdmin1/asr/ds_pytorch_chkpts" \
 --hidden-layers 3 \
---hidden-size 700
+--hidden-size 700 \
+--cuda

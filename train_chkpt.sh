@@ -9,4 +9,5 @@ python train.py \
 --save-folder "/home/GPUAdmin1/asr/ds_pytorch_chkpts" \
 --continue-from "/home/GPUAdmin1/asr/ds_pytorch_chkpts/deepspeech_checkpoint_epoch_1_iter_110.pth" \
 --hidden-layers 3 \
---hidden-size 700
+--hidden-size 700 \
+--cuda
