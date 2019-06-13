@@ -1,8 +1,8 @@
 #!/bin/bash
 
 python -m multiproc train.py \
---train-manifest "/home/GPUAdmin1/asr/german-speechdata-package-v2/train/train.csv" \
---val-manifest "/home/GPUAdmin1/asr/german-speechdata-package-v2/train/test.csv" \
+--train-manifest "/home/GPUAdmin1/asr/german-speechdata-package-v2/train.csv" \
+--val-manifest "/home/GPUAdmin1/asr/german-speechdata-package-v2/test.csv" \
 --epochs 40 \
 --checkpoint \
 --checkpoint-per-batch 50 \
