@@ -9,4 +9,5 @@ python -m multiproc train.py \
 --save-folder "/home/GPUAdmin1/asr/ds_pytorch_chkpts/" \
 --hidden-layers 3 \
 --hidden-size 700 \
---cuda
+--cuda \
+--model-path "/home/GPUAdmin1/asr/ds_pytorch_models/"
