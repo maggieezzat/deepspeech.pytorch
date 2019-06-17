@@ -308,13 +308,14 @@ def delete():
             if ".wav" in file:
                 #remove 3 microphones out of 5 
                 #remove the mic condition if you want to keep all mics
-                if (("Kinect-Beam" in file) or ("Yamaha" in file) or ("Samson" in file)):
-                    remove(join(directory, path, file))
-                else:
-                    for crptd in cor:
-                        if (crptd in file):
-                            remove(join(directory, path, file))
-                            break
+                #use all mics
+                #if (("Kinect-Beam" in file) or ("Yamaha" in file) or ("Samson" in file)):
+                #    remove(join(directory, path, file))
+                #else:
+                for crptd in cor:
+                    if (crptd in file):
+                        remove(join(directory, path, file))
+                        break
 
             #fix a corrupted xml file in dev set =)
             if path == "dev" and ".xml" in file:
@@ -404,7 +405,7 @@ def main(_):
     #if tf.gfile.Exists(os.path.join(os.path.dirname(__file__), "corrupted2.txt")):
     #    print("corrupted list 2 already found")
     #else:
-    #    generate_second_list_corrupted_files(directory)
+    generate_second_list_corrupted_files(directory)
     
     delete()
     generate_csv()
