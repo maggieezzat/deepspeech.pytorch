@@ -405,7 +405,7 @@ def main(_):
     #if tf.gfile.Exists(os.path.join(os.path.dirname(__file__), "corrupted2.txt")):
     #    print("corrupted list 2 already found")
     #else:
-    generate_second_list_corrupted_files(directory)
+    #    generate_second_list_corrupted_files(directory)
     
     delete()
     generate_csv()
