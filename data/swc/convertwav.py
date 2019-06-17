@@ -1,7 +1,7 @@
 import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
- os.chdir("~/asr/")
+os.chdir("~/asr/")
 
 #Where to store the wav files created to be changed on the VM
 SWC_path = "~/asr/SWCData/"
