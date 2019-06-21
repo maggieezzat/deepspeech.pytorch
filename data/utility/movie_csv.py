@@ -1,7 +1,10 @@
+# coding=utf-8
+
 from pydub import AudioSegment
 import os
 import re
 import string
+import num2words
 
 # =================== functions ===================
 
@@ -69,7 +72,7 @@ replacer = {
     "ýÿŷ": "y",
     "źżžȥ": "z",
     "ß": "ss",
-    "-­": " ",
+    "-­": "",
 }
 
 #   Various replacement rules
@@ -204,7 +207,7 @@ directory_
           (note that wav file must have the same name of its corresponding transcription file)
           
 """
-directory = "/home/hamahmi/dark/Dark"
+directory = "/home/hamahmi/dark/DoB"
 transcript_dir = os.path.join(directory, "Transcript/")
 audio_dir = os.path.join(directory, "Audio/")
 # put where you want the csv file
@@ -243,13 +246,17 @@ for file in os.listdir(transcript_dir):
         # --TODO remove things between [] and ♪
         if "[" in transcript and "]" in transcript:
             transcript = clean(transcript, "[", "]")
+        if "(" in transcript and ")" in transcript:
+            transcript = clean(transcript, "(", ")")
         if "♪" in transcript:
             transcript = clean(transcript, "♪")
+        
         transcriptclean = clean_sentence(transcript)
         # --TODO if the whole wav is non talk igneore it i.e continue
         if (
             transcriptclean.strip() == ""
             or transcriptclean.strip() == "netflix präsentiert"
+            or transcriptclean.strip() == "eine netflix original serie"
         ):
             # non talk sounds, ignore them.
             continue
