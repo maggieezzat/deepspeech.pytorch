@@ -1,4 +1,4 @@
-# from pydub import AudioSegment
+from pydub import AudioSegment
 import os
 import re
 import string
@@ -24,7 +24,7 @@ def clean(string, start, end=None):
     tmp = string.split(start, 1)
     out = tmp[0]
     tmp = tmp[1].split(end, 1)
-    # if there is more than one occurance 
+    # if there is more than one occurance
     if start in tmp[1] and end in tmp[1]:
         out += clean(tmp[1], start, end)
     else:
@@ -190,14 +190,33 @@ def clean_sentence(sentence):
 
 
 # =================== Main ===================
-directory = "D:/Freitags/dark/Dark"
-output_file = "D:/Freitags/dark/dark.csv"
-transcript_dir = os.path.join(directory, "Transcript")
-audio_dir = os.path.join(directory, "Audio")
+"""
+for this code to run correctly the data should be as follow:
+directory_
+          |--Transcript_    (i.e full path = transcript_dir)
+          |             |--abcd1.srt (or .txt)
+          |             |--abcd2.srt ...
+          |             | ...
+          |--Audio_         (i.e full path = audio_dir)
+          |        |--abcd1.wav
+          |        |--abcd2.wav ...
+          |        |--...
+          (note that wav file must have the same name of its corresponding transcription file)
+          
+"""
+directory = "/home/hamahmi/dark/Dark"
+transcript_dir = os.path.join(directory, "Transcript/")
+audio_dir = os.path.join(directory, "Audio/")
+# put where you want the csv file
+output_csv = os.path.join(directory, "output.csv")
+# put where you want the wavs to be saved (folder)
+output_segments = "/home/hamahmi/dark/wavs/"
 csv = []
 # loop over all transcription files and create csv
 for file in os.listdir(transcript_dir):
-    with open(os.path.join(transcript_dir, file), "r", encoding="utf-8") as f:
+    big_wav_dir = os.path.join(audio_dir, (file[:-3] + "wav"))
+    big_wav = AudioSegment.from_wav(big_wav_dir)
+    with open(os.path.join(transcript_dir, file), "r", encoding="utf-8-sig") as f:
         lines = f.readlines()
     lines = [l.strip() for l in lines]
     sequences = []
@@ -211,8 +230,8 @@ for file in os.listdir(transcript_dir):
             tmp.append(line)
     # process the transcription
     for s in sequences:
-        number = s[0].strip()
-        filename = file + "_" + number
+        number = int(s[0].strip())
+        filename = file[:-4] + "_" + str(number) + ".wav"
         time = s[1]
         time = time.split(" ")
         timefrom = getms(time[0])
@@ -221,7 +240,6 @@ for file in os.listdir(transcript_dir):
         transcript = ""
         for t in transcriptl:
             transcript += t + " "
-        print(transcript)
         # --TODO remove things between [] and ♪
         if "[" in transcript and "]" in transcript:
             transcript = clean(transcript, "[", "]")
@@ -233,37 +251,15 @@ for file in os.listdir(transcript_dir):
             transcriptclean.strip() == ""
             or transcriptclean.strip() == "netflix präsentiert"
         ):
-            print("====Empty====")
+            # non talk sounds, ignore them.
             continue
-        print(transcriptclean)
-        # TODO segment the wav file and put it in the csv
-        wav_file_dir = number + ""
-        csv.append((wav_file_dir, transcriptclean))
+        # --TODO segment the wav file and put it in the csv
+        segment_wav = big_wav[timefrom:timeto+1]
+        segment_wav_dir = os.path.join(output_segments, filename)
+        segment_wav.export(segment_wav_dir, format="wav")
+        csv.append((segment_wav_dir, transcriptclean))
+        
 
-        break
-"""
-
-with open(output_file, "w") as f:
+with open(output_csv, "w") as f:
     for line in csv:
         f.write(line[0] + "," + line[1] + "\n")
-"""
-
-"""
-lines = [l.strip() for l in lines]
-
-
-
-t_line = lines[0]
-t_line = t_line.split(' ')
-old_file = t_line[1]
-new_file = t_line[0]
-t1 = float(t_line[2])
-t2 = float(t_line[3])
-#t1 = 1038
-#t2 = 1042
-
-
-newAudio = AudioSegment.from_wav( old_file +".wav")
-newAudio = newAudio[t1:t2]
-newAudio.export(new_file + '.wav', format="wav")
-"""
