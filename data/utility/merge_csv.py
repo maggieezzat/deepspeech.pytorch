@@ -11,6 +11,6 @@ data.to_csv("C:/Users/MariamDesouky/Desktop/train.csv", index=False, sep=",")
 """
 
 #TEST
-rootdir = "C:/Users/MariamDesouky/Desktop/test_csvs"  
+rootdir = "E:/csv/"  
 data = pd.concat([pd.read_csv(rootdir+ "/" + file) for file in os.listdir(rootdir) ],axis=0,sort=False)
-data.to_csv("C:/Users/MariamDesouky/Desktop/test.csv", index=False, sep=",")
+data.to_csv("E:/csv/o.csv", index=False, encoding='utf-8-sig')
