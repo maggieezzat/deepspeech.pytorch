@@ -20,7 +20,7 @@ args = parser.parse_args()
 file_paths = []
 for file in os.listdir(args.merge_dir):
     if file.endswith(".csv"):
-        with open(os.path.join(args.merge_dir, file), 'r') as fh:
+        with open(os.path.join(args.merge_dir, file), 'r', encoding = "utf-8-sig") as fh:
             file_paths += fh.readlines()
 file_paths = [file_path.split(',')[0] for file_path in file_paths]
 file_paths = order_and_prune_files(file_paths, args.min_duration, args.max_duration)
