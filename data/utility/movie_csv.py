@@ -299,8 +299,12 @@ for file in os.listdir(transcript_dir):
         csv.append((segment_wav_dir, transcriptclean))
     print()
 
-print("Saving the csv file")
 with open(output_csv, "w") as f:
     for line in csv:
+        print(
+            "Saving into CSV file : "
+            + str(int(((csv.index(line) + 1) / len(csv)) * 100))
+            + "%",
+            end="\r",
+        )
         f.write(line[0] + "," + line[1] + "\n")
-print("=================== Done ===================")
