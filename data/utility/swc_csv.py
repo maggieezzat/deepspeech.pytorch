@@ -189,9 +189,9 @@ def gen_swc_csv(root_dir = dir):
         file_name = line.split(" ", 1)[0]
         file_text = line.split(" ", 1)[1]
 
-        if file_name in files:
-            file_path = os.path.join(root_dir, file_name)
-            csv.append( (file_path, file_text) )
+        if file_name[:-4] in files:
+            file_path = os.path.join(root_dir, file_name + ".wav")
+            csv.append( ( file_path, clean_sentence(file_text) ) )
 
     df = pandas.DataFrame(data=csv)
     output_file = "~/asr/swc.csv"
