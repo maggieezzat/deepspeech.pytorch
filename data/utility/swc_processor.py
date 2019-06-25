@@ -38,7 +38,7 @@ def segment_wav():
     i=0
     for line in lines:
         i+=1
-        if i <= 15800
+        if i <= 15800:
             continue
         line = line.split(' ')
         old_file = os.path.join(data_dir, line[1])
