@@ -178,9 +178,10 @@ def gen_swc_csv(root_dir = dir):
     csv = []
 
     files = [ f for f in os.listdir(root_dir) ]
+    files_c = []
 
     for file in files:
-        file = file[:-4]
+        file_c.append(file[:-4])
 
     print(files[0])
     print(files[1])
@@ -193,7 +194,7 @@ def gen_swc_csv(root_dir = dir):
         file_name = line.split(" ", 1)[0]
         file_text = line.split(" ", 1)[1]
 
-        if file_name in files:
+        if file_name in files_c:
             file_path = os.path.join(root_dir, file_name + ".wav")
             csv.append( ( file_path, clean_sentence(file_text) ) )
 
