@@ -41,12 +41,8 @@ def segment_wav():
     i=0
     for line in lines:
         i+=1
-<<<<<<< HEAD
-        if i <= 15800:
-=======
         if i <= 15800
         print("Skipping " + str(i), end='\r')
->>>>>>> 244306e6775b8f652644e9011af41f80a04fd0d9
             continue
         line = line.split(' ')
         old_file = os.path.join(data_dir, line[1])
