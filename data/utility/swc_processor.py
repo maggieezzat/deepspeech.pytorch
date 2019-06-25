@@ -17,7 +17,7 @@ def convert_to_wav():
     lines = [l.strip() for l in lines]
     for line in lines:
         i+=1
-        if i < 436 :
+        if i < 436:
             continue
         os.system(line[16:-3] + SWC_path + line[0:15] + ".wav")
 
@@ -41,7 +41,7 @@ def segment_wav():
     i=0
     for line in lines:
         i+=1
-        if i <= 15800
+        if i <= 15800:
         print("Skipping " + str(i), end='\r')
             continue
         line = line.split(' ')
