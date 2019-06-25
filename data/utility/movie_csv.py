@@ -248,6 +248,8 @@ for file in os.listdir(transcript_dir):
             transcript = clean(transcript, "[", "]")
         if "(" in transcript and ")" in transcript:
             transcript = clean(transcript, "(", ")")
+        if "<" in transcript and ">" in transcript:
+            transcript = clean(transcript, "<", ">")
         if "♪" in transcript:
             transcript = clean(transcript, "♪")
         
