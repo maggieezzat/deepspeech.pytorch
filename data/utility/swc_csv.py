@@ -183,8 +183,8 @@ def gen_swc_csv(root_dir = dir):
     for file in files:
         files_c.append(file[:-4])
 
-    print(files[0])
-    print(files[1])
+    print(files_c[0])
+    print(files_c[1])
 
     with open("swc_text.txt", 'r') as f:
         lines = f.readlines()
