@@ -198,7 +198,7 @@ def gen_swc_csv(root_dir = dir):
             file_path = os.path.join(root_dir, file_name + ".wav")
             csv.append( ( file_path, clean_sentence(file_text) ) )
 
-    df = pandas.DataFrame(data=csv)
+    df = pandas.DataFrame(data=csv, header=False, index=False)
     output_file = "~/asr/swc.csv"
     df.to_csv(output_file, index=False, sep=",")
 
