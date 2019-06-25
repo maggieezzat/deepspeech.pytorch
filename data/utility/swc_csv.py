@@ -193,7 +193,7 @@ def gen_swc_csv(root_dir = dir):
             file_path = os.path.join(root_dir, file_name)
             csv.append( (file_path, file_text) )
 
-    df = pandas.DataFrame(data=csv_)
+    df = pandas.DataFrame(data=csv)
     output_file = "~/asr/swc.csv"
     df.to_csv(output_file, index=False, sep=",")
 
