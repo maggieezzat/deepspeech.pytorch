@@ -38,7 +38,7 @@ def segment_wav():
     i=0
     for line in lines:
         i+=1
-        if i < 35000:
+        if i < 60000:
             print("Skipping " + str(i), end='\r')
             continue
         line = line.split(' ')
