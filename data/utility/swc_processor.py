@@ -40,8 +40,8 @@ def segment_wav():
         line = line.split(' ')
         old_file = os.path.join(data_dir, line[1])
         new_file = os.path.join(segmented_files_dir, line[0])
-        t1 = float(line[2]) * 10
-        t2 = float(line[3]) * 10
+        t1 = float(line[2]) * 1000
+        t2 = float(line[3]) * 1000
 
         newAudio = AudioSegment.from_wav( old_file +".wav")
         newAudio = newAudio[t1:t2]
