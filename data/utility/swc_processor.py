@@ -37,6 +37,9 @@ def segment_wav():
 
     i=0
     for line in lines:
+        i+=1
+        if i <= 15800
+            continue
         line = line.split(' ')
         old_file = os.path.join(data_dir, line[1])
         new_file = os.path.join(segmented_files_dir, line[0])
@@ -46,7 +49,7 @@ def segment_wav():
         newAudio = AudioSegment.from_wav( old_file +".wav")
         newAudio = newAudio[t1:t2]
         newAudio.export(new_file + '.wav', format="wav")
-        i+=1
+        
         print(str(i) + "/ 35000", end='\r')
         if i==35000:
             break
