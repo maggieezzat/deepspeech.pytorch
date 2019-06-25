@@ -179,22 +179,13 @@ def gen_swc_csv(root_dir = dir):
 
     files = [ f for f in os.listdir(root_dir) ]
 
-
-    print(len(files))
-    print(files[0])
-
     with open("swc_text.txt", 'r') as f:
         lines = f.readlines()
 
-    print(len(lines))
 
     for line in lines:
         file_name = line.split(" ", 1)[0]
         file_text = line.split(" ", 1)[1]
-
-        print(file_name)
-        print(file_text)
-        break
 
         if file_name[:-4] in files:
             file_path = os.path.join(root_dir, file_name + ".wav")
