@@ -22,7 +22,7 @@ def convert_to_wav():
 
 def segment_wav():
     
-    with open("segments", 'r') as f:
+    with open("segments.txt", 'r') as f:
         lines = f.readlines()
 
     lines = [l.strip() for l in lines]
