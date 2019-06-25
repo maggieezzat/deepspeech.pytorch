@@ -52,8 +52,6 @@ def segment_wav():
         newAudio.export(new_file + '.wav', format="wav")
         
         print(str(i) + "/ 35000", end='\r')
-        #if i==35000:
-        #    break
 
 
 def main():
