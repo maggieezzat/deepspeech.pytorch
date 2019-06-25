@@ -181,7 +181,7 @@ def gen_swc_csv(root_dir = dir):
     files_c = []
 
     for file in files:
-        file_c.append(file[:-4])
+        files_c.append(file[:-4])
 
     print(files[0])
     print(files[1])
