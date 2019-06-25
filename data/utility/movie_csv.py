@@ -1,10 +1,22 @@
 # coding=utf-8
 
 from pydub import AudioSegment
+from argparse import ArgumentParser
 import os
 import re
 import string
 import num2words
+
+# ====== Flags ======
+parser = ArgumentParser()
+
+parser.add_argument("--dirmovie", metavar="DIR", default="/home/hamahmi/dark/Dark")
+parser.add_argument(
+    "--dircsv", metavar="DIR", default="/home/hamahmi/dark/Dark/output.csv"
+)
+parser.add_argument("--dirseg", metavar="DIR", default="/home/hamahmi/dark/wavs/")
+
+args = parser.parse_args()
 
 # =================== functions ===================
 
@@ -30,6 +42,16 @@ def clean(string, start, end=None):
     # if there is more than one occurance
     if start in tmp[1] and end in tmp[1]:
         out += clean(tmp[1], start, end)
+    else:
+        out += tmp[1]
+    return out
+    # --future work : take a list of start and end to call just once
+    tmp = string.split(start, 1)
+    out = tmp[0]
+    tmp = tmp[1].split(end, 1)
+    # if there is more than one occurance
+    if start in tmp[1] and end in tmp[1]:
+        out += cleanh(tmp[1], start, end)
     else:
         out += tmp[1]
     return out
@@ -207,13 +229,13 @@ directory_
           (note that wav file must have the same name of its corresponding transcription file)
           
 """
-directory = "/home/hamahmi/dark/DoB"
+directory = args.dirmovie
 transcript_dir = os.path.join(directory, "Transcript/")
 audio_dir = os.path.join(directory, "Audio/")
 # put where you want the csv file
-output_csv = os.path.join(directory, "output.csv")
+output_csv = args.dircsv
 # put where you want the wavs to be saved (folder)
-output_segments = "/home/hamahmi/dark/wavs/"
+output_segments = args.dirseg
 csv = []
 # loop over all transcription files and create csv
 for file in os.listdir(transcript_dir):
@@ -234,6 +256,14 @@ for file in os.listdir(transcript_dir):
     # process the transcription
     for s in sequences:
         number = int(s[0].strip())
+        print(
+            "Processing file "
+            + file[:-4]
+            + " : "
+            + str(int((number / len(sequences)) * 100))
+            + "%",
+            end="\r",
+        )
         filename = file[:-4] + "_" + str(number) + ".wav"
         time = s[1]
         time = time.split(" ")
@@ -248,9 +278,11 @@ for file in os.listdir(transcript_dir):
             transcript = clean(transcript, "[", "]")
         if "(" in transcript and ")" in transcript:
             transcript = clean(transcript, "(", ")")
+        if "<" in transcript and ">" in transcript:
+            transcript = clean(transcript, "<", ">")
         if "♪" in transcript:
             transcript = clean(transcript, "♪")
-        
+
         transcriptclean = clean_sentence(transcript)
         # --TODO if the whole wav is non talk igneore it i.e continue
         if (
@@ -261,12 +293,18 @@ for file in os.listdir(transcript_dir):
             # non talk sounds, ignore them.
             continue
         # --TODO segment the wav file and put it in the csv
-        segment_wav = big_wav[timefrom:timeto+1]
+        segment_wav = big_wav[timefrom : timeto + 1]
         segment_wav_dir = os.path.join(output_segments, filename)
         segment_wav.export(segment_wav_dir, format="wav")
         csv.append((segment_wav_dir, transcriptclean))
-        
+    print()
 
 with open(output_csv, "w") as f:
     for line in csv:
+        print(
+            "Saving into CSV file : "
+            + str(int(((csv.index(line) + 1) / len(csv)) * 100))
+            + "%",
+            end="\r",
+        )
         f.write(line[0] + "," + line[1] + "\n")
