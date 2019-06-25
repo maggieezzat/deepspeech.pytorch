@@ -256,6 +256,14 @@ for file in os.listdir(transcript_dir):
     # process the transcription
     for s in sequences:
         number = int(s[0].strip())
+        print(
+            "Processing file "
+            + file[:-4]
+            + " : "
+            + str(int((number / len(sequences)) * 100))
+            + "%",
+            end="\r",
+        )
         filename = file[:-4] + "_" + str(number) + ".wav"
         time = s[1]
         time = time.split(" ")
@@ -289,8 +297,10 @@ for file in os.listdir(transcript_dir):
         segment_wav_dir = os.path.join(output_segments, filename)
         segment_wav.export(segment_wav_dir, format="wav")
         csv.append((segment_wav_dir, transcriptclean))
+    print()
 
-
+print("Saving the csv file")
 with open(output_csv, "w") as f:
     for line in csv:
         f.write(line[0] + "," + line[1] + "\n")
+print("=================== Done ===================")
