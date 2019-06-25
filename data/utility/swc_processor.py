@@ -13,9 +13,12 @@ def convert_to_wav():
     
     with open("/speech/SWC_German/wav.txt") as f:
         lines = f.readlines()
-    
+    i=0
     lines = [l.strip() for l in lines]
     for line in lines:
+        i+=1
+        if i < 436 :
+            continue
         os.system(line[16:-3] + SWC_path + line[0:15] + ".wav")
 
 
@@ -57,8 +60,8 @@ def segment_wav():
 
 
 def main():
-    #convert_to_wav()
-    segment_wav()
+    convert_to_wav()
+    #segment_wav()
 
 if __name__ == "__main__":
     main()
