@@ -35,13 +35,13 @@ def segment_wav():
 
     lines = [l.strip() for l in lines]
 
-    i=1
+    i=0
     for line in lines:
         line = line.split(' ')
         old_file = os.path.join(data_dir, line[1])
         new_file = os.path.join(segmented_files_dir, line[0])
-        t1 = float(line[2]) * 10000
-        t2 = float(line[3]) * 10000
+        t1 = float(line[2]) * 10
+        t2 = float(line[3]) * 10
 
         newAudio = AudioSegment.from_wav( old_file +".wav")
         newAudio = newAudio[t1:t2]
