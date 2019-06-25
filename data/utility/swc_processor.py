@@ -55,8 +55,8 @@ def segment_wav():
 
 
 def main():
-    convert_to_wav()
-    #segment_wav()
+    #convert_to_wav()
+    segment_wav()
 
 if __name__ == "__main__":
     main()
