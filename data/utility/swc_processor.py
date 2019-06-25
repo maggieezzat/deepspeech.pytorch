@@ -6,10 +6,12 @@ from pydub import AudioSegment
 
 def convert_to_wav():
     
-    dir_path = "/speech/"
-    SWC_path = "/speech/SWCData/"
+    SWC_path = "/speech/SWC_wav/"
+
+    if not os.path.exists(SWC_path):
+        os.makedirs(SWC_path)
     
-    with open("wav.txt") as f:
+    with open("/speech/SWC_German/wav.txt") as f:
         lines = f.readlines()
     
     lines = [l.strip() for l in lines]
@@ -22,7 +24,7 @@ def convert_to_wav():
 
 def segment_wav():
     
-    with open("segments.txt", 'r') as f:
+    with open("/speech/SWC_German/segments.txt", 'r') as f:
         lines = f.readlines()
 
     lines = [l.strip() for l in lines]
@@ -42,7 +44,7 @@ def segment_wav():
 
 
 def main():
-    #convert_to_wav()
+    convert_to_wav()
     #segment_wav()
 
 if __name__ == "__main__":
