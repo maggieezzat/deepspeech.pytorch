@@ -19,17 +19,19 @@ def getms(time):
     return ms
 
 
-def clean(string, start, end=None):
-    # future work : take a list of start and end to call just once
-    # the start and the end char are the same z.B : '♪'
-    if end == None:
-        end = start
+def clean(string, start, end):
+    for i in range(0, len(start)):
+        string = cleanh(string, start[i], end[i])
+    return string
+
+def cleanh(string, start, end):
+    # --future work : take a list of start and end to call just once
     tmp = string.split(start, 1)
     out = tmp[0]
     tmp = tmp[1].split(end, 1)
     # if there is more than one occurance
     if start in tmp[1] and end in tmp[1]:
-        out += clean(tmp[1], start, end)
+        out += cleanh(tmp[1], start, end)
     else:
         out += tmp[1]
     return out
@@ -244,15 +246,8 @@ for file in os.listdir(transcript_dir):
         for t in transcriptl:
             transcript += t + " "
         # --TODO remove things between [] and ♪
-        if "[" in transcript and "]" in transcript:
-            transcript = clean(transcript, "[", "]")
-        if "(" in transcript and ")" in transcript:
-            transcript = clean(transcript, "(", ")")
-        if "<" in transcript and ">" in transcript:
-            transcript = clean(transcript, "<", ">")
-        if "♪" in transcript:
-            transcript = clean(transcript, "♪")
-        
+        transcript = clean(transcript, ["<", "[", "(", "♪"], [">", "]", ")", "♪"])
+
         transcriptclean = clean_sentence(transcript)
         # --TODO if the whole wav is non talk igneore it i.e continue
         if (
@@ -263,11 +258,11 @@ for file in os.listdir(transcript_dir):
             # non talk sounds, ignore them.
             continue
         # --TODO segment the wav file and put it in the csv
-        segment_wav = big_wav[timefrom:timeto+1]
+        segment_wav = big_wav[timefrom : timeto + 1]
         segment_wav_dir = os.path.join(output_segments, filename)
         segment_wav.export(segment_wav_dir, format="wav")
         csv.append((segment_wav_dir, transcriptclean))
-        
+
 
 with open(output_csv, "w") as f:
     for line in csv:
