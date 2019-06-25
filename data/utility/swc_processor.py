@@ -13,12 +13,9 @@ def convert_to_wav():
     
     with open("/speech/SWC_German/wav.txt") as f:
         lines = f.readlines()
-    i=0
+
     lines = [l.strip() for l in lines]
     for line in lines:
-        i+=1
-        if i < 436:
-            continue
         os.system(line[16:-3] + SWC_path + line[0:15] + ".wav")
 
 
@@ -41,7 +38,7 @@ def segment_wav():
     i=0
     for line in lines:
         i+=1
-        if i <= 15800:
+        if i < 35000:
             print("Skipping " + str(i), end='\r')
             continue
         line = line.split(' ')
@@ -55,8 +52,8 @@ def segment_wav():
         newAudio.export(new_file + '.wav', format="wav")
         
         print(str(i) + "/ 35000", end='\r')
-        if i==35000:
-            break
+        #if i==35000:
+        #    break
 
 
 def main():
