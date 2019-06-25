@@ -183,9 +183,6 @@ def gen_swc_csv(root_dir = dir):
     for file in files:
         files_c.append(file[:-4])
 
-    print(files_c[0])
-    print(files_c[1])
-
     with open("swc_text.txt", 'r') as f:
         lines = f.readlines()
 
@@ -198,9 +195,9 @@ def gen_swc_csv(root_dir = dir):
             file_path = os.path.join(root_dir, file_name + ".wav")
             csv.append( ( file_path, clean_sentence(file_text) ) )
 
-    df = pandas.DataFrame(data=csv, header=False, index=False)
+    df = pandas.DataFrame(data=csv)
     output_file = "~/asr/swc.csv"
-    df.to_csv(output_file, index=False, sep=",")
+    df.to_csv(output_file, header=False, index=False, sep=",")
 
     
 
