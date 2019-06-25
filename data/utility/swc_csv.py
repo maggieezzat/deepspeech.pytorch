@@ -175,6 +175,7 @@ dir = "/speech/spoken_wikipedia_german/"
 
 def gen_swc_csv(root_dir = dir):
 
+    '''
     csv = []
 
     files = [ f for f in os.listdir(root_dir) ]
@@ -199,11 +200,26 @@ def gen_swc_csv(root_dir = dir):
     output_file = "~/asr/swc.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
+    '''
+
+    csv = []
+
+    with open("swc_text.txt", 'r') as f:
+        lines = f.readlines()
+
+
+    for line in lines:
+        file_name = line.split(" ", 1)[0]
+        file_text = line.split(" ", 1)[1]
+
+        file_path = os.path.join(root_dir, file_name + ".wav")
+        csv.append( (file_path, clean_sentence(file_text)) )
+
+    df = pandas.DataFrame(data=csv)
+    output_file = "~/asr/swc.csv"
+    df.to_csv(output_file, header=False, index=False, sep=",")
+
     
-
-
-
-
 
 
 def main():
