@@ -1,10 +1,22 @@
 # coding=utf-8
 
 from pydub import AudioSegment
+from argparse import ArgumentParser
 import os
 import re
 import string
 import num2words
+
+# ====== Flags ======
+parser = ArgumentParser()
+
+parser.add_argument("--dirmovie", metavar="DIR", default="/home/hamahmi/dark/Dark")
+parser.add_argument(
+    "--dircsv", metavar="DIR", default="/home/hamahmi/dark/Dark/output.csv"
+)
+parser.add_argument("--dirseg", metavar="DIR", default="/home/hamahmi/dark/wavs/")
+
+args = parser.parse_args()
 
 # =================== functions ===================
 
@@ -23,6 +35,7 @@ def clean(string, start, end):
     for i in range(0, len(start)):
         string = cleanh(string, start[i], end[i])
     return string
+
 
 def cleanh(string, start, end):
     # --future work : take a list of start and end to call just once
@@ -209,13 +222,13 @@ directory_
           (note that wav file must have the same name of its corresponding transcription file)
           
 """
-directory = "/home/hamahmi/dark/DoB"
+directory = args.dirmovie
 transcript_dir = os.path.join(directory, "Transcript/")
 audio_dir = os.path.join(directory, "Audio/")
 # put where you want the csv file
-output_csv = os.path.join(directory, "output.csv")
+output_csv = args.dircsv
 # put where you want the wavs to be saved (folder)
-output_segments = "/home/hamahmi/dark/wavs/"
+output_segments = args.dirseg
 csv = []
 # loop over all transcription files and create csv
 for file in os.listdir(transcript_dir):
