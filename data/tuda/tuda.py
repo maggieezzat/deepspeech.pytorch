@@ -48,7 +48,7 @@ def download_and_extract(down_dir=download_dir, url=tuda_url):
     wget.download(url, down_dir)  
     tar_filepath = os.path.join(down_dir, "german-speechdata-package-v2.tar.gz")
     with tarfile.open(tar_filepath, "r") as tar:
-            tar.extractall(directory)
+        tar.extractall(down_dir)
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data

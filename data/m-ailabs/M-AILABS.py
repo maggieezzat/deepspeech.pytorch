@@ -57,3 +57,43 @@ for subdir, dirs, files in os.walk(rootdir):
             file_dir = os.path.join(subdir, file)
             os.system("mv "+file_dir +" /data/home/GPUAdmin1/asr/M-AILABS/" + file)
 """
+
+
+def gen_corrupted_list_mailabs(root_dir):
+    
+    corrupted_files = []
+
+    files = [
+            f
+            for f in listdir(root_dir)
+            if isfile(join(root_dir, f))
+        ]
+
+        total_files=len(files)
+        processed_files = 0
+        
+        for file in files:
+            processed_files+=1
+            if ".wav" in file: 
+                print("Checking files: " + str(processed_files) + "/" + str(total_files), end="\r")
+                if os.path.getsize(join(root_dir, file)) <= 0:
+                    corrupted_files.append(file)
+                    continue
+                data, _ = soundfile.read(join(root_dir, file))
+                if len(data) <= 0:
+                    corrupted_files.append(file)
+
+        print()
+        print("Done checking M-ailabs Dataset")
+        print("=====================")
+
+    with open('mailabs_corrupted.txt', 'w') as f:
+        for file in corrupted_files:
+            f.write("%s\n" % file)
+
+
+def main():
+    gen_corrupted_list_mailabs()
+
+if __name__ == "__main__":
+    main()
