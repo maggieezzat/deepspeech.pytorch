@@ -7,7 +7,7 @@ from pydub import AudioSegment
 #"spoken_wikipedia_german","M-AILABS",
 
 time = datetime.timedelta(milliseconds = 0)
-root = "~/asr/"
+root = "/home/GPUAdmin1/asr/"
 #root = "E:/TUDA/"
 csv_folders = ["train_csvs","test_csvs","dev_csvs"]
 for csv_folder in csv_folders:
