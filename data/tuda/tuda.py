@@ -35,16 +35,13 @@ tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.g
 
 
 '''
-def download_and_extract(directory, url):
+def download_and_extract(down_dir=download_dir, url=tuda_url):
     """Download and extract tuda-de dataset.
 
   Args:
     directory: the directory where to extract the downloaded folder.
     url: the url to download the data file.
   """
-
-    if not tf.gfile.Exists(directory):
-        tf.gfile.MakeDirs(directory)
 
     _, tar_filepath = tempfile.mkstemp(suffix=".tar.gz")
 
@@ -59,9 +56,8 @@ def download_and_extract(directory, url):
             )
             sys.stdout.flush()
 
-        urllib.request.urlretrieve(url, tar_filepath, _progress)
+        urllib.request.urlretrieve(url, down_dir, _progress)
         print()
-        statinfo = os.stat(tar_filepath)
         tf.logging.info(
             "Successfully downloaded %s, size(bytes): %d" % (url, statinfo.st_size)
         )
@@ -241,10 +237,12 @@ def main():
 
     #download_and_extract(download_dir,tuda_url)
 
-    #if tf.gfile.Exists(os.path.join(os.path.dirname(__file__), "corrupted2.txt")):
-    #    print("corrupted list 2 already found")
-    #else:
-    #    generate_second_list_corrupted_files(directory)
+    cor2 = os.path.join(os.path.dirname(__file__), "corrupted2.txt")
+    exists = os.path.isfile(cor2)
+    if exists:
+        print("corrupted list 2 already found")
+    else:
+        generate_second_list_corrupted_files(directory)
     
     delete()
     generate_csv()
