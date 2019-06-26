@@ -10,7 +10,6 @@ sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
 dir = "/speech/common_voice_de/"
-#dir = "C:/Users/MaggieEzzat/Desktop/sv-SE/"
 
 def gen_common_voice_csv(root_dir = dir):
 
@@ -71,20 +70,51 @@ def gen_common_voice_csv(root_dir = dir):
 
     df = pandas.DataFrame(data=train_data)
     output_file = "/data/home/GPUAdmin1/asr/train_csvs/common_voice_train.csv"
-    #output_file = os.path.join(root_dir, "common_voice_train.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
      
     df = pandas.DataFrame(data=test_data)
     output_file = "/data/home/GPUAdmin1/asr/test_csvs/common_voice_test.csv"
-    #output_file = os.path.join(root_dir, "common_voice_test.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
     
     df = pandas.DataFrame(data=dev_data)
     output_file = "/data/home/GPUAdmin1/asr/dev_csvs/common_voice_dev.csv"
-    #output_file = os.path.join(root_dir, "common_voice_dev.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
+def gen_corrupted_list_cv(root_dir=dir):
+    
+    corrupted_files = []
+
+    files = [
+            f
+            for f in listdir(root_dir)
+            if isfile(join(root_dir, f))
+        ]
+
+    total_files=len(files)
+    processed_files = 0
+    
+    for file in files:
+        processed_files+=1
+        if ".wav" in file: 
+            print("Checking files: " + str(processed_files) + "/" + str(total_files), end="\r")
+            if os.path.getsize(join(root_dir, file)) <= 0:
+                corrupted_files.append(file)
+                continue
+            try:
+                data, _ = soundfile.read(join(root_dir, file))
+            except:
+                corrupted_files.append(file)
+            if len(data) <= 0:
+                corrupted_files.append(file)
+
+    print()
+    print("Done checking SWC Dataset")
+    print("=====================")
+
+    with open('swc_corrupted.txt', 'w') as f:
+        for file in corrupted_files:
+            f.write("%s\n" % file)
 
 
 
