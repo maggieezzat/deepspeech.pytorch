@@ -84,26 +84,26 @@ def generate_second_list_corrupted_files(directory):
         print("Done checking " + path + " set")
         print("=====================")
 
-    with open('corrupted2.txt', 'w') as f:
+    with open('tuda_corrupted2.txt', 'w') as f:
         for file in corrupted_files:
             f.write("%s\n" % file)
     
-    print("Done writing corrupted2.txt" +
-    "Together with corrupted.txt they contain all corrupted files in Tuda-De")
+    print("Done writing tuda_corrupted2.txt" +
+    "Together with tuda_corrupted.txt they contain all corrupted files in Tuda-De")
     print("=====================")
 
 
 def delete():
 
     cor = []
-    corrupted_lists = ["corrupted.txt", "corrupted2.txt"]
+    corrupted_lists = ["tuda_corrupted.txt", "tuda_corrupted2.txt"]
     for corrupted_list in corrupted_lists:
         txtCor = os.path.join(os.path.dirname(__file__), corrupted_list)
         with open(txtCor) as corfile:
             content = corfile.readlines()
         content = [x.strip() for x in content]
         for jk in range(len(content)):
-            if corrupted_list == "corrupted.txt":
+            if corrupted_list == "tuda_corrupted.txt":
                 cor.append(content[jk][37:57])
             else:
                 cor.append(content[jk])
