@@ -4,10 +4,10 @@ import datetime
 from pydub import AudioSegment
 
 #"spoken_wikipedia_german","M-AILABS",
-datafolders = ["spoken_wikipedia_german","M-AILABS","german-speechdata-package-v2"]
+datafolders = ["german-speechdata-package-v2"]
 time = datetime.timedelta(milliseconds = 0)
 for dir in datafolders:
-     for subdir, dirs, files in os.walk("/speech/"+dir):
+     for subdir, dirs, files in os.walk("E:/TUDA/"+dir):
          for file in files:
              if(file.endswith(".wav")):
                     file_dir = os.path.join(subdir, file)
@@ -15,9 +15,11 @@ for dir in datafolders:
                     time += datetime.timedelta(milliseconds= millis)
                     print(file,end='\r')
          print("ended "+ subdir)
+         print(time.seconds/3600 + time.days*24)
+         print("*******")
+         time = datetime.timedelta(milliseconds = 0) 
 
-print()
-print(time.seconds/3600 + time.days*24)
+
 
 
   
