@@ -21,6 +21,7 @@ import re
 import string
 import pandas
 from six.moves import urllib
+import wget
 
 import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -29,12 +30,13 @@ sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
 
-download_dir = "/speech/"
+#download_dir = "/speech/"
+download_dir = "C:/Users/MaggieEzzat/Desktop/"
 directory = "/speech/german-speechdata-package-v2/"
 tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
 
 
-'''
+
 def download_and_extract(down_dir=download_dir, url=tuda_url):
     """Download and extract tuda-de dataset.
 
@@ -43,29 +45,10 @@ def download_and_extract(down_dir=download_dir, url=tuda_url):
     url: the url to download the data file.
   """
 
-    _, tar_filepath = tempfile.mkstemp(suffix=".tar.gz")
-
-    try:
-        tf.logging.info("Downloading %s to %s" % (url, tar_filepath))
-
-        def _progress(count, block_size, total_size):
-            sys.stdout.write(
-                "\r>> Downloading {} {:.1f}%".format(
-                    tar_filepath, 100.0 * count * block_size / total_size
-                )
-            )
-            sys.stdout.flush()
-
-        urllib.request.urlretrieve(url, down_dir, _progress)
-        print()
-        tf.logging.info(
-            "Successfully downloaded %s, size(bytes): %d" % (url, statinfo.st_size)
-        )
-        with tarfile.open(tar_filepath, "r") as tar:
-            tar.extractall(directory)
-    finally:
-        tf.gfile.Remove(tar_filepath)
-'''
+    wget.download(url, down_dir)  
+    tar_filepath = os.path.join(down_dir, "german-speechdata-package-v2.tar.gz")
+    with tarfile.open(tar_filepath, "r") as tar:
+        tar.extractall(down_dir)
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data
@@ -235,17 +218,17 @@ def generate_csv():
 
 def main():
 
-    #download_and_extract(download_dir,tuda_url)
+    download_and_extract(download_dir,tuda_url)
 
-    cor2 = os.path.join(os.path.dirname(__file__), "corrupted2.txt")
-    exists = os.path.isfile(cor2)
-    if exists:
-        print("corrupted list 2 already found")
-    else:
-        generate_second_list_corrupted_files(directory)
+    #cor2 = os.path.join(os.path.dirname(__file__), "corrupted2.txt")
+    #exists = os.path.isfile(cor2)
+    #if exists:
+    #    print("corrupted list 2 already found")
+    #else:
+    #    generate_second_list_corrupted_files(directory)
     
-    delete()
-    generate_csv()
+    #delete()
+    #generate_csv()
    
 
 
