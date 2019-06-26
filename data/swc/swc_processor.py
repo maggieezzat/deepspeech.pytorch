@@ -20,6 +20,7 @@ dir = "/speech/spoken_wikipedia_german/"
 
 
 
+
 def convert_to_wav():
     
     SWC_path = "/speech/SWC_wav/"
@@ -73,6 +74,7 @@ def segment_wav():
 
 
 
+
 def gen_corrupted_list_swc(root_dir=dir):
     
     corrupted_files = []
@@ -107,6 +109,9 @@ def gen_corrupted_list_swc(root_dir=dir):
     with open('swc_corrupted.txt', 'w') as f:
         for file in corrupted_files:
             f.write("%s\n" % file)
+
+
+
 
 
 def gen_swc_csv(root_dir = dir):
@@ -144,11 +149,12 @@ def gen_swc_csv(root_dir = dir):
 
 
 
+
 def main():
     #convert_to_wav()
     #segment_wav()
     #gen_swc_csv()
-    gen_corrupted_list_swc()
+    #gen_corrupted_list_swc()
 
 if __name__ == "__main__":
     main()

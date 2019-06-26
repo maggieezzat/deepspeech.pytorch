@@ -31,7 +31,6 @@ from clean_text import clean_sentence
 
 
 download_dir = "/speech/"
-#download_dir = "C:/Users/MaggieEzzat/Desktop/"
 directory = "/speech/german-speechdata-package-v2/"
 tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
 
@@ -49,6 +48,9 @@ def download_and_extract(down_dir=download_dir, url=tuda_url):
     tar_filepath = os.path.join(down_dir, "german-speechdata-package-v2.tar.gz")
     #with tarfile.open(tar_filepath, "r") as tar:
     #    tar.extractall(down_dir)
+
+
+
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data
@@ -91,6 +93,8 @@ def generate_second_list_corrupted_files(directory):
     print("Done writing tuda_corrupted2.txt" +
     "Together with tuda_corrupted.txt they contain all corrupted files in Tuda-De")
     print("=====================")
+
+
 
 
 def delete():
@@ -162,6 +166,8 @@ def delete():
         print("=====================")
 
 
+
+
 def generate_csv():
  
     paths = ["test", "dev", "train"]
@@ -216,9 +222,11 @@ def generate_csv():
         print("=====================")
 
 
+
+
 def main():
 
-    download_and_extract(download_dir,tuda_url)
+    #download_and_extract()
 
     #cor2 = os.path.join(os.path.dirname(__file__), "corrupted2.txt")
     #exists = os.path.isfile(cor2)

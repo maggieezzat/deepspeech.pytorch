@@ -99,8 +99,12 @@ def gen_corrupted_list_mailabs(root_dir="/speech/M-AILABS/"):
             f.write("%s\n" % file)
 
 
+
+
 def main():
     gen_corrupted_list_mailabs()
+
+
 
 if __name__ == "__main__":
     main()
