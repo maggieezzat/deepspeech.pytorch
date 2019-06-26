@@ -15,9 +15,11 @@ for dir in datafolders:
                     time += datetime.timedelta(milliseconds= millis)
                     print(file,end='\r')
          print("ended "+ subdir)
+         print(time.seconds/3600 + time.days*24)
+         print("*******")
+         time = datetime.timedelta(milliseconds = 0) 
 
-print()
-print(time.seconds/3600 + time.days*24)
+
 
 
   
