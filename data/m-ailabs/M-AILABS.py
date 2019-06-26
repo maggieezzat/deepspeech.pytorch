@@ -69,23 +69,23 @@ def gen_corrupted_list_mailabs(root_dir):
             if isfile(join(root_dir, f))
         ]
 
-        total_files=len(files)
-        processed_files = 0
-        
-        for file in files:
-            processed_files+=1
-            if ".wav" in file: 
-                print("Checking files: " + str(processed_files) + "/" + str(total_files), end="\r")
-                if os.path.getsize(join(root_dir, file)) <= 0:
-                    corrupted_files.append(file)
-                    continue
-                data, _ = soundfile.read(join(root_dir, file))
-                if len(data) <= 0:
-                    corrupted_files.append(file)
+    total_files=len(files)
+    processed_files = 0
+    
+    for file in files:
+        processed_files+=1
+        if ".wav" in file: 
+            print("Checking files: " + str(processed_files) + "/" + str(total_files), end="\r")
+            if os.path.getsize(join(root_dir, file)) <= 0:
+                corrupted_files.append(file)
+                continue
+            data, _ = soundfile.read(join(root_dir, file))
+            if len(data) <= 0:
+                corrupted_files.append(file)
 
-        print()
-        print("Done checking M-ailabs Dataset")
-        print("=====================")
+    print()
+    print("Done checking M-ailabs Dataset")
+    print("=====================")
 
     with open('mailabs_corrupted.txt', 'w') as f:
         for file in corrupted_files:
