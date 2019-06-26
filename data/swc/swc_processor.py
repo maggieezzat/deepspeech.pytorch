@@ -69,7 +69,7 @@ def segment_wav():
         newAudio = newAudio[t1:t2]
         newAudio.export(new_file + '.wav', format="wav")
         
-        print(str(i) + " / " + str(total) + , end='\r')
+        print(str(i) + " / " + str(total) , end='\r')
 
 
 
