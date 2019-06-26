@@ -13,7 +13,7 @@ sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
 
-dir = dir = "/speech/spoken_wikipedia_german/"
+dir = "/speech/spoken_wikipedia_german/"
 
 
 
@@ -50,7 +50,7 @@ def segment_wav():
 
     lines = [l.strip() for l in lines]
 
-    i=0
+    #i=0
     for line in lines:
         #i+=1
         #if i < 60000:
@@ -91,16 +91,16 @@ def gen_swc_csv(root_dir = dir):
     output_file = "/speech/swc_all.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
-    csv_test = csv_output[0:5000]
-    csv_train = csv_output[5901:]        
+    #csv_test = csv_output[0:5000]
+    #csv_train = csv_output[5901:]        
     
-    df = pandas.DataFrame(data=csv_train)
-    output_file = "/data/home/GPUAdmin1/asr/train_csvs/swc_train.csv"
-    df.to_csv(output_file, index=False, sep=",")
+    #df = pandas.DataFrame(data=csv_train)
+    #output_file = "/data/home/GPUAdmin1/asr/train_csvs/swc_train.csv"
+    #df.to_csv(output_file, index=False, sep=",")
     
-    df = pandas.DataFrame(data=csv_test)
-    output_file = "/data/home/GPUAdmin1/asr/test_csvs/swc_test.csv"
-    df.to_csv(output_file, index=False, sep=",")
+    #df = pandas.DataFrame(data=csv_test)
+    #output_file = "/data/home/GPUAdmin1/asr/test_csvs/swc_test.csv"
+    #df.to_csv(output_file, index=False, sep=",")
 
 
 
