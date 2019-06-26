@@ -9,8 +9,8 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir) 
 from clean_text import clean_sentence
 
-#dir = "/speech/common_voice_de/"
-dir = "C:/Users/MaggieEzzat/Desktop/sv-SE/"
+dir = "/speech/common_voice_de/"
+#dir = "C:/Users/MaggieEzzat/Desktop/sv-SE/"
 
 def gen_common_voice_csv(root_dir = dir):
 
@@ -70,18 +70,18 @@ def gen_common_voice_csv(root_dir = dir):
 
 
     df = pandas.DataFrame(data=train_data)
-    #output_file = "/data/home/GPUAdmin1/asr/train_csvs/common_voice_train.csv"
-    output_file = os.path.join(root_dir, "common_voice_train.csv")
+    output_file = "/data/home/GPUAdmin1/asr/train_csvs/common_voice_train.csv"
+    #output_file = os.path.join(root_dir, "common_voice_train.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
      
     df = pandas.DataFrame(data=test_data)
-    #output_file = "/data/home/GPUAdmin1/asr/dev_csvs/common_voice_test.csv"
-    output_file = os.path.join(root_dir, "common_voice_test.csv")
+    output_file = "/data/home/GPUAdmin1/asr/test_csvs/common_voice_test.csv"
+    #output_file = os.path.join(root_dir, "common_voice_test.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
     
     df = pandas.DataFrame(data=dev_data)
-    #output_file = "/data/home/GPUAdmin1/asr/test_csvs/common_voice_dev.csv"
-    output_file = os.path.join(root_dir, "common_voice_dev.csv")
+    output_file = "/data/home/GPUAdmin1/asr/dev_csvs/common_voice_dev.csv"
+    #output_file = os.path.join(root_dir, "common_voice_dev.csv")
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
