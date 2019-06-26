@@ -1,0 +1,3 @@
+tuda_train_duration: 160.1472222222222 hours
+tuda_test_duration: 11.900277777777777 hours
+tuda_dev_duration: 11.531666666666666 hours
