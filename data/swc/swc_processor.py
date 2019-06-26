@@ -1,0 +1,115 @@
+import os
+from pydub import AudioSegment
+import re
+import csv
+import string
+import pandas
+import random
+
+import os,sys,inspect
+current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir) 
+from clean_text import clean_sentence
+
+
+dir = dir = "/speech/spoken_wikipedia_german/"
+
+
+
+def convert_to_wav():
+    
+    SWC_path = "/speech/SWC_wav/"
+
+    if not os.path.exists(SWC_path):
+        os.makedirs(SWC_path)
+    
+    with open("wav.txt") as f:
+        lines = f.readlines()
+
+    lines = [l.strip() for l in lines]
+    for line in lines:
+        os.system(line[16:-3] + SWC_path + line[0:15] + ".wav")
+
+
+
+
+
+def segment_wav():
+
+    data_dir = "/speech/SWC_wav/"
+
+    segmented_files_dir = "/speech/spoken_wikipedia_german/"
+    if not os.path.exists(segmented_files_dir):
+        os.makedirs(segmented_files_dir)
+    
+    with open("segments.txt", 'r') as f:
+        lines = f.readlines()
+
+    total = len(lines)
+
+    lines = [l.strip() for l in lines]
+
+    i=0
+    for line in lines:
+        #i+=1
+        #if i < 60000:
+        #    print("Skipping " + str(i), end='\r')
+        #    continue
+        line = line.split(' ')
+        old_file = os.path.join(data_dir, line[1])
+        new_file = os.path.join(segmented_files_dir, line[0])
+        t1 = float(line[2]) * 1000
+        t2 = float(line[3]) * 1000
+
+        newAudio = AudioSegment.from_wav( old_file +".wav")
+        newAudio = newAudio[t1:t2]
+        newAudio.export(new_file + '.wav', format="wav")
+        
+        print(str(i) + " / " str(total) + , end='\r')
+
+
+
+def gen_swc_csv(root_dir = dir):
+
+    csv = []
+
+    with open("transcriptions.txt", 'r') as f:
+        lines = f.readlines()
+
+
+    for line in lines:
+        file_name = line.split(" ", 1)[0]
+        file_text = line.split(" ", 1)[1]
+
+        trans = clean_sentence(file_text)
+        file_path = os.path.join(root_dir, file_name + ".wav")
+        csv.append( (file_path, trans) )
+
+
+    df = pandas.DataFrame(data=csv)
+    output_file = "/speech/swc_all.csv"
+    df.to_csv(output_file, header=False, index=False, sep=",")
+
+    csv_test = csv_output[0:5000]
+    csv_train = csv_output[5901:]        
+    
+    df = pandas.DataFrame(data=csv_train)
+    output_file = "/data/home/GPUAdmin1/asr/train_csvs/swc_train.csv"
+    df.to_csv(output_file, index=False, sep=",")
+    
+    df = pandas.DataFrame(data=csv_test)
+    output_file = "/data/home/GPUAdmin1/asr/test_csvs/swc_test.csv"
+    df.to_csv(output_file, index=False, sep=",")
+
+
+
+
+
+def main():
+    #convert_to_wav()
+    #segment_wav()
+    gen_swc_csv()
+
+if __name__ == "__main__":
+    main()

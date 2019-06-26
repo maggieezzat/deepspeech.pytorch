@@ -5,7 +5,7 @@ from __future__ import division
 from __future__ import print_function
 from os import listdir, remove
 from os.path import isfile, join
-#import soundfile
+import soundfile
 
 import codecs
 import fnmatch
@@ -18,186 +18,23 @@ import unicodedata
 from xml.etree import cElementTree as ET
 from xml.dom import minidom
 import re
-
-from absl import app as absl_app
-from absl import flags as absl_flags
+import string
 import pandas
 from six.moves import urllib
-import tensorflow as tf
 
-import string
-import collections
-import re
-import num2words
-
-
-download_dir = "E:/TUDA/"
-directory = "E:/TUDA/german-speechdata-package-v2"
-#directory = "/content/drive/My Drive/"
-#tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
-
-# =============================== Vocab ===================================
-
-#   Number patterns
-int_pattern = re.compile(r"[0-9]+")
-float_pattern = re.compile(r"[0-9]+[,\.][0-9]+")
-
-#   Allowed characters a-zA-Z'äüö
-allowed = list(string.ascii_lowercase)
-allowed.append("'")
-allowed.append(" ")
-allowed.extend(list("äöü"))
-
-#   Replacement characters
-replacer = {
-    "àáâãåāăąǟǡǻȁȃȧ": "a",
-    "æǣǽ": "ä",
-    "çćĉċč": "c",
-    "ďđ": "d",
-    "èéêëēĕėęěȅȇȩε": "e",
-    "ĝğġģǥǧǵ": "g",
-    "ĥħȟ": "h",
-    "ìíîïĩīĭįıȉȋ": "i",
-    "ĵǰ": "j",
-    "ķĸǩǩκ": "k",
-    "ĺļľŀł": "l",
-    "м": "m",
-    "ñńņňŉŋǹ": "n",
-    "òóôõøōŏőǫǭǿȍȏðο": "o",
-    "œ": "ö",
-    "ŕŗřȑȓ": "r",
-    "śŝşšș": "s",
-    "ţťŧț": "t",
-    "ùúûũūŭůűųȕȗ": "u",
-    "ŵ": "w",
-    "ýÿŷ": "y",
-    "źżžȥ": "z",
-    "ß": "ss",
-    "-­": " ",
-}
-
-#   Various replacement rules
-special_replacers = {
-    " $ ": "dollar",
-    " £ ": "pfund",
-    "m³": "kubikmeter",
-    "km²": "quadratkilometer",
-    "m²": "quadratmeter",
-}
-
-replacements = {}
-replacements.update(special_replacers)
-
-for all, replacement in replacer.items():
-    for to_replace in all:
-        replacements[to_replace] = replacement
-
-def clean_sentence(sentence):
-    """
-    Clean the given sentence.
-    1. split into words by spaces
-    2. numbers to words
-    3. character/rule replacements
-    4. delete disallowed symbols
-    4. join with spaces
-    """
-
-    def clean_word(word):
-        """
-        Clean the given word.
-        1. numbers to words
-        2. character/rule replacements
-        3. delete disallowed symbols
-        """
+import os,sys,inspect
+current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parent_dir = os.path.dirname(current_dir)
+sys.path.insert(0, parent_dir) 
+from clean_text import clean_sentence
 
 
-        def replace_symbols(word):
-            """ Apply all replacement characters/rules to the given word. """
-            result = word
-
-            for to_replace, replacement in replacements.items():
-                result = result.replace(to_replace, replacement)
-
-            return result
-
-        def remove_symbols(word):
-            """ Remove all symbols that are not allowed. """
-            result = word
-            bad_characters = []
-
-            for c in result:
-                if c not in allowed:
-                    bad_characters.append(c)
-
-            for c in bad_characters:
-                result = result.replace(c, "")
-
-            return result
-
-        def word_to_num(word):
-            """ Replace numbers with their written representation. """
-            result = word
-
-            match = float_pattern.search(result)
-
-            while match is not None:
-                num_word = num2words.num2words(
-                    float(match.group().replace(",", ".")), lang="de"
-                ).lower()
-                before = result[: match.start()]
-                after = result[match.end() :]
-                result = " ".join([before, num_word, after])
-                match = float_pattern.search(result)
-
-            match = int_pattern.search(result)
-
-            while match is not None:
-                num_word = num2words.num2words(int(match.group()), lang="de")
-                before = result[: match.start()]
-                after = result[match.end() :]
-                result = " ".join([before, num_word, after])
-                match = int_pattern.search(result)
-
-            return result
-
-        
-        def get_bad_character(text):
-            """ Return all characters in the text that are not allowed. """
-            bad_characters = set()
-
-            for c in text:
-                if c not in allowed:
-                    bad_characters.add(c)
-
-            return bad_characters
+download_dir = "/speech/"
+directory = "/speech/german-speechdata-package-v2/"
+tuda_url = "http://speech.tools/kaldi_tuda_de/german-speechdata-package-v2.tar.gz"
 
 
-        word = word.lower()
-        word = word_to_num(word)
-        word = replace_symbols(word)
-        word = remove_symbols(word)
-
-        bad_chars = get_bad_character(word)
-
-        if len(bad_chars) > 0:
-            print('Bad characters in "{}"'.format(word))
-            print("--> {}".format(", ".join(bad_chars)))
-
-        return word
-
-
-
-    words = sentence.strip().split(" ")
-    cleaned_words = []
-
-    for word in words:
-        cleaned_word = clean_word(word)
-        cleaned_words.append(cleaned_word)
-
-    return " ".join(cleaned_words)
-
-# =============================== End Vocab ===================================
-
+'''
 def download_and_extract(directory, url):
     """Download and extract tuda-de dataset.
 
@@ -232,7 +69,7 @@ def download_and_extract(directory, url):
             tar.extractall(directory)
     finally:
         tf.gfile.Remove(tar_filepath)
-
+'''
 
 def generate_second_list_corrupted_files(directory):
     """Generate corrupted2.txt from Tuda Data
@@ -293,8 +130,7 @@ def delete():
                 cor.append(content[jk])
 
 
-    paths = ["train"]
-    #["test", "dev", "train"]
+    paths = ["test", "dev", "train"]
     for path in paths:
         files = [
             f
@@ -310,13 +146,14 @@ def delete():
             if ".wav" in file:
                 #remove 3 microphones out of 5 
                 #remove the mic condition if you want to keep all mics
-                if (("Kinect-Beam" in file) or ("Yamaha" in file) or ("Samson" in file)):
-                    remove(join(directory, path, file))
-                else:
-                    for crptd in cor:
-                        if (crptd in file):
-                            remove(join(directory, path, file))
-                            break
+                #use all mics
+                #if (("Kinect-Beam" in file) or ("Yamaha" in file) or ("Samson" in file)):
+                #    remove(join(directory, path, file))
+                #else:
+                for crptd in cor:
+                    if (crptd in file):
+                        remove(join(directory, path, file))
+                        break
 
             #fix a corrupted xml file in dev set =)
             if path == "dev" and ".xml" in file:
@@ -348,17 +185,9 @@ def delete():
 
 def generate_csv():
  
-    paths = ["test"]
-    #["test", "dev", "train"]
+    paths = ["test", "dev", "train"]
     
     for path in paths:
-        
-        folder = "/content/drive/My Drive/" + path+ "/text_files"
-        exists = os.path.isdir(folder)
-
-        if not exists:
-            os.makedirs("/content/drive/My Drive/" + path+ "/text_files")
-        text_dir = os.path.join(directory, path , "text_files")
         
         csv = []
         files = [
@@ -382,21 +211,18 @@ def generate_csv():
                 sent = sent.text.lower()
                 transcript = clean_sentence(sent)
 
-                #output_text = join(text_dir, file[:-4]+ ".txt")
-                #with open(output_text, 'w') as out_text:
-                  #  out_text.write(transcript)
 
                 file_xml, _ = file.split(".", 1)
                 found = 0
                 for wav_file in files:
                     if wav_file.startswith(file_xml) and wav_file.endswith(".wav"):
+
                         wav_file_dir = os.path.join(dir_path, wav_file)
-                        #wav_file_size = os.path.getsize(wav_file_dir)
-                        print("WTFFFFFF")
                         csv.append((wav_file_dir, transcript))
                         found += 1
                     #remove that check if you keep more than 2 microphones    
-                    if found >= 2:
+                    #if found >= 2:
+                    if found >= 5:
                         break
 
         print()
@@ -411,7 +237,7 @@ def generate_csv():
         print("=====================")
 
 
-def main(_):
+def main():
 
     #download_and_extract(download_dir,tuda_url)
 
@@ -420,11 +246,10 @@ def main(_):
     #else:
     #    generate_second_list_corrupted_files(directory)
     
-    #delete()
+    delete()
     generate_csv()
    
 
 
 if __name__ == "__main__":
-    tf.logging.set_verbosity(tf.logging.INFO)
-    absl_app.run(main)
+    main()
