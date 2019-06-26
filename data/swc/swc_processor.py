@@ -70,6 +70,42 @@ def segment_wav():
 
 
 
+def gen_corrupted_list_swc(root_dir=dir):
+    
+    corrupted_files = []
+
+    files = [
+            f
+            for f in listdir(root_dir)
+            if isfile(join(root_dir, f))
+        ]
+
+    total_files=len(files)
+    processed_files = 0
+    
+    for file in files:
+        processed_files+=1
+        if ".wav" in file: 
+            print("Checking files: " + str(processed_files) + "/" + str(total_files), end="\r")
+            if os.path.getsize(join(root_dir, file)) <= 0:
+                corrupted_files.append(file)
+                continue
+            try:
+                data, _ = soundfile.read(join(root_dir, file))
+            except:
+                corrupted_files.append(file)
+            if len(data) <= 0:
+                corrupted_files.append(file)
+
+    print()
+    print("Done checking SWC Dataset")
+    print("=====================")
+
+    with open('swc_corrupted.txt', 'w') as f:
+        for file in corrupted_files:
+            f.write("%s\n" % file)
+
+
 def gen_swc_csv(root_dir = dir):
 
     csv = []
@@ -108,7 +144,8 @@ def gen_swc_csv(root_dir = dir):
 def main():
     #convert_to_wav()
     #segment_wav()
-    gen_swc_csv()
+    #gen_swc_csv()
+    gen_corrupted_list_swc()
 
 if __name__ == "__main__":
     main()
