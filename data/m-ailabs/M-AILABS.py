@@ -6,6 +6,7 @@ import csv
 import string
 import pandas
 import random
+import soundfile
 
 import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
