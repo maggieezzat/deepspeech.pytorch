@@ -18,7 +18,7 @@ def convert_to_wav(root_dir = dir):
     valid_wav = os.path.join(root_dir, "valid_wav")
 
     if not os.path.exists(valid_wav):
-        os.makedirs(valid_wav, 0o777)
+        os.makedirs(valid_wav)
 
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
@@ -26,7 +26,7 @@ def convert_to_wav(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
-        total = len(lines)
+        total = len(list(lines))
         i = 0
         for line in lines:
             src = os.path.join(root_dir, "clips", line[1]+".mp3")
