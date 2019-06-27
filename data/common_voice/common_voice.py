@@ -81,7 +81,7 @@ def rename_utterances(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
-        total = len(list(lines))
+        #total = len(list(lines))
         i=0
         speaker = "1"
         for line in lines:
