@@ -23,6 +23,8 @@ def convert_to_wav(root_dir = dir):
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
 
+    print(validated_tsv)
+
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
