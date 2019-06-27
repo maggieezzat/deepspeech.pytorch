@@ -63,7 +63,8 @@ def get_dict_speakers(root_dir = dir):
             speakers.add(line[0])
 
     speakers_list = list(speakers)
-    speakers_dict = dict(enumerate(speakers_list, start=0))
+    speakers_dict = {tuple(key): idx for idx, key in enumerate(speakers_list)}
+    #dict(enumerate(speakers_list, start=0))
     return speakers_dict
 
 
@@ -87,7 +88,7 @@ def rename_utterances(root_dir = dir):
         for line in lines: 
             src = os.path.join(valid_wav, line[1]+".wav")
             client_id = line[0]
-            speaker = speakers_dict[100]
+            speaker = speakers_dict[client_id]
             print(speaker)
             print(client_id)
             exit(0)
