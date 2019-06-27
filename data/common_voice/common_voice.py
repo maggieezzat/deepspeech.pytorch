@@ -84,7 +84,8 @@ def rename_utterances(root_dir = dir):
         total = len(list(lines))
         i=0
         speaker = "1"
-        for line in lines:  
+        for line in lines:
+            print("hi")  
             src = os.path.join(valid_wav, line[1]+".wav")
             dst = os.path.join(new_dir, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
             i+=1
