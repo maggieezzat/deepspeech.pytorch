@@ -18,13 +18,11 @@ def convert_to_wav(root_dir = dir):
 
     valid_wav = os.path.join(root_dir, "valid_wav")
 
-    #if not os.path.exists(valid_wav):
-    #    os.makedirs(valid_wav)
+    if not os.path.exists(valid_wav):
+        os.makedirs(valid_wav)
 
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
-
-    #print(validated_tsv)
 
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
@@ -32,20 +30,15 @@ def convert_to_wav(root_dir = dir):
         i=0
         for line in lines:
             i+=1
-            #if i == 1:
-            #    continue
-            #print("hi")
             src = os.path.join(root_dir, "clips", line[1]+".mp3")
             dst = os.path.join(valid_wav, line[1]+".wav")
-            #print(src)
-            #print(dst)
             trans = clean_sentence(line[2])
             valid_data.append((dst, trans))
             # convert wav to mp3                                                            
             sound = AudioSegment.from_mp3(src)
             sound.export(dst, format="wav")
             print(str(i), end='\r')
-            #print("Converting files: " + str(i) + " / 277603", end="\r")
+            print("Converting files: " + str(i) + " / 277603", end="\r")
 
 
 
