@@ -18,7 +18,7 @@ def convert_to_wav(root_dir = dir):
     valid_wav = os.path.join(root_dir, "valid_wav")
 
     if not os.path.exists(valid_wav):
-        os.makedirs(valid_wav)
+        os.makedirs(valid_wav, 0o777)
 
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
