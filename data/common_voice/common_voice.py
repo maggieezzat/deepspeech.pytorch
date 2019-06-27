@@ -45,7 +45,7 @@ def convert_to_wav(root_dir = dir):
 
 
     df = pandas.DataFrame(data=valid_data)
-    output_file = "/data/home/GPUAdmin1/asr/common_voice_all.csv"
+    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
@@ -64,6 +64,30 @@ def get_num_of_speakers(root_dir = dir):
 
     print(len(speakers))
     return (speakers, len(speakers))
+
+
+
+def rename_utterances(root_dir = dir):
+
+    valid_wav = os.path.join(root_dir, "valid_wav")
+    new_dir = os.path.join(root_dir, "cv_audio_files")
+
+    if not os.path.exists(new_dir):
+        os.makedirs(new_dir)
+
+    validated_tsv = os.path.join(root_dir, "validated.tsv")
+    valid_data = []
+
+    with open(validated_tsv) as f:
+        lines = csv.reader(f, delimiter='\t')
+        next(lines, None)
+        total = len(list(lines))
+        i=0
+        speaker = "1"
+        for line in lines:  
+            src = os.path.join(valid_wav, line[1]+".wav")
+            dst = os.path.join(new_dir, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
+            i+=1
 
 
 
@@ -180,7 +204,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 def main():
     #gen_common_voice_csv()
     #convert_to_wav()
-    get_num_of_speakers()
+    #get_num_of_speakers()
+    rename_utterances()
 
 if __name__ == "__main__":
     main()
