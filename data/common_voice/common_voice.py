@@ -51,7 +51,7 @@ def convert_to_wav(root_dir = dir):
 
 
 
-def get_num_of_speakers(root_dir = dir):
+def get_dict_speakers(root_dir = dir):
 
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     speakers = set()
@@ -62,44 +62,40 @@ def get_num_of_speakers(root_dir = dir):
         for line in lines:
             speakers.add(line[0])
 
-    print(len(speakers))
-    return (speakers, len(speakers))
+    speakers_list = list(speakers)
+    speakers_dict = dict(enumerate(speakers_list, start=1))
+    #print(len(speakers))
+    #return (speakers, len(speakers))
+    return speakers_dict
 
 
 
 def rename_utterances(root_dir = dir):
 
     valid_wav = os.path.join(root_dir, "valid_wav")
-    i=1
-    speaker=3
-    src = os.path.join(root_dir, "other.tsv")
-    dst = os.path.join(root_dir, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
-    i+=1
-    os.rename(src, dst)
 
-
-    #new_dir = os.path.join(root_dir, "cv_audio_files")
-
-    #if not os.path.exists(new_dir):
-    #    os.makedirs(new_dir)
-
-    '''
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
+
+    speakers_dict = get_dict_speakers()
+    print(speakers_dict)
+    print(len(speakers_dict))
+    exit(0)
 
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
-        #total = len(list(lines))
         i=0
         speaker = "1"
         for line in lines: 
             src = os.path.join(valid_wav, line[1]+".wav")
+            client_id = line[0]
+            speaker = client_id
             dst = os.path.join(valid_wav, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
-            i+=1
             os.rename(src, dst)
+            i+=1
+            
 
-    '''
 
 
 
