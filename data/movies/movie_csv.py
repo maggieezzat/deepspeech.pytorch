@@ -1,18 +1,15 @@
 # coding=utf-8
-
+# =================== Imports ===================
 from pydub import AudioSegment
 from argparse import ArgumentParser
-import os
-import re
-import string
+import os, sys, inspect
 
-import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parent_dir = os.path.dirname(current_dir)
-sys.path.insert(0, parent_dir) 
+sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
-# ====== Flags ======
+# =================== Flags ===================
 parser = ArgumentParser()
 
 parser.add_argument("--dirmovie", metavar="DIR", default="/home/hamahmi/dark/Dark")
@@ -23,9 +20,7 @@ parser.add_argument("--dirseg", metavar="DIR", default="/home/hamahmi/dark/wavs/
 
 args = parser.parse_args()
 
-# =================== functions ===================
-
-
+# =================== Functions ===================
 def getms(time):
     time = time.split(":")
     ms = int(time[0]) * 3600000
@@ -60,8 +55,6 @@ def clean(string, start, end=None):
     else:
         out += tmp[1]
     return out
-
-
 
 
 # =================== Main ===================
@@ -148,7 +141,7 @@ for file in os.listdir(transcript_dir):
         segment_wav.export(segment_wav_dir, format="wav")
         csv.append((segment_wav_dir, transcriptclean))
     print()
-
+# Saving the csv file
 with open(output_csv, "w") as f:
     for line in csv:
         print(
@@ -158,3 +151,4 @@ with open(output_csv, "w") as f:
             end="\r",
         )
         f.write(line[0] + "," + line[1] + "\n")
+print()
