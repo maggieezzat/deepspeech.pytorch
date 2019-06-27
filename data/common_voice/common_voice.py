@@ -41,7 +41,7 @@ def convert_to_wav(root_dir = dir):
 
 
 
-    df = pandas.DataFrame(data=train_data)
+    df = pandas.DataFrame(data=valid_data)
     output_file = "/data/home/GPUAdmin1/asr/common_voice_all.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
