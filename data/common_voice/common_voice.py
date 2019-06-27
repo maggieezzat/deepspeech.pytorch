@@ -39,7 +39,7 @@ def convert_to_wav(root_dir = dir):
             print(src)
             print(dst)
             trans = clean_sentence(line[2])
-            valid_data.append((path, trans))
+            valid_data.append((dst, trans))
             # convert wav to mp3                                                            
             sound = AudioSegment.from_mp3(src)
             sound.export(dst, format="wav")
