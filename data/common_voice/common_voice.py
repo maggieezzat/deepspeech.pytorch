@@ -25,7 +25,7 @@ def convert_to_wav(root_dir = dir):
 
     print(validated_tsv)
 
-    with open(validated_tsv) as f:
+    with open(validated_tsv, 'r') as f:
         lines = csv.reader(f, delimiter='\t')
         #next(lines, None)
         print(lines)
