@@ -27,6 +27,7 @@ def convert_to_wav(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
+        total = len(list(lines))
         i=0
         for line in lines:
             i+=1
@@ -37,19 +38,9 @@ def convert_to_wav(root_dir = dir):
             # convert wav to mp3                                                            
             sound = AudioSegment.from_mp3(src)
             sound = sound.set_frame_rate(16000)
-            #, frame_rate=16000, channels=1, sample_width=2)
-            # 2 byte (16 bit) samples
-            #sample_width=2,
-
-            # 44.1 kHz frame rate
-            #frame_rate=44100,
-
-            # stereo
-            #channels=2
-            #--bits 16 --endian little --channels 1 --encoding signed-integer --rate 16000 -t wav - |
             sound.export(dst, format="wav")
             print(str(i), end='\r')
-            print("Converting files: " + str(i) + " / 277603", end="\r")
+            print("Converting files: " + str(i) + " / " + str(total), end="\r")
 
 
 
@@ -58,6 +49,21 @@ def convert_to_wav(root_dir = dir):
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
+
+
+def get_num_of_speakers(root_dir = dir):
+
+    validated_tsv = os.path.join(root_dir, "validated.tsv")
+    speakers = set()
+
+    with open(validated_tsv) as f:
+        lines = csv.reader(f, delimiter='\t')
+        next(lines, None)
+        for line in lines:
+            speakers.add(line[0])
+
+    print(len(speakers))
+    return (speakers, len(speakers))
 
 
 
@@ -173,7 +179,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 def main():
     #gen_common_voice_csv()
-    convert_to_wav()
+    #convert_to_wav()
+    get_num_of_speakers()
 
 if __name__ == "__main__":
     main()
