@@ -35,7 +35,16 @@ def convert_to_wav(root_dir = dir):
             trans = clean_sentence(line[2])
             valid_data.append((dst, trans))
             # convert wav to mp3                                                            
-            sound = AudioSegment.from_mp3(src)
+            sound = AudioSegment.from_mp3(src, frame_rate=16000, channels=1, sample_width=2)
+            # 2 byte (16 bit) samples
+            #sample_width=2,
+
+            # 44.1 kHz frame rate
+            #frame_rate=44100,
+
+            # stereo
+            #channels=2
+            #--bits 16 --endian little --channels 1 --encoding signed-integer --rate 16000 -t wav - |
             sound.export(dst, format="wav")
             print(str(i), end='\r')
             print("Converting files: " + str(i) + " / 277603", end="\r")
