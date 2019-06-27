@@ -25,6 +25,12 @@ def convert_to_wav(root_dir = dir):
 
     print(validated_tsv)
 
+    with open(validated_tsv) as f:
+        lines = csv.reader(f, delimiter='\t')
+        next(lines, None)
+        for line in lines:
+            print(line)
+
     with open(validated_tsv, 'r') as f:
         lines = csv.reader(f, delimiter='\t')
         #next(lines, None)
@@ -172,8 +178,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    gen_common_voice_csv()
-    #convert_to_wav()
+    #gen_common_voice_csv()
+    convert_to_wav()
 
 if __name__ == "__main__":
     main()
