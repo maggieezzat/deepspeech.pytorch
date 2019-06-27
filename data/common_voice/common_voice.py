@@ -28,6 +28,7 @@ def convert_to_wav(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
+        i=0
         for line in lines:
             i+=1
             if i == 1:
