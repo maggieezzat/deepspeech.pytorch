@@ -33,6 +33,7 @@ def convert_to_wav(root_dir = dir):
         lines = list(lines)
         i = 0
         for line in lines:
+            print("hi")
             src = os.path.join(root_dir, "clips", line[1]+".mp3")
             dst = os.path.join(valid_wav, line[1]+".wav")
             print(src)
