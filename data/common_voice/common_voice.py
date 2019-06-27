@@ -86,7 +86,7 @@ def rename_utterances(root_dir = dir):
         i=0
         for line in lines: 
             src = os.path.join(valid_wav, line[1]+".wav")
-            client_id = line[0]
+            client_id = int(line[0])
             speaker = speakers_dict[client_id]
             print(speaker)
             print(client_id)
