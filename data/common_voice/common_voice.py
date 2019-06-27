@@ -70,11 +70,20 @@ def get_num_of_speakers(root_dir = dir):
 def rename_utterances(root_dir = dir):
 
     valid_wav = os.path.join(root_dir, "valid_wav")
-    new_dir = os.path.join(root_dir, "cv_audio_files")
+    i=1
+    speaker=3
+    src = os.path.join(root_dir, "other.tsv")
+    dst = os.path.join(root_dir, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
+    i+=1
+    os.rename(src, dst)
 
-    if not os.path.exists(new_dir):
-        os.makedirs(new_dir)
 
+    #new_dir = os.path.join(root_dir, "cv_audio_files")
+
+    #if not os.path.exists(new_dir):
+    #    os.makedirs(new_dir)
+
+    '''
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     valid_data = []
 
@@ -84,13 +93,13 @@ def rename_utterances(root_dir = dir):
         #total = len(list(lines))
         i=0
         speaker = "1"
-        for line in lines:
-            print("hi")  
+        for line in lines: 
             src = os.path.join(valid_wav, line[1]+".wav")
-            dst = os.path.join(new_dir, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
+            dst = os.path.join(valid_wav, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
             i+=1
+            os.rename(src, dst)
 
-
+    '''
 
 
 
