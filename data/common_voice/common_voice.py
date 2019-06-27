@@ -2,6 +2,7 @@ import os
 import re
 import csv
 import pandas
+from pydub import AudioSegment
 
 import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -10,6 +11,40 @@ sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
 dir = "/speech/common_voice_de/"
+
+
+def convert_to_wav(root_dir = dir):
+
+    valid_wav = os.path.join(root_dir, "valid_wav")
+
+    if not os.path.exists(valid_wav):
+        os.makedirs(valid_wav)
+
+    validated_tsv = os.path.join(root_dir, "validated.tsv")
+    valid_data = []
+
+    with open(validated_tsv) as f:
+        lines = csv.reader(f, delimiter='\t')
+        next(lines, None)
+        for line in lines:
+            src = os.path.join(root_dir, "clips", line[1]+".mp3")
+            dst = os.path.join(valid_wav, line[1]+".wav")
+            trans = clean_sentence(line[2])
+            valid_data.append((path, trans))
+            # convert wav to mp3                                                            
+            sound = AudioSegment.from_mp3(src)
+            sound.export(dst, format="wav")
+
+
+    df = pandas.DataFrame(data=train_data)
+    output_file = "/data/home/GPUAdmin1/asr/common_voice_all.csv"
+    df.to_csv(output_file, header=False, index=False, sep=",")
+
+
+
+
+
+
 
 def gen_common_voice_csv(root_dir = dir):
 
@@ -119,7 +154,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    gen_common_voice_csv()
+    #gen_common_voice_csv()
+    convert_to_wav()
 
 if __name__ == "__main__":
     main()
