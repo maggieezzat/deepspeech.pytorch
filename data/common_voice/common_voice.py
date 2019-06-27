@@ -136,9 +136,9 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    #convert_to_wav()
+    convert_to_wav()
     #get_num_of_speakers()
-    rename_utterances_and_gen_csv
+    #rename_utterances_and_gen_csv
 
 if __name__ == "__main__":
     main()
