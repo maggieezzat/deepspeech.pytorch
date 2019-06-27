@@ -61,14 +61,9 @@ def get_dict_speakers(root_dir = dir):
         next(lines, None)
         for line in lines:
             speakers.add(line[0])
-            #print(line[0])
 
     speakers_list = list(speakers)
-    #print(speakers_list)
     speakers_dict = {x:y for y,x in enumerate(speakers_list)}
-    print(list(speakers_dict.items())[0:20])
-    #{tuple(key): idx for idx, key in enumerate(speakers_list)}
-    #dict(enumerate(speakers_list, start=0))
     return speakers_dict
 
 
@@ -81,13 +76,7 @@ def rename_utterances(root_dir = dir):
     valid_data = []
 
     speakers_dict = get_dict_speakers()
-    #print(speakers_dict)
-    #print(len(speakers_dict))
-    #exit(0)
-    values = speakers_dict.values()
-    keys = speakers_dict.keys()
-    #print(values)
-    #print(keys)
+
 
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
@@ -96,7 +85,6 @@ def rename_utterances(root_dir = dir):
         for line in lines: 
             src = os.path.join(valid_wav, line[1]+".wav")
             client_id = line[0]
-            client_id = '042c5ba1d0cdfc6459d62c618596435a082082c96e4cd52079e01b23f338cd607928a3491763e5cdf7750105b640ab6eaa78aa9050ac7a0fd9234ad423b9cec6'
             speaker = speakers_dict.get(client_id)
             print(speaker)
             #print(client_id)
