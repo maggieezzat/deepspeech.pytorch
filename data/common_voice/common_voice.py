@@ -68,13 +68,12 @@ def get_dict_speakers(root_dir = dir):
 
 
 
-def rename_utterances(root_dir = dir):
+def rename_utterances_and_gen_csv(root_dir = dir):
 
     valid_wav = os.path.join(root_dir, "valid_wav")
-
     validated_tsv = os.path.join(root_dir, "validated.tsv")
-    valid_data = []
-
+    
+    csv_data = []
     speakers_dict = get_dict_speakers()
 
 
@@ -82,90 +81,21 @@ def rename_utterances(root_dir = dir):
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
         i=0
-        for line in lines: 
-            src = os.path.join(valid_wav, line[1]+".wav")
+        for line in lines:  
             client_id = line[0]
             speaker = speakers_dict.get(client_id)
-            print(speaker)
-            #print(client_id)
-            exit(0)
+            
+            src = os.path.join(valid_wav, line[1]+".wav")
             dst = os.path.join(valid_wav, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
             os.rename(src, dst)
+            
+            trans = clean_sentence(line[2])
+            csv_data.append( (dst, trans) )
             i+=1
+            print("Renaming: " + str(i))
             
 
 
-
-
-def gen_common_voice_csv(root_dir = dir):
-
-
-    train_tsv = os.path.join(root_dir, "train.tsv")
-    test_tsv =  os.path.join(root_dir, "test.tsv")
-    dev_tsv =  os.path.join(root_dir, "dev.tsv")
-    validated_tsv = os.path.join(root_dir, "validated.tsv")
-
-    valid_data = []
-    train_data = []
-    dev_data = []
-    test_data = []
-
-    with open(validated_tsv) as f:
-        lines = csv.reader(f, delimiter='\t')
-        next(lines, None)
-        for line in lines:
-            print(line)
-            path = os.path.join(root_dir, "clips", line[1])
-            trans = clean_sentence(line[2])
-            valid_data.append((path, trans))
-
-
-    with open(train_tsv) as f:
-        lines = csv.reader(f, delimiter='\t')
-        next(lines, None)
-        for line in lines:
-            path = os.path.join(root_dir, "clips", line[1])
-            trans = clean_sentence(line[2])
-            train_data.append((path, trans))
-        for item in train_data:
-            if item not in valid_data:
-                train_data.remove(item)
-
-    with open(test_tsv) as f:
-        lines = csv.reader(f, delimiter='\t')
-        next(lines, None)
-        for line in lines:
-            path = os.path.join(root_dir, "clips", line[1])
-            trans = clean_sentence(line[2])
-            test_data.append((path, trans))
-        for item in test_data:
-            if item not in valid_data:
-                test_data.remove(item)
-
-    with open(dev_tsv) as f:
-        lines = csv.reader(f, delimiter='\t')
-        next(lines, None)
-        for line in lines:
-            path = os.path.join(root_dir, "clips", line[1])
-            trans = clean_sentence(line[2])
-            dev_data.append((path, trans))
-        for item in dev_data:
-            if item not in valid_data:
-                dev_data.remove(item)
-
-
-
-    df = pandas.DataFrame(data=train_data)
-    output_file = "/data/home/GPUAdmin1/asr/train_csvs/common_voice_train.csv"
-    df.to_csv(output_file, header=False, index=False, sep=",")
-     
-    df = pandas.DataFrame(data=test_data)
-    output_file = "/data/home/GPUAdmin1/asr/test_csvs/common_voice_test.csv"
-    df.to_csv(output_file, header=False, index=False, sep=",")
-    
-    df = pandas.DataFrame(data=dev_data)
-    output_file = "/data/home/GPUAdmin1/asr/dev_csvs/common_voice_dev.csv"
-    df.to_csv(output_file, header=False, index=False, sep=",")
 
 
 def gen_corrupted_list_cv(root_dir=dir):
@@ -206,10 +136,9 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    #gen_common_voice_csv()
     #convert_to_wav()
     #get_num_of_speakers()
-    rename_utterances()
+    rename_utterances_and_gen_csv
 
 if __name__ == "__main__":
     main()
