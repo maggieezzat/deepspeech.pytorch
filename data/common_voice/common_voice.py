@@ -35,7 +35,9 @@ def convert_to_wav(root_dir = dir):
             trans = clean_sentence(line[2])
             valid_data.append((dst, trans))
             # convert wav to mp3                                                            
-            sound = AudioSegment.from_mp3(src, frame_rate=16000, channels=1, sample_width=2)
+            sound = AudioSegment.from_mp3(src)
+            sound = sound.set_frame_rate(16000)
+            #, frame_rate=16000, channels=1, sample_width=2)
             # 2 byte (16 bit) samples
             #sample_width=2,
 
