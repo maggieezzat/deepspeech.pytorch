@@ -83,8 +83,8 @@ def rename_utterances(root_dir = dir):
     #exit(0)
     values = speakers_dict.values()
     keys = speakers_dict.keys()
-    print(values[0])
-    print(keys[0])
+    print(values)
+    print(keys)
 
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
