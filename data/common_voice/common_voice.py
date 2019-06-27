@@ -61,9 +61,10 @@ def get_dict_speakers(root_dir = dir):
         next(lines, None)
         for line in lines:
             speakers.add(line[0])
-            print(line[0])
+            #print(line[0])
 
     speakers_list = list(speakers)
+    print(speakers_list)
     speakers_dict = {tuple(key): idx for idx, key in enumerate(speakers_list)}
     #{tuple(key): idx for idx, key in enumerate(speakers_list)}
     #dict(enumerate(speakers_list, start=0))
