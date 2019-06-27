@@ -29,33 +29,21 @@ def convert_to_wav(root_dir = dir):
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
         for line in lines:
-            print(line)
-
-    with open(validated_tsv, 'r') as f:
-        lines = csv.reader(f, delimiter='\t')
-        #next(lines, None)
-        print(lines)
-        total = len(list(lines))
-        print(total)
-        lines = list(lines)
-    
-    i = 0
-    for line in lines:
-        i+=1
-        if i == 1:
-            continue
-        print("hi")
-        src = os.path.join(root_dir, "clips", line[1]+".mp3")
-        dst = os.path.join(valid_wav, line[1]+".wav")
-        print(src)
-        print(dst)
-        trans = clean_sentence(line[2])
-        valid_data.append((path, trans))
-        # convert wav to mp3                                                            
-        sound = AudioSegment.from_mp3(src)
-        sound.export(dst, format="wav")
-        
-        print("Converting files: " + str(i) + "/" + str(total), end="\r")
+            i+=1
+            if i == 1:
+                continue
+            print("hi")
+            src = os.path.join(root_dir, "clips", line[1]+".mp3")
+            dst = os.path.join(valid_wav, line[1]+".wav")
+            print(src)
+            print(dst)
+            trans = clean_sentence(line[2])
+            valid_data.append((path, trans))
+            # convert wav to mp3                                                            
+            sound = AudioSegment.from_mp3(src)
+            sound.export(dst, format="wav")
+            
+            print("Converting files: " + str(i) + " / 277603", end="\r")
 
 
 
