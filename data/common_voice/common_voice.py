@@ -28,6 +28,7 @@ def convert_to_wav(root_dir = dir):
         next(lines, None)
         total = len(list(lines))
         print(total)
+        lines = list(lines)
         i = 0
         for line in lines:
             src = os.path.join(root_dir, "clips", line[1]+".mp3")
