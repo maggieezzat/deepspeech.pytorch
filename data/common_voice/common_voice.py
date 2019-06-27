@@ -80,6 +80,7 @@ def gen_common_voice_csv(root_dir = dir):
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
         for line in lines:
+            print(line)
             path = os.path.join(root_dir, "clips", line[1])
             trans = clean_sentence(line[2])
             valid_data.append((path, trans))
@@ -171,8 +172,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    #gen_common_voice_csv()
-    convert_to_wav()
+    gen_common_voice_csv()
+    #convert_to_wav()
 
 if __name__ == "__main__":
     main()
