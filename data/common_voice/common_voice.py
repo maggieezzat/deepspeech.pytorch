@@ -27,10 +27,13 @@ def convert_to_wav(root_dir = dir):
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
         total = len(list(lines))
+        print(total)
         i = 0
         for line in lines:
             src = os.path.join(root_dir, "clips", line[1]+".mp3")
             dst = os.path.join(valid_wav, line[1]+".wav")
+            print(src)
+            print(dst)
             trans = clean_sentence(line[2])
             valid_data.append((path, trans))
             # convert wav to mp3                                                            
