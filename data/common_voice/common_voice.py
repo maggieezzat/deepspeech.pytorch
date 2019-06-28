@@ -96,8 +96,6 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             csv_data.append( (dst, trans) )
             i+=1
             print("Renaming: " + str(i) + " / 277603 ", end="\r")
-            if i==800:
-                break
 
 
     df = pandas.DataFrame(data=csv_data)
