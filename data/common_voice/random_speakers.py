@@ -13,7 +13,7 @@ train = []
 hours_so_far = 0
 hours_needed = 7
 speaker = ""
-test = 0
+dataset = 0
 with open(root, encoding="utf-8-sig") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     for row in csv_reader:
@@ -23,20 +23,20 @@ with open(root, encoding="utf-8-sig") as csv_file:
         millis = len(AudioSegment.from_wav(wav_dir))
         time += datetime.timedelta(milliseconds=millis)
         hours_so_far += time.seconds / 3600 + time.days * 24
-        if test == 0:
+        if dataset == 0:
             test.append(row)
-        elif test == 1:
+        elif dataset == 1:
             dev.append(row)
         else:
             train.append(row)
         if hours_so_far >= hours_needed:
             print()
-            print(test)
+            print(dataset)
             print()
-            test += 1
+            dataset += 1
             print(hours_so_far)
             hours_so_far = 0
-            if test == 1:
+            if dataset == 1:
                 hours_needed = 26
             else:
                 hours_needed = 320
