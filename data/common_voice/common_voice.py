@@ -143,7 +143,7 @@ def gen_corrupted_list_cv(root_dir=dir):
 
     with open('cv_corrupted.txt', 'w') as f:
         for file in corrupted_files:
-            f.write("%s\n" % file)
+            f.write(file + "\n")
 
 
 
