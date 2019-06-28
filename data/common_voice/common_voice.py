@@ -88,11 +88,8 @@ def rename_utterances_and_gen_csv(root_dir = dir):
         for line in lines:  
             client_id = line[0]
             speaker = speakers_dict.get(client_id)
-            print(str(speaker), client_id)
         
-        
-            src = os.path.join(wav_files, line[1]+".wav")
-            
+            src = os.path.join(wav_files, line[1]+".wav")    
             dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
             shutil.copy(src, dst)
             
