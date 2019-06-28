@@ -19,5 +19,5 @@ for rootdir in dirs:
         sort=False,
     )
     directory = rootdir.split("_")
-    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0], index=False, encoding="utf-8-sig")
+    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, encoding="utf-8-sig")
 
