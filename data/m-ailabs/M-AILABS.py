@@ -31,8 +31,8 @@ def gen_csv():
                 with open(file_dir) as csv_file:
                     csv_reader = csv.reader(csv_file, delimiter='|')
                     for row in csv_reader:
-                        print("filename: " + row[0])
-                        print("transcript: " + row[2])
+                        #print("filename: " + row[0])
+                        #print("transcript: " + row[2])
                         filename = row[0]
                         transcript = row[2]
                         transcript = clean_sentence(transcript)
