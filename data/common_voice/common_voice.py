@@ -86,30 +86,24 @@ def rename_utterances_and_gen_csv(root_dir = dir):
         c = 0
         i=0
         for line in lines:  
-            c+=1
-            if c == 795 or c == 796 or c == 794: 
-                client_id = line[0]
-                speaker = speakers_dict.get(client_id)
-                print(str(speaker), client_id)
+            client_id = line[0]
+            speaker = speakers_dict.get(client_id)
+            print(str(speaker), client_id)
+        
+        
+            src = os.path.join(wav_files, line[1]+".wav")
             
+            dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
+            shutil.copy(src, dst)
             
-                src = os.path.join(wav_files, line[1]+".wav")
-                
-                dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
-                shutil.copy(src, dst)
-                
-                trans = clean_sentence(line[2])
-                csv_data.append( (dst, trans) )
-                i+=1
-                print("Renaming: " + str(i) + " / 277603 ", end="\r")
-            elif c > 796:
-                exit(0)
-            else:
-                continue
+            trans = clean_sentence(line[2])
+            csv_data.append( (dst, trans) )
+            i+=1
+            print("Renaming: " + str(i) + " / 277603 ", end="\r")
 
-    #df = pandas.DataFrame(data=csv_data)
-    #output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
-    #df.to_csv(output_file, header=False, index=False, sep=",")
+    df = pandas.DataFrame(data=csv_data)
+    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
+    df.to_csv(output_file, header=False, index=False, sep=",")
             
 
 
