@@ -83,10 +83,18 @@ def rename_utterances_and_gen_csv(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
+        c = 1
         i=0
         for line in lines:  
-            client_id = line[0]
-            speaker = speakers_dict.get(client_id)
+
+            if c == 795 or c == 796 or c == 797: 
+                client_id = line[0]
+                speaker = speakers_dict.get(client_id)
+                print(str(speaker), client_id)
+            elif c > 797:
+                exit(0)
+            else:
+                continue
             
             src = os.path.join(wav_files, line[1]+".wav")
             
