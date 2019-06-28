@@ -99,8 +99,6 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             csv_data.append( (dst, trans) )
             i+=1
             print("Renaming: " + str(i) + " / 277603 ", end="\r")
-            if i == 100:
-                break
 
     sorted_csv = sorted(csv_data, key = lambda tup: tup[0])
     df = pandas.DataFrame(data=sorted_csv)
