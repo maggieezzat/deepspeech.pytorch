@@ -29,7 +29,7 @@ with open(root, encoding="utf-8-sig") as csv_file:
             dev.append(row)
         else:
             train.append(row)
-        if hours_so_far >= hours_needed:
+        if hours_so_far >= hours_needed or csv_reader[-1] is row:
             print()
             print(dataset)
             print()
@@ -40,7 +40,6 @@ with open(root, encoding="utf-8-sig") as csv_file:
                 hours_needed = 26
             else:
                 hours_needed = 320
-        print(hours_so_far, end="\r")
 
 print()
 print(len(test))
