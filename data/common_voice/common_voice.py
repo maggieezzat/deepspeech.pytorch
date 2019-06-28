@@ -108,6 +108,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
 
 def gen_corrupted_list_cv(root_dir=dir):
     
+    root_dir = os.path.join(root_dir, "valid_wav")
     corrupted_files = []
 
     files = [
@@ -134,10 +135,10 @@ def gen_corrupted_list_cv(root_dir=dir):
                 corrupted_files.append(file)
 
     print()
-    print("Done checking SWC Dataset")
+    print("Done checking Common Voice Dataset")
     print("=====================")
 
-    with open('swc_corrupted.txt', 'w') as f:
+    with open('cv_corrupted.txt', 'w') as f:
         for file in corrupted_files:
             f.write("%s\n" % file)
 
@@ -146,7 +147,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 def main():
     #convert_to_wav()
     #get_num_of_speakers()
-    rename_utterances_and_gen_csv()
+    #rename_utterances_and_gen_csv()
+    gen_corrupted_list_cv()
 
 if __name__ == "__main__":
     main()
