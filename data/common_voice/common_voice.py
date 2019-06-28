@@ -129,12 +129,12 @@ def gen_corrupted_list_cv(root_dir=dir):
             if os.path.getsize(join(root_dir, file)) <= 0:
                 corrupted_files.append(file)
                 continue
-            try:
-                data, _ = soundfile.read(join(root_dir, file))
+            #try:
+            data, _ = soundfile.read(join(root_dir, file))
                 #if len(data) <= 0:
                 #    corrupted_files.append(file)
-            except:
-                corrupted_files.append(file)
+            #except:
+            #    corrupted_files.append(file)
             
 
     print()
