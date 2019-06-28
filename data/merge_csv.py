@@ -11,11 +11,13 @@ data.to_csv("C:/Users/MariamDesouky/Desktop/train.csv", index=False,encoding='ut
 """
 
 # TEST
-rootdir = "E:/csv/"
-data = pd.concat(
-    [pd.read_csv(rootdir + "/" + file) for file in os.listdir(rootdir)],
-    axis=0,
-    sort=False,
-)
-data.to_csv("E:/csv/o.csv", index=False, encoding="utf-8-sig")
+dirs = ["train_csvs","dev_csvs","test_csvs"]
+for rootdir in dirs:
+    data = pd.concat(
+        [pd.read_csv(rootdir + "/" + file) for file in os.listdir(rootdir)],
+        axis=0,
+        sort=False,
+    )
+    directory = rootdir.split("_")
+    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0], index=False, encoding="utf-8-sig")
 
