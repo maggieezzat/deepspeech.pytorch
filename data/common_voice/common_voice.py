@@ -46,7 +46,7 @@ def convert_to_wav(root_dir = dir):
 
 
     df = pandas.DataFrame(data=valid_data)
-    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
+    output_file = "/speech/common_voice_de/common_voice_valid_wav.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
@@ -83,7 +83,6 @@ def rename_utterances_and_gen_csv(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
-        c = 0
         i=0
         for line in lines:  
             client_id = line[0]
@@ -91,7 +90,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
         
             src = os.path.join(wav_files, line[1]+".wav")    
             dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
-            shutil.copy(src, dst)
+            #shutil.copy(src, dst)
             
             trans = clean_sentence(line[2])
             csv_data.append( (dst, trans) )
@@ -99,7 +98,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             print("Renaming: " + str(i) + " / 277603 ", end="\r")
 
     df = pandas.DataFrame(data=csv_data)
-    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
+    output_file = "/speech/common_voice_de/common_voice_valid_wav.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
             
 
