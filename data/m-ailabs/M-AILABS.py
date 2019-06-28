@@ -101,7 +101,8 @@ def gen_corrupted_list_mailabs(root_dir="/speech/M-AILABS/"):
 
 
 def main():
-    gen_corrupted_list_mailabs()
+    #gen_corrupted_list_mailabs()
+    gen_csv()
 
 
 
