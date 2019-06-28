@@ -6,8 +6,8 @@ python -m multiproc train.py \
 --epochs 40 \
 --checkpoint \
 --checkpoint-per-batch 50 \
---save-folder "/speech/ds_pytorch_chkpts/" \
+--save-folder "/speech/ds_pytorch_chkpts_600/" \
 --hidden-layers 3 \
 --hidden-size 700 \
 --cuda \
---model-path "/speech/ds_pytorch_models/deepspeech_final.pth"
+--model-path "/speech/ds_pytorch_models_600/deepspeech_final.pth"
