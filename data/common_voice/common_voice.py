@@ -131,10 +131,11 @@ def gen_corrupted_list_cv(root_dir=dir):
                 continue
             try:
                 data, _ = soundfile.read(join(root_dir, file))
+                if len(data) <= 0:
+                    corrupted_files.append(file)
             except:
                 corrupted_files.append(file)
-            if len(data) <= 0:
-                corrupted_files.append(file)
+            
 
     print()
     print("Done checking Common Voice Dataset")
