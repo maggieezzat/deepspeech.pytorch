@@ -92,7 +92,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             speaker = speakers_dict.get(client_id)
         
             src = os.path.join(wav_files, line[1]+".wav")    
-            dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
+            dst = os.path.join(valid_wav,  "spk{0:0=4d}".format(speaker) + "_utt{0:0=6d}.wav".format(i))
             shutil.copy(src, dst)
             
             trans = clean_sentence(line[2])
@@ -100,8 +100,8 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             i+=1
             print("Renaming: " + str(i) + " / 277603 ", end="\r")
 
-
-    df = pandas.DataFrame(data=csv_data)
+    sorted_csv = sorted(csv_data, key = lambda tup: tup[0])
+    df = pandas.DataFrame(data=sorted_csv)
     output_file = "/speech/common_voice_de/common_voice_valid_wav.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
             
@@ -151,8 +151,8 @@ def gen_corrupted_list_cv(root_dir=dir):
 def main():
     #convert_to_wav()
     #get_num_of_speakers()
-    #rename_utterances_and_gen_csv()
-    gen_corrupted_list_cv()
+    rename_utterances_and_gen_csv()
+    #gen_corrupted_list_cv()
 
 if __name__ == "__main__":
     main()
