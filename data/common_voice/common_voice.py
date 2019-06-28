@@ -4,6 +4,7 @@ import re
 import csv
 import pandas
 from pydub import AudioSegment
+import shutil
 
 import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -70,7 +71,9 @@ def get_dict_speakers(root_dir = dir):
 
 def rename_utterances_and_gen_csv(root_dir = dir):
 
+    wav_files = os.path.join(root_dir, "wav_files")
     valid_wav = os.path.join(root_dir, "valid_wav")
+    
     validated_tsv = os.path.join(root_dir, "validated.tsv")
     
     csv_data = []
@@ -86,13 +89,16 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             speaker = speakers_dict.get(client_id)
             
             src = os.path.join(valid_wav, line[1]+".wav")
-            dst = os.path.join(valid_wav, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
-            os.rename(src, dst)
+            
+            dst = os.path.join(wav_files, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
+            shutil.copy(src, dst)
+            #os.rename(src, dst)
             
             trans = clean_sentence(line[2])
             csv_data.append( (dst, trans) )
             i+=1
             print("Renaming: " + str(i))
+            exit(0)
             
 
 
@@ -136,9 +142,9 @@ def gen_corrupted_list_cv(root_dir=dir):
 
 
 def main():
-    convert_to_wav()
+    #convert_to_wav()
     #get_num_of_speakers()
-    #rename_utterances_and_gen_csv
+    rename_utterances_and_gen_csv
 
 if __name__ == "__main__":
     main()
