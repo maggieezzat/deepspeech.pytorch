@@ -92,13 +92,15 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             
             dst = os.path.join(valid_wav, "utt_{0:0=6d}_spk{0:0=4d}.wav".format(i, speaker))
             shutil.copy(src, dst)
-            #os.rename(src, dst)
             
             trans = clean_sentence(line[2])
             csv_data.append( (dst, trans) )
             i+=1
-            print("Renaming: " + str(i))
-            exit(0)
+            print("Renaming: " + str(i) + " / 277603 ")
+
+    df = pandas.DataFrame(data=csv_data)
+    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
+    df.to_csv(output_file, header=False, index=False, sep=",")
             
 
 
