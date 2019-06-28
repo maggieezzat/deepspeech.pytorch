@@ -90,7 +90,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
         
             src = os.path.join(wav_files, line[1]+".wav")    
             dst = os.path.join(valid_wav, "utt_{0:0=6d}".format(i) + "_spk{0:0=4d}.wav".format(speaker))
-            #shutil.copy(src, dst)
+            shutil.copy(src, dst)
             
             trans = clean_sentence(line[2])
             csv_data.append( (dst, trans) )

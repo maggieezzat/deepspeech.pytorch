@@ -9,7 +9,8 @@ from pydub import AudioSegment
 time = datetime.timedelta(milliseconds = 0)
 root = "/home/GPUAdmin1/asr/"
 #root = "E:/TUDA/"
-csv_folders = ["train_csvs","test_csvs","dev_csvs"]
+csv_folders = ["dev_csvs"]
+#["train_csvs","test_csvs","dev_csvs"]
 for csv_folder in csv_folders:
     for file_dir in os.listdir(root+csv_folder):
          with open(root+csv_folder+"/"+file_dir, encoding="utf-8-sig") as csv_file:
