@@ -83,10 +83,10 @@ def rename_utterances_and_gen_csv(root_dir = dir):
     with open(validated_tsv) as f:
         lines = csv.reader(f, delimiter='\t')
         next(lines, None)
-        c = 1
+        c = 0
         i=0
         for line in lines:  
-
+            c+=1
             if c == 795 or c == 796 or c == 797: 
                 client_id = line[0]
                 speaker = speakers_dict.get(client_id)
@@ -106,9 +106,9 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             i+=1
             print("Renaming: " + str(i) + " / 277603 ", end="\r")
 
-    df = pandas.DataFrame(data=csv_data)
-    output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
-    df.to_csv(output_file, header=False, index=False, sep=",")
+    #df = pandas.DataFrame(data=csv_data)
+    #output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
+    #df.to_csv(output_file, header=False, index=False, sep=",")
             
 
 
