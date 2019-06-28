@@ -20,7 +20,8 @@ rootdir = "/speech/de_DE"
 
 def gen_csv():
 
-    csv_output = []
+    csv_test = []
+    csv_train =[]
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
             if(".csv" in file and file.startswith("metadata")):
@@ -36,15 +37,13 @@ def gen_csv():
                         transcript = row[2]
                         transcript = clean_sentence(transcript)
                         wav_file_dir = "/speech/M-AILABS/"+ filename +".wav"
-                        if(os.path.exists(wav_file_dir)):
-                            csv_output.append((wav_file_dir, transcript))
-                        
-    df = pandas.DataFrame(data=csv_output)
-    output_file = "/speech/M-AILABS/M-AILABS_all.csv"
-    df.to_csv(output_file, index=False, sep=",")
-    random.shuffle(csv_output)
-    csv_test = csv_output[0:5901]
-    csv_train = csv_output[5901:]        
+                        if(os.path.exists(wav_file_dir) and "merkel" in subdir):
+                            csv_test.append((wav_file_dir, transcript))
+                        else:
+                            if (os.path.exists(wav_file_dir)):
+                                csv_test.append((wav_file_dir, transcript))
+    
+    print(len(csv_test))
     df = pandas.DataFrame(data=csv_train)
     output_file = "/data/home/GPUAdmin1/asr/train_csvs/M-AILABS_train.csv"
     df.to_csv(output_file, index=False, sep=",")
