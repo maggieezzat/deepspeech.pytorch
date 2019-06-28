@@ -96,7 +96,7 @@ def rename_utterances_and_gen_csv(root_dir = dir):
             trans = clean_sentence(line[2])
             csv_data.append( (dst, trans) )
             i+=1
-            print("Renaming: " + str(i) + " / 277603 ")
+            print("Renaming: " + str(i) + " / 277603 ", end="\r")
 
     df = pandas.DataFrame(data=csv_data)
     output_file = "/data/home/GPUAdmin1/speech/common_voice_de/common_voice_valid_wav.csv"
