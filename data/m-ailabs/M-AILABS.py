@@ -41,7 +41,7 @@ def gen_csv():
                             csv_test.append((wav_file_dir, transcript))
                         else:
                             if (os.path.exists(wav_file_dir)):
-                                csv_test.append((wav_file_dir, transcript))
+                                csv_train.append((wav_file_dir, transcript))
     
     print(len(csv_test))
     df = pandas.DataFrame(data=csv_train)
