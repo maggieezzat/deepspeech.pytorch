@@ -12,7 +12,8 @@ parser.add_argument("--hours", type=int, default=7)
 args = parser.parse_args()
 
 time = datetime.timedelta(milliseconds=0)
-root = "/speech/common_voice_de/common_voice_valid_wav.csv"
+#root = "/speech/common_voice_de/common_voice_valid_wav.csv"
+root = "/home/GPUAdmin1/asr/train_csvs/cv_train.csv"
 speakers = []
 test = []
 hours_so_far = 0
