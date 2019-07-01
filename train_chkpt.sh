@@ -5,7 +5,7 @@ python -m multiproc train.py \
 --val-manifest "/home/GPUAdmin1/asr/dev.csv" \
 --epochs 40 \
 --checkpoint \
---checkpoint-per-batch 200 \
+--checkpoint-per-batch 300 \
 --save-folder "/speech/ds_pytorch_chkpts_600/" \
 --continue-from "/speech/ds_pytorch_chkpts_600/$1" \
 --hidden-layers 3 \

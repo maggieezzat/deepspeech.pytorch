@@ -20,7 +20,6 @@ rootdir = "/speech/de_DE"
 
 def gen_csv():
 
-    csv_test = []
     csv_train =[]
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
@@ -37,19 +36,15 @@ def gen_csv():
                         transcript = row[2]
                         transcript = clean_sentence(transcript)
                         wav_file_dir = "/speech/M-AILABS/"+ filename +".wav"
-                        if(os.path.exists(wav_file_dir) and "merkel" in subdir):
-                            csv_test.append((wav_file_dir, transcript))
-                        else:
-                            if (os.path.exists(wav_file_dir)):
-                                csv_train.append((wav_file_dir, transcript))
+                        if(os.path.exists(wav_file_dir)):
+                            csv_train.append((wav_file_dir, transcript))
+                        
     
-    print(len(csv_test))
+    
     df = pandas.DataFrame(data=csv_train)
     output_file = "/data/home/GPUAdmin1/asr/train_csvs/M-AILABS_train.csv"
     df.to_csv(output_file, index=False, sep=",")
-    df = pandas.DataFrame(data=csv_test)
-    output_file = "/data/home/GPUAdmin1/asr/test_csvs/M-AILABS_test.csv"
-    df.to_csv(output_file, index=False, sep=",")
+
 
 
     #create dict from csvs
