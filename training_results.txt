@@ -1,0 +1,14 @@
+## Training with 3 layers:
+## Data: Tuda, M-AILABS, Common Voice
+
+Training Summary Epoch: [3]     Time taken (s): 5594    Average Loss 24.363
+100%|█████████████████████████████████████████████████████████████| 269/269 [06:03<00:00,  1.50it/s
+Validation Summary Epoch: [3]   Average WER 53.292      Average CER 15.158
+Learning rate annealed to: 0.000273
+
+
+Training Summary Epoch: [4]     Time taken (s): 24111    Average Loss 19.688
+100%|█████████████████████████████████████████████████████████████| 269/269 [06:03<00:00,  1.50it/s
+Validation Summary Epoch: [4]   Average WER 50.643      Average CER 14.3
+Learning rate annealed to: 0.000248
+
