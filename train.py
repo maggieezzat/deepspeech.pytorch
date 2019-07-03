@@ -141,7 +141,7 @@ if __name__ == '__main__':
         args.epochs)
     best_wer = None
     if main_proc and args.visdom:
-        visdom_logger = VisdomLogger(args.id, args.epochs)
+        visdom_logger = VisdomLogger(args.id, args.epochs,port =8888)
     if main_proc and args.tensorboard:
         tensorboard_logger = TensorBoardLogger(args.id, args.log_dir, args.log_params)
 
