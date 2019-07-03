@@ -8,9 +8,9 @@ def to_np(x):
 
 
 class VisdomLogger(object):
-    def __init__(self, id, num_epochs):
+    def __init__(self, id, num_epochs, port=8888):
         from visdom import Visdom
-        self.viz = Visdom()
+        self.viz = Visdom(port=port)
         self.opts = dict(title=id, ylabel='', xlabel='Epoch', legend=['Loss', 'WER', 'CER'])
         self.viz_window = None
         self.epochs = torch.arange(1, num_epochs + 1)
