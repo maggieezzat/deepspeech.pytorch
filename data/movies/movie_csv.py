@@ -51,7 +51,7 @@ def clean(string, start, end=None):
     tmp = tmp[1].split(end, 1)
     # if there is more than one occurance
     if start in tmp[1] and end in tmp[1]:
-        out += cleanh(tmp[1], start, end)
+        out += clean(tmp[1], start, end)
     else:
         out += tmp[1]
     return out
