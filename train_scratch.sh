@@ -1,4 +1,4 @@
-ds_pytorch_chkpts_lstm_5#!/bin/bash
+#!/bin/bash
 
 python -m multiproc train.py \
 --train-manifest "/home/GPUAdmin1/asr/train.csv" \
