@@ -4,27 +4,19 @@ import wave
 import datetime
 from pydub import AudioSegment
 
-#"spoken_wikipedia_german","M-AILABS",
-
-time = datetime.timedelta(milliseconds = 0)
+time = datetime.timedelta(milliseconds=0)
 root = "/home/GPUAdmin1/asr/"
-#root = "E:/TUDA/"
-csv_folders = ["train_csvs","test_csvs","dev_csvs"]
+csv_folders = ["test_csvs", "dev_csvs", "train_csvs"]
 for csv_folder in csv_folders:
-    for file_dir in os.listdir(root+csv_folder):
-         with open(root+csv_folder+"/"+file_dir, encoding="utf-8-sig") as csv_file:
-                csv_reader = csv.reader(csv_file, delimiter=',')
-                for row in csv_reader:
-                    wav_dir = row[0]
-                    millis = len(AudioSegment.from_wav(wav_dir))
-                    time += datetime.timedelta(milliseconds= millis)
-                    print(wav_dir,end='\r')
-         print("ended "+ file_dir)
-         print(time.seconds/3600 + time.days*24)
-         print("*******")
-         time = datetime.timedelta(milliseconds = 0) 
-
-
-
-
-  
+    for file_dir in os.listdir(root + csv_folder):
+        with open(root + csv_folder + "/" + file_dir, encoding="utf-8-sig") as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter=",")
+            for row in csv_reader:
+                wav_dir = row[0]
+                millis = len(AudioSegment.from_wav(wav_dir))
+                time += datetime.timedelta(milliseconds=millis)
+                print(wav_dir, end="\r")
+        print("ended " + file_dir)
+        print(time.seconds / 3600 + time.days * 24)
+        print("*******")
+        time = datetime.timedelta(milliseconds=0)
