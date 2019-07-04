@@ -21,3 +21,6 @@ Learning rate annealed to: 0.000248
 Training Summary Epoch: [5]     Time taken (s): 3117    Average Loss 16.492
 Validation Summary Epoch: [5]   Average WER 48.801      Average CER 13.397
 Learning rate annealed to: 0.000225
+
+Average Loss Approx 10
+Validation Summary Epoch: [6]   Average WER 45.637      Average CER 12.471
