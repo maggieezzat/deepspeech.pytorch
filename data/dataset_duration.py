@@ -11,6 +11,7 @@ for csv_folder in csv_folders:
     for file_dir in os.listdir(root + csv_folder):
         with open(root + csv_folder + "/" + file_dir, encoding="utf-8-sig") as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=",")
+            next(csv_reader, None)
             for row in csv_reader:
                 wav_dir = row[0]
                 millis = len(AudioSegment.from_wav(wav_dir))
