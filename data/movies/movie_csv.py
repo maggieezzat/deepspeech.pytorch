@@ -45,16 +45,6 @@ def clean(string, start, end=None):
     else:
         out += tmp[1]
     return out
-    # --future work : take a list of start and end to call just once
-    tmp = string.split(start, 1)
-    out = tmp[0]
-    tmp = tmp[1].split(end, 1)
-    # if there is more than one occurance
-    if start in tmp[1] and end in tmp[1]:
-        out += clean(tmp[1], start, end)
-    else:
-        out += tmp[1]
-    return out
 
 
 # =================== Main ===================
@@ -123,15 +113,34 @@ for file in os.listdir(transcript_dir):
             transcript = clean(transcript, "(", ")")
         if "<" in transcript and ">" in transcript:
             transcript = clean(transcript, "<", ">")
+        if "*" in transcript:
+            transcript = clean(transcript, "*")
         if "♪" in transcript:
             transcript = clean(transcript, "♪")
-
+        transcript = transcript.replace("- ", "")
+        transcript = transcript.replace("-", "")
+        transcript = transcript.replace('"', "")
+        transcript = transcript.replace("'", "")
         transcriptclean = clean_sentence(transcript)
         # --TODO if the whole wav is non talk igneore it i.e continue
         if (
+            # TODO continue after Parfum
             transcriptclean.strip() == ""
-            or transcriptclean.strip() == "netflix präsentiert"
-            or transcriptclean.strip() == "eine netflix original serie"
+            or transcriptclean.strip() == "spricht polnisch"
+            or transcriptclean.strip() == "telefon"
+            or transcriptclean.strip() == "hupen"
+            or transcriptclean.strip() == "nina deggert thomas deggert"
+            or transcriptclean.strip() == "dr friedrich kronberg"
+            or "hassans vater spricht arabisch" in transcriptclean
+            or "singt schlaflied auf polnisch" in transcriptclean
+            or "reifen quietschen" in transcriptclean
+            or "das baby schreit" in transcriptclean
+            or "unverständlich" in transcriptclean
+            or "melodie" in transcriptclean
+            or "netflix" in transcriptclean
+            or "klopfen" in transcriptclean
+            or "music" in transcriptclean
+            or "tür" in transcriptclean
         ):
             # non talk sounds, ignore them.
             continue
@@ -152,3 +161,4 @@ with open(output_csv, "w") as f:
         )
         f.write(line[0] + "," + line[1] + "\n")
 print()
+print("=============================")
