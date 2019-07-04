@@ -237,7 +237,7 @@ if __name__ == '__main__':
         end = time.time()
         start_epoch_time = time.time()
         for i, (data) in enumerate(train_loader, start=start_iter):
-            if i == len(train_sampler):
+            if i == len(train_sampler) or start_iter > 5806:
                 break
             inputs, targets, input_percentages, target_sizes = data
             input_sizes = input_percentages.mul_(int(inputs.size(3))).int()
