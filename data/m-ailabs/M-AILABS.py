@@ -1,14 +1,14 @@
 import os
-from os import listdir, remove
-from os.path import isfile, join
 import re
 import csv
 import string
 import pandas
 import random
 import soundfile
+import sys,inspect
+from os import listdir, remove
+from os.path import isfile, join
 
-import os,sys,inspect
 current_dir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parent_dir = os.path.dirname(current_dir)
 sys.path.insert(0, parent_dir) 
