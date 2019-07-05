@@ -74,6 +74,7 @@ csv = []
 for file in os.listdir(transcript_dir):
     big_wav_dir = os.path.join(audio_dir, (file[:-3] + "wav"))
     big_wav = AudioSegment.from_wav(big_wav_dir)
+    endofwav = len(big_wav)
     with open(os.path.join(transcript_dir, file), "r", encoding="utf-8-sig") as f:
         lines = f.readlines()
     lines = [l.strip() for l in lines]
@@ -126,16 +127,20 @@ for file in os.listdir(transcript_dir):
         if (
             # TODO continue after Parfum
             transcriptclean.strip() == ""
+            or transcriptclean.strip() == "nina deggert thomas deggert"
+            or transcriptclean.strip() == "dr friedrich kronberg"
+            or transcriptclean.strip() == "operation juninacht"
+            or transcriptclean.strip() == "monika schöllack"
             or transcriptclean.strip() == "spricht polnisch"
             or transcriptclean.strip() == "telefon"
             or transcriptclean.strip() == "hupen"
-            or transcriptclean.strip() == "nina deggert thomas deggert"
-            or transcriptclean.strip() == "dr friedrich kronberg"
+            or transcript.strip() == "Ostberlin 1980"
             or "hassans vater spricht arabisch" in transcriptclean
             or "singt schlaflied auf polnisch" in transcriptclean
             or "reifen quietschen" in transcriptclean
             or "das baby schreit" in transcriptclean
             or "unverständlich" in transcriptclean
+            or "weissensee" in transcriptclean
             or "melodie" in transcriptclean
             or "netflix" in transcriptclean
             or "klopfen" in transcriptclean
@@ -145,7 +150,9 @@ for file in os.listdir(transcript_dir):
             # non talk sounds, ignore them.
             continue
         # --TODO segment the wav file and put it in the csv
-        segment_wav = big_wav[timefrom : timeto + 1]
+        timefrom = (timefrom - 500) if timefrom >= 500 else timefrom
+        timeto = (timeto + 500) if timeto < (endofwav - 500) else timeto
+        segment_wav = big_wav[timefrom:timeto]
         segment_wav_dir = os.path.join(output_segments, filename)
         segment_wav.export(segment_wav_dir, format="wav")
         csv.append((segment_wav_dir, transcriptclean))

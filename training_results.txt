@@ -1,30 +1,28 @@
-## Training with 3 layers:
+## Training with 5 layers - LSTM:
+## Data: Tuda, M-AILABS, Common Voice
+
+Training Summary Epoch: [1]     Time taken (s): 18      Average Loss 39.725
+Validation Summary Epoch: [1]   Average WER 61.286      Average CER 16.690
+Learning rate annealed to: 0.000273
+
+##############################################################################
+
+## Training with 3 layers - GRU:
 ## Data: Tuda, M-AILABS, Common Voice
 
 
 Validation Summary Epoch: [1]   Average WER 67      Average CER 19
-
-
 Validation Summary Epoch: [2]   Average WER 57      Average CER 17
-
-
 Training Summary Epoch: [3]     Time taken (s): 5594    Average Loss 24.363
 Validation Summary Epoch: [3]   Average WER 53.292      Average CER 15.158
 Learning rate annealed to: 0.000273
-
-
 Training Summary Epoch: [4]     Time taken (s): 24111    Average Loss 19.688
 Validation Summary Epoch: [4]   Average WER 50.643      Average CER 14.3
 Learning rate annealed to: 0.000248
-
-
 Training Summary Epoch: [5]     Time taken (s): 3117    Average Loss 16.492
 Validation Summary Epoch: [5]   Average WER 48.801      Average CER 13.397
 Learning rate annealed to: 0.000225
-
 Average Loss Approx 10
 Validation Summary Epoch: [6]   Average WER 45.637      Average CER 12.471
-
-
 Training Summary Epoch: [7]     Time taken (s): 7967    Average Loss 9.806
 Validation Summary Epoch: [7]   Average WER 47.341      Average CER 13.092

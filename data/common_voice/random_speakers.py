@@ -30,6 +30,6 @@ with open(root, encoding="utf-8-sig") as csv_file:
             break
 
 print()
-print(len(set(speakers)))
+print(len((speakers)))
 print(speakers[-1])
 print("*******")
