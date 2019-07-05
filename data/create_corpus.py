@@ -14,13 +14,13 @@ for file_dir in files:
                 sentences.append(row[1] +"\n")
     else:
         with open(file_dir, "r") as text:
-            for line in ins:
+            for line in text:
                 sent = clean_sentence(line.split(" ",1)[1])
                 sentences.append(sent+"\n")
 
 
 
 sent_set = set(sentences)
-corpus = open("corpus.txt","w")
-corpus.writelines()
+corpus = open("/data/home/GPUAdmin1/asr/corpus.txt","w")
+corpus.writelines(sent_set)
 
