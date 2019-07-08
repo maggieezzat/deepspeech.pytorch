@@ -40,7 +40,7 @@ def clean(string, start, end=None):
     out = tmp[0]
     tmp = tmp[1].split(end, 1)
     # if there is more than one occurance
-    if start in tmp[1] and end in tmp[1]:
+    if start in tmp[1] and end in tmp[1].split(start, 1)[1]:
         out += clean(tmp[1], start, end)
     else:
         out += tmp[1]
@@ -114,9 +114,9 @@ for file in os.listdir(transcript_dir):
             transcript = clean(transcript, "(", ")")
         if "<" in transcript and ">" in transcript:
             transcript = clean(transcript, "<", ">")
-        if "*" in transcript:
+        if "*" in transcript and "*" in transcript.split("*", 1)[1]:
             transcript = clean(transcript, "*")
-        if "♪" in transcript:
+        if "♪" in transcript and "♪" in transcript.split("♪", 1)[1]:
             transcript = clean(transcript, "♪")
         transcript = transcript.replace("- ", "")
         transcript = transcript.replace("-", "")
@@ -158,7 +158,7 @@ for file in os.listdir(transcript_dir):
         csv.append((segment_wav_dir, transcriptclean))
     print()
 # Saving the csv file
-with open(output_csv, "w") as f:
+with open(output_csv, "a") as f:
     for line in csv:
         print(
             "Saving into CSV file : "
