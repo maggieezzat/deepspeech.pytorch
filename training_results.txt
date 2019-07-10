@@ -15,6 +15,12 @@ Training Summary Epoch: [4]     Time taken (s): 672     Average Loss 18.209
 Validation Summary Epoch: [4]   Average WER 34.519      Average CER 8.456
 Learning rate annealed to: 0.000225
 
+Validation Summary Epoch: [5]	Average WER 32.162	Average CER 7.801	
+Learning rate annealed to: 0.000205
+
+Validation Summary Epoch: [6]	Average WER 29.811	Average CER 7.368	
+Learning rate annealed to: 0.000186
+
 ##############################################################################
 
 ## Training with 3 layers - GRU:
