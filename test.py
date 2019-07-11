@@ -26,6 +26,8 @@ if __name__ == '__main__':
     device = torch.device("cuda" if args.cuda else "cpu")
     model = load_model(device, args.model_path, args.cuda)
 
+    #model = torch.nn.DataParallel(model)
+
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
 
