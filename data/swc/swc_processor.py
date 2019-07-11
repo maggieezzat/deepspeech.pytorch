@@ -127,7 +127,8 @@ def gen_swc_csv(root_dir = dir):
         file_name = line.split(" ", 1)[0]
         file_text = line.split(" ", 1)[1]
 
-        if len(file_text) == 1:
+        sentence = file_text.split(" ")
+        if len(sentence) == 1:
             continue
 
         trans = clean_sentence(file_text)
