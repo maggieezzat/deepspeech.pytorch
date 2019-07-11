@@ -130,7 +130,7 @@ def gen_swc_csv(root_dir = dir):
         trans = clean_sentence(file_text)
         file_path = os.path.join(root_dir, file_name + ".wav")
         csv.append( (file_path, trans) )
-        print("File " str(i) + " / " +str(len(lines)), end='\r')
+        print("File " +  str(i) + " / " +str(len(lines)), end='\r')
 
     print()
     print("Writing CSV File:")
