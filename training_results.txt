@@ -38,6 +38,9 @@ Test Summary    Average WER 34.337      Average CER 9.160
 # 3-gram LM, beam-width 10, alpha 0.9, beta 0.3
 Test Summary    Average WER 22.191      Average CER 12.094
 
+# 3-gram LM, beam-width 10, alpha 1.0, beta 0.8
+Test Summary    Average WER 22.752      Average CER 12.602
+
 
 ****************************************
 
