@@ -153,7 +153,7 @@ def gen_swc_csv(root_dir = dir):
 def main():
     #convert_to_wav()
     #segment_wav()
-    #gen_swc_csv()
+    gen_swc_csv()
     #gen_corrupted_list_swc()
 
 if __name__ == "__main__":

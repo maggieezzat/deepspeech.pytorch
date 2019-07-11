@@ -9,6 +9,16 @@ from decoder import GreedyDecoder
 from opts import add_decoder_args, add_inference_args
 from utils import load_model
 
+
+
+import torch.distributed as dist
+import torch.utils.data.distributed
+from apex.fp16_utils import FP16_Optimizer
+from apex.parallel import DistributedDataParallel
+from tqdm import tqdm
+from warpctc_pytorch import CTCLoss
+
+
 parser = argparse.ArgumentParser(description='DeepSpeech transcription')
 parser = add_inference_args(parser)
 parser.add_argument('--test-manifest', metavar='DIR',
@@ -25,8 +35,6 @@ if __name__ == '__main__':
     torch.set_grad_enabled(False)
     device = torch.device("cuda" if args.cuda else "cpu")
     model = load_model(device, args.model_path, args.cuda)
-
-    model = torch.nn.DataParallel(model)
 
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
