@@ -121,16 +121,19 @@ def gen_swc_csv(root_dir = dir):
     with open("transcriptions.txt", 'r') as f:
         lines = f.readlines()
 
-
+    i=0
     for line in lines:
+        i+=1
         file_name = line.split(" ", 1)[0]
         file_text = line.split(" ", 1)[1]
 
         trans = clean_sentence(file_text)
         file_path = os.path.join(root_dir, file_name + ".wav")
         csv.append( (file_path, trans) )
+        print("File " str(i) + " / " +str(len(lines)), end='\r')
 
-
+    print()
+    print("Writing CSV File:")
     df = pandas.DataFrame(data=csv)
     output_file = "/speech/swc_all.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
