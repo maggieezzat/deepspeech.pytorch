@@ -21,6 +21,12 @@ Learning rate annealed to: 0.000205
 Validation Summary Epoch: [6]	Average WER 29.811	Average CER 7.368	
 Learning rate annealed to: 0.000186
 
+Validation Summary Epoch: [7]	Average WER 28.487	Average CER 6.903	
+Learning rate annealed to: 0.000169
+
+Validation Summary Epoch: [8]   Average WER 27.907      Average CER 6.927
+Learning rate annealed to: 0.000154
+
 ##############################################################################
 
 ## Training with 3 layers - GRU:
