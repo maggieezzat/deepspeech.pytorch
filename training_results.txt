@@ -30,22 +30,35 @@ Learning rate annealed to: 0.000154
 
 ****************************************
 #Test Results after Epoch 8:
-#Without Language Model (Greedy Decoder):
+#Without Language Model (Greedy Decoder) - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 34.337      Average CER 9.160
+
+#Without Language Model (Greedy Decoder) - Test Set = Tuda only:
+Test Summary    Average WER 42.813      Average CER 11.761
+
 
 
 #With Language Model: 
-# 3-gram LM, beam-width 10, alpha 0.9, beta 0.3
+# 3-gram LM, beam-width 10, alpha 0.9, beta 0.3 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 22.191      Average CER 12.094
 
-# 3-gram LM, beam-width 10, alpha 1.0, beta 0.8
+# 3-gram LM, beam-width 10, alpha 1.0, beta 0.8 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 22.752      Average CER 12.602
 
-# 3-gram LM, beam-width 10, alpha 0.9, beta 0.2
+# 3-gram LM, beam-width 10, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 22.377      Average CER 12.217
 
-# 3-gram LM, beam-width 20, alpha 0.9, beta 0.2
+# 3-gram LM, beam-width 20, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 17.992      Average CER 9.305
+
+# 3-gram LM, beam-width 30, alpha 0.9, beta 0.3 - Test Set = Tuda only:
+Test Summary    Average WER 22.984      Average CER 11.765
+
+# 3-gram LM, beam-width 50, alpha 0.9, beta 0.3 - Test Set = Tuda only:
+Test Summary    Average WER 20.947      Average CER 10.455
+
+# 3-gram LM, beam-width 100, alpha 0.9, beta 0.3 - Test Set = Tuda only:
+Test Summary    Average WER 18.890      Average CER 9.222
 
 
 
