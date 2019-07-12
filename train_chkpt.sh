@@ -6,7 +6,7 @@ python -m multiproc train.py \
 --batch-size 14 \
 --epochs 40 \
 --checkpoint \
---checkpoint-per-batch 150 \
+--checkpoint-per-batch 100 \
 --save-folder "/speech/ds_pytorch_chkpts_lstm_5/" \
 --continue-from "/speech/ds_pytorch_chkpts_lstm_5/$1" \
 --hidden-layers 5 \
