@@ -5,10 +5,8 @@ import datetime
 from pydub import AudioSegment
 
 time = datetime.timedelta(milliseconds=0)
-#root = "/home/GPUAdmin1/asr/"
-root = "/speech/"
-csv_folders = ["test_csvs"]
-#, "dev_csvs", "train_csvs"]
+root = "/home/GPUAdmin1/asr/"
+csv_folders = ["test_csvs", "dev_csvs", "train_csvs"]
 for csv_folder in csv_folders:
     for file_dir in os.listdir(root + csv_folder):
         with open(root + csv_folder + "/" + file_dir, encoding="utf-8-sig") as csv_file:

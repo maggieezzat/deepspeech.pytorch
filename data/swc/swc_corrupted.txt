@@ -1,0 +1,3 @@
+/speech/spoken_wikipedia_german/0000000_0000000_149113-149742.wav,nürnberger prozess
+/speech/spoken_wikipedia_german/0000000_0000000_159837-160356.wav,schweigen verurteilt
+/speech/spoken_wikipedia_german/0000000_0000000_305385-305534.wav,war das aber
