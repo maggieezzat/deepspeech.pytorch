@@ -30,5 +30,5 @@ corpus = open("/data/home/GPUAdmin1/asr/corpus.txt","w")
 for sent in sent_set:
     if(sent in sentences_out):
         continue
-    corpus.writeline(sent)
+    corpus.write(sent)
 
