@@ -3,7 +3,7 @@ from clean_text import clean_sentence
 
 rootdir = "/data/home/GPUAdmin1/asr/"
 files = [rootdir+"train_csvs/M-AILABS_train.csv",rootdir+"train_csvs/cv_train.csv","/speech/german-speechdata-package-v2/SentencesAndIDs.cleaned.txt"]
-files_out = [rootdir+"test_csvs/cv_test.csv",rootdir+"dev_csvs/cv_dev.csv"]
+files_out = [rootdir+"test_csvs/cv_test.csv",rootdir+"dev_csvs/cv_dev.csv",rootdir+"test_csvs/tuda_test.csv",rootdir+"dev_csvs/tuda_dev.csv" ]
 sentences = []
 for file_dir in files:
     if(".csv" in file_dir):
