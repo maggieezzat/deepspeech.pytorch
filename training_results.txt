@@ -30,6 +30,18 @@ Learning rate annealed to: 0.000154
 Validation Summary Epoch: [9]	Average WER 26.624	Average CER 6.543	
 Learning rate annealed to: 0.000140
 
+Validation Summary Epoch: [10]  Average WER 27.005      Average CER 6.662
+Learning rate annealed to: 0.000127
+
+Validation Summary Epoch: [11]  Average WER 26.004      Average CER 6.413
+Learning rate annealed to: 0.000116
+
+Validation Summary Epoch: [12]	Average WER 25.658	Average CER 6.320	
+Learning rate annealed to: 0.000105
+
+Validation Summary Epoch: [13]	Average WER 25.499	Average CER 6.282	
+Learning rate annealed to: 0.000096
+
 
 ****************************************
 #Test Results after Epoch 8:
