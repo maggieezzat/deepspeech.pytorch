@@ -4,13 +4,14 @@ from clean_text import clean_sentence
 rootdir = "/lm_corpus/web_sent_5M/"
 sentences =[]
 i=1
-for file in os.listdir(rootdir):
-    if(".txt" in file):
-         with open(rootdir+file, "r") as text:
+for file_name in os.listdir(rootdir):
+    if(file_name.endswith(".txt")):
+         with open(rootdir+file_name, "r") as text:
             for line in text:
+                print(".")
                 sent = clean_sentence(line.split(" ",1)[1])
                 sentences.append(sent+"\n")
-         print("File "+ str(i) +" done",end = "\r")
+         print("File "+ str(i) +" done")
          i+=1
 
 
