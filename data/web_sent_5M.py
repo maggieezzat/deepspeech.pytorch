@@ -6,13 +6,17 @@ sentences =[]
 i=1
 for file_name in os.listdir(rootdir):
     if(file_name.endswith(".txt")):
-         with open(rootdir+file_name, "r") as text:
+        with open(rootdir+file_name, "r") as text:
+            c = 0
+            total = len(text)
             for line in text:
-                print(".")
+                c+=1
+                print(str(c) + " / " + str(total), end = '\r')
                 sent = clean_sentence(line.split(" ",1)[1])
                 sentences.append(sent+"\n")
-         print("File "+ str(i) +" done")
-         i+=1
+        print()
+        print("File "+ str(i) +" done")
+        i+=1
 
 
 
