@@ -8,7 +8,6 @@ for file_name in os.listdir(rootdir):
     if(file_name.endswith(".txt")):
         with open(rootdir+file_name, "r") as text:
             c = 0
-            total = len(text)
             for line in text:
                 c+=1
                 print(str(c) + " / 1000000" , end = '\r')
