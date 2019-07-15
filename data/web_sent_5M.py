@@ -6,16 +6,17 @@ sentences =[]
 i=1
 for file_name in os.listdir(rootdir):
     if(file_name.endswith(".txt")):
-        with open(rootdir+file_name, "r") as text:
-            c = 0
-            for line in text:
-                c+=1
-                print(str(c) + " / 1000000" , end = '\r')
-                sent = clean_sentence(line.split(" ",1)[1])
-                sentences.append(sent+"\n")
-        print()
-        print("File "+ str(i) +" done")
-        i+=1
+        #with open(rootdir+file_name, "r") as text:
+        #    c = 0
+        #    for line in text:
+        #        c+=1
+        #        print(str(c) + " / 1000000" , end = '\r')
+        #        sent = clean_sentence(line.split(" ",1)[1])
+        #        sentences.append(sent+"\n")
+        #print()
+        #print("File "+ str(i) +" done")
+        #i+=1
+        print(file_name + "\n")
 
 
 
