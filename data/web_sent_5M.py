@@ -5,7 +5,7 @@ rootdir = "/lm_corpus/web_sent_5M/"
 sentences =[]
 i=1
 for file_name in os.listdir(rootdir):
-    if(file_name.endswith("deu-at_web_2014_1M-sentences.txt")):
+    if(file_name.endswith(".txt")):
         with open(rootdir+file_name, "r") as text:
             c = 0
             for line in text:
