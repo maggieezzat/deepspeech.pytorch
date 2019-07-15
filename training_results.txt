@@ -117,6 +117,9 @@ Test Summary    Average WER 19.003      Average CER 6.727
 4-gram LM (Mary) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.989      Average CER 7.377
 
+4-gram LM (Mary) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda:
+Test Summary    Average WER 26.797      Average CER 9.858
+
 
 ****************************************
 
