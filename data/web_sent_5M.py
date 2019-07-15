@@ -11,7 +11,7 @@ for file_name in os.listdir(rootdir):
             total = len(text)
             for line in text:
                 c+=1
-                print(str(c) + " / " + str(total), end = '\r')
+                print(str(c) + " / 1000000" , end = '\r')
                 sent = clean_sentence(line.split(" ",1)[1])
                 sentences.append(sent+"\n")
         print()
