@@ -5,6 +5,7 @@ wiki=/lm_corpus/dewiki.txt
 
 for dir in $root_dir; do
     for file in $(find $dir -maxdepth 1 -type f); do
+        echo $file
         cat $file >> $wiki
     done
 done
