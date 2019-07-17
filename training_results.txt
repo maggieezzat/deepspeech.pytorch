@@ -99,6 +99,9 @@ Test Summary    Average WER 29.947      Average CER 9.362
 # 4-gram LM (Mary+train) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.781      Average CER 7.341
 
+# 6-gram LM (Mary+train) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 19.795      Average CER 7.342
+
 # 4-gram LM (Mary+10*train) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.805      Average CER 7.352
 
@@ -111,18 +114,20 @@ Test Summary    Average WER 19.496      Average CER 7.098
 # 4-gram LM (Mary+train) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
 Test Summary    Average WER 19.273      Average CER 6.941	
 
- # 4-gram LM (Mary+train) , beam-width 250, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
+# 4-gram LM (Mary+train) , beam-width 250, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
 Test Summary    Average WER 19.172      Average CER 6.854	
 
- # 4-gram LM (Mary+train) , beam-width 350, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
+# 4-gram LM (Mary+train) , beam-width 350, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
 Test Summary    Average WER 19.003      Average CER 6.727
 
-4-gram LM (Mary) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
+# 4-gram LM (Mary) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.989      Average CER 7.377
 
-4-gram LM (Mary) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda:
+# 4-gram LM (Mary) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda:
 Test Summary    Average WER 26.797      Average CER 9.858
 
+# 4-gram LM (Mary+train+ 5_million_web+ Wiki) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda:
+Test Summary    Average WER 19.092      Average CER 7.301
 
 ****************************************
 
