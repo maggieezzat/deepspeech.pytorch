@@ -11,13 +11,31 @@ data.to_csv("C:/Users/MariamDesouky/Desktop/train.csv", index=False,encoding='ut
 """
 
 # TEST
+root_dir = "/data/home/GPUAdmin1/asr/"
 dirs = ["train_csvs","dev_csvs","test_csvs"]
-for rootdir in dirs:
-    data = pd.concat(
-        [pd.read_csv("/data/home/GPUAdmin1/asr/"+rootdir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+rootdir)],
-        axis=0,
-        sort=False,
-    )
-    directory = rootdir.split("_")
-    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, encoding="utf-8-sig")
+for dir in dirs:
 
+    '''
+    for file in os.listdir(os.path.join(root_dir, dir)):
+        paths_trans = []
+        if file.endswith(".csv"):
+            with open(os.path.join(root_dir, dir, file), 'r', encoding = "utf-8-sig") as csv_file:
+                while True:
+                    line = csv_file.readline()
+                    paths_trans.append(line)
+
+        df = pandas.DataFrame(data=csv)
+        #output_file = os.path.join(root_dir, dir.split("_")[0], ".csv")
+        output_file = os.path.join("/speech/", dir.split("_")[0], ".csv")
+        df.to_csv(output_file, header=False, index=False, sep=",")
+
+    '''    
+    data = pd.concat(
+        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file, header = None, sep = ",") for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir)],
+        axis = 0,
+        sort = False,
+        
+    )
+    directory = dir.split("_")
+    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
+    
