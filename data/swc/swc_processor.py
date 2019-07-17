@@ -128,7 +128,7 @@ def gen_swc_csv(root_dir = dir):
         file_text = line.split(" ", 1)[1]
 
         sentence = file_text.split(" ")
-        if len(sentence) == 1:
+        if len(sentence) <= 2:
             continue
 
         trans = clean_sentence(file_text)
@@ -139,20 +139,8 @@ def gen_swc_csv(root_dir = dir):
     print()
     print("Writing CSV File:")
     df = pandas.DataFrame(data=csv)
-    output_file = "/speech/swc_all.csv"
+    output_file = "/home/GPUAdmin1/train_csvs/swc_train.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
-
-    #csv_test = csv_output[0:5000]
-    #csv_train = csv_output[5901:]        
-    
-    #df = pandas.DataFrame(data=csv_train)
-    #output_file = "/data/home/GPUAdmin1/asr/train_csvs/swc_train.csv"
-    #df.to_csv(output_file, index=False, sep=",")
-    
-    #df = pandas.DataFrame(data=csv_test)
-    #output_file = "/data/home/GPUAdmin1/asr/test_csvs/swc_test.csv"
-    #df.to_csv(output_file, index=False, sep=",")
-
 
 
 
