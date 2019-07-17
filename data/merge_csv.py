@@ -37,6 +37,5 @@ for dir in dirs:
         
     )
     directory = dir.split("_")
-    #data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
-    data.to_csv("/speech/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
+    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
     
