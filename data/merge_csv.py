@@ -12,12 +12,12 @@ data.to_csv("C:/Users/MariamDesouky/Desktop/train.csv", index=False,encoding='ut
 
 # TEST
 dirs = ["train_csvs","dev_csvs","test_csvs"]
-for rootdir in dirs:
+for dir in dirs:
     data = pd.concat(
-        [pd.read_csv("/data/home/GPUAdmin1/asr/"+rootdir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+rootdir)],
-        axis=0,
+        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir)],
+        axis=1,
         sort=False,
     )
-    directory = rootdir.split("_")
-    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, encoding="utf-8-sig")
+    directory = dir.split("_")
+    data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
 
