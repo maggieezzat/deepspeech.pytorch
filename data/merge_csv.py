@@ -15,6 +15,7 @@ root_dir = "/data/home/GPUAdmin1/asr/"
 dirs = ["train_csvs","dev_csvs","test_csvs"]
 for dir in dirs:
 
+    '''
     for file in os.listdir(os.path.join(root_dir, dir)):
         paths_trans = []
         if file.endswith(".csv"):
@@ -28,13 +29,15 @@ for dir in dirs:
         output_file = os.path.join("/speech/", dir.split("_")[0], ".csv")
         df.to_csv(output_file, header=False, index=False, sep=",")
 
-    '''
+    '''    
     data = pd.concat(
         [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir)],
-        axis=1,
-        sort=False,
+        axis = 0,
+        sort = False,
+        header = None,
+        sep = ","
     )
     directory = dir.split("_")
     #data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
     data.to_csv("/speech/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
-    '''
+    
