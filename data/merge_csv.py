@@ -31,8 +31,7 @@ for dir in dirs:
 
     '''    
     data = pd.concat(
-        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir, header = None,
-        sep = ",")],
+        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file, header = False, sep = ",") for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir)],
         axis = 0,
         sort = False,
         
