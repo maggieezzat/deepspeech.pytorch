@@ -31,11 +31,11 @@ for dir in dirs:
 
     '''    
     data = pd.concat(
-        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir)],
+        [pd.read_csv("/data/home/GPUAdmin1/asr/"+dir + "/" + file) for file in os.listdir("/data/home/GPUAdmin1/asr/"+dir, header = None,
+        sep = ",")],
         axis = 0,
         sort = False,
-        header = None,
-        sep = ","
+        
     )
     directory = dir.split("_")
     #data.to_csv("/data/home/GPUAdmin1/asr/"+directory[0]+".csv", index=False, header=False, encoding="utf-8-sig")
