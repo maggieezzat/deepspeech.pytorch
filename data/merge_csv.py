@@ -15,7 +15,7 @@ root_dir = "/data/home/GPUAdmin1/asr/"
 dirs = ["train_csvs","dev_csvs","test_csvs"]
 for dir in dirs:
 
-    for file in os.listdir(dir):
+    for file in os.listdir(os.path.join(root_dir, dir)):
         paths_trans = []
         if file.endswith(".csv"):
             with open(os.path.join(root_dir, dir, file), 'r', encoding = "utf-8-sig") as csv_file:
@@ -24,7 +24,8 @@ for dir in dirs:
                     paths_trans.append(line)
 
         df = pandas.DataFrame(data=csv)
-        output_file = os.path.join(root_dir, dir.split("_")[0], ".csv")
+        #output_file = os.path.join(root_dir, dir.split("_")[0], ".csv")
+        output_file = os.path.join("/speech/", dir.split("_")[0], ".csv")
         df.to_csv(output_file, header=False, index=False, sep=",")
 
     '''
