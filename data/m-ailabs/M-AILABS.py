@@ -43,7 +43,7 @@ def gen_csv():
     
     df = pandas.DataFrame(data=csv_train)
     output_file = "/data/home/GPUAdmin1/asr/train_csvs/M-AILABS_train.csv"
-    df.to_csv(output_file, index=False, sep=",")
+    df.to_csv(output_file, header=False, index=False, sep=",")
 
 
 
