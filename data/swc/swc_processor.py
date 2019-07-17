@@ -139,7 +139,7 @@ def gen_swc_csv(root_dir = dir):
     print()
     print("Writing CSV File:")
     df = pandas.DataFrame(data=csv)
-    output_file = "/home/GPUAdmin1/train_csvs/swc_train.csv"
+    output_file = "/home/GPUAdmin1/asr/train_csvs/swc_train.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
 
