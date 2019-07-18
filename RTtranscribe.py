@@ -95,7 +95,7 @@ if __name__ == "__main__":
             ]["transcription"]
             print(transcription)
             line = audio_file + " --> " + transcription + "\n"
-            with open("/speech/test_RT/transcriptions.txt", "a") as the_file:
+            with open("/speech/transcriptions.txt", "a") as the_file:
                 the_file.write(line)
             os.remove(audio_file)
         else:
