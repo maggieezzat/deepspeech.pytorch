@@ -85,6 +85,7 @@ if __name__ == "__main__":
     s = "|"
     while True:
         try:
+            time.sleep(1)
             audio_files = [
                 f
                 for f in os.listdir(args.audio_dir)
@@ -120,7 +121,7 @@ if __name__ == "__main__":
                 elif counter == 3 or counter == 7:
                     s = "\\"
                 print("Waiting for files " + s, end="\r")
-                time.sleep(2)
+                time.sleep(0.5)
                 counter += 1
                 if counter > 7:
                     counter = 0
