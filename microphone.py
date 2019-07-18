@@ -10,6 +10,7 @@ CHUNK = 1024
 RECORD_SECONDS = 10
 #to stop the stream and restart every approx 200s
 counter = 0
+audio = pyaudio.PyAudio()
 #where to save
 rootdir = "E:/trial/"
 while 1:
@@ -17,7 +18,6 @@ while 1:
     st = datetime.fromtimestamp(ts).strftime('%Y-%m-%d-t-%H-%M-%S')
     WAVE_OUTPUT_FILENAME = rootdir+str(st)+".wav"
  
-    audio = pyaudio.PyAudio()
  
 # start Recording
     stream = audio.open(format=FORMAT, channels=CHANNELS,
@@ -33,8 +33,8 @@ while 1:
  
 # stop Recording
     stream.stop_stream()
-    stream.close()
-    audio.terminate()
+    #stream.close()
+    #audio.terminate()
     
     waveFile = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
     waveFile.setnchannels(CHANNELS)
