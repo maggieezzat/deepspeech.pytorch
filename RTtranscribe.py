@@ -91,7 +91,6 @@ if __name__ == "__main__":
             and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
         ]
         if len(audio_files) > 0:
-            print()
             audio_file = audio_files[0]
             audio_path = os.path.join(args.audio_dir, audio_file)
             size1 = os.path.getsize(audio_path)
@@ -99,6 +98,7 @@ if __name__ == "__main__":
             size2 = os.path.getsize(audio_path)
             if size1 != size2:
                 continue
+            print()
             decoded_output, decoded_offsets = transcribe(
                 audio_path, parser, model, decoder, device
             )
