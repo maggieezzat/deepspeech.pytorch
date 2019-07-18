@@ -90,9 +90,7 @@ if __name__ == "__main__":
             decoded_output, decoded_offsets = transcribe(
                 os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
             )
-            transcription = decode_results(model, decoded_output, decoded_offsets)[
-                "output"
-            ]["transcription"]
+            transcription = decode_results(model, decoded_output, decoded_offsets)["output"]
             print(transcription)
             line = audio_file + " --> " + transcription + "\n"
             with open("/speech/transcriptions.txt", "a") as the_file:
