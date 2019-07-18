@@ -84,38 +84,45 @@ if __name__ == "__main__":
     counter = 0
     s = "|"
     while True:
-        audio_files = [
-            f
-            for f in os.listdir(args.audio_dir)
-            if os.path.isfile(os.path.join(args.audio_dir, f))
-            and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
-        ]
-        if len(audio_files) > 0:
-            print()
-            audio_file = audio_files[0]
-            decoded_output, decoded_offsets = transcribe(
-                os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
-            )
-            transcription = decode_results(model, decoded_output, decoded_offsets)[
-                "output"
-            ][0]
-            print(transcription)
-            line = audio_file.split(".")[0] + " --> " + transcription + "\n"
-            with open("/speech/transcriptions.txt", "a") as the_file:
-                the_file.write(line)
-            os.remove(os.path.join(args.audio_dir, audio_file))
-            print()
-        else:
-            if counter == 0 or counter == 4:
-                s = "|"
-            elif counter == 1 or counter == 5:
-                s = "/"
-            elif counter == 2 or counter == 6:
-                s = "-"
-            elif counter == 3 or counter == 7:
-                s = "\\"
-            print("Waiting for files " + s, end="\r")
-            time.sleep(0.5)
-            counter += 1
-            if counter > 7:
-                counter = 0
+        try:
+            audio_files = [
+                f
+                for f in os.listdir(args.audio_dir)
+                if os.path.isfile(os.path.join(args.audio_dir, f))
+                and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
+            ]
+            if len(audio_files) > 0:
+                print()
+                audio_file = audio_files[0]
+                decoded_output, decoded_offsets = transcribe(
+                    os.path.join(args.audio_dir, audio_file),
+                    parser,
+                    model,
+                    decoder,
+                    device,
+                )
+                transcription = decode_results(model, decoded_output, decoded_offsets)[
+                    "output"
+                ][0]
+                print(transcription)
+                line = audio_file.split(".")[0] + " --> " + transcription + "\n"
+                with open("/speech/transcriptions.txt", "a") as the_file:
+                    the_file.write(line)
+                os.remove(os.path.join(args.audio_dir, audio_file))
+                print()
+            else:
+                if counter == 0 or counter == 4:
+                    s = "|"
+                elif counter == 1 or counter == 5:
+                    s = "/"
+                elif counter == 2 or counter == 6:
+                    s = "-"
+                elif counter == 3 or counter == 7:
+                    s = "\\"
+                print("Waiting for files " + s, end="\r")
+                time.sleep(1)
+                counter += 1
+                if counter > 7:
+                    counter = 0
+        except:
+            print("ERROR")
