@@ -95,7 +95,7 @@ if __name__ == "__main__":
             audio_file = audio_files[0]
             audio_path = os.path.join(args.audio_dir, audio_file)
             size1 = os.path.getsize(audio_path)
-            time.sleep(0.5)
+            time.sleep(1)
             size2 = os.path.getsize(audio_path)
             if size1 != size2:
                 continue
