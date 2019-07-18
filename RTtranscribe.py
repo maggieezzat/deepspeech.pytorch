@@ -98,7 +98,6 @@ if __name__ == "__main__":
             size2 = os.path.getsize(audio_path)
             if size1 != size2:
                 continue
-            print()
             decoded_output, decoded_offsets = transcribe(
                 audio_path, parser, model, decoder, device
             )
