@@ -93,11 +93,18 @@ if __name__ == "__main__":
         if len(audio_files) > 0:
             audio_file = audio_files[0]
             audio_path = os.path.join(args.audio_dir, audio_file)
+            try:
+                os.rename(audio_path, audio_path)
+                print('Access on file "' + audio_file +'" is available!')
+            except OSError as e:
+                print('Access-error on file "' + audio_file + '"! \n' + str(e))
+            """
             size1 = os.path.getsize(audio_path)
             time.sleep(1)
             size2 = os.path.getsize(audio_path)
             if size1 != size2:
                 continue
+            """
             decoded_output, decoded_offsets = transcribe(
                 audio_path, parser, model, decoder, device
             )
