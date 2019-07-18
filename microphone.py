@@ -8,9 +8,10 @@ CHUNK = 1024
 RECORD_SECONDS = 10
 
 counter = 0
-
+#where to save
+rootdir = "E:/trial/"
 while 1:
-    WAVE_OUTPUT_FILENAME = "E:/trial/"+str(counter)+".wav"
+    WAVE_OUTPUT_FILENAME = rootdir+str(counter)+".wav"
  
     audio = pyaudio.PyAudio()
  
