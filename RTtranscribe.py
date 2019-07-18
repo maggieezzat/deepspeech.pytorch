@@ -44,6 +44,7 @@ def decode_results(model, decoded_output, decoded_offsets):
 
 
 if __name__ == "__main__":
+    ALLOWED_EXTENSIONS = set(["wav", "mp3", "ogg", "webm"])
     parser = argparse.ArgumentParser(description="RT transcription")
     parser = add_inference_args(parser)
     parser.add_argument(
@@ -83,14 +84,17 @@ if __name__ == "__main__":
         audio_files = [
             f
             for f in os.listdir(args.audio_dir)
-            if os.path.isfile(os.path.join(args.audio_dir, f)) and ".wav" in f
+            if os.path.isfile(os.path.join(args.audio_dir, f))
+            and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
         ]
         if len(audio_files) > 0:
             audio_file = audio_files[0]
             decoded_output, decoded_offsets = transcribe(
                 os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
             )
-            transcription = decode_results(model, decoded_output, decoded_offsets)["output"]
+            transcription = decode_results(model, decoded_output, decoded_offsets)[
+                "output"
+            ][0]
             print(transcription)
             line = audio_file + " --> " + transcription + "\n"
             with open("/speech/transcriptions.txt", "a") as the_file:
