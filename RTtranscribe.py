@@ -94,10 +94,10 @@ if __name__ == "__main__":
             audio_file = audio_files[0]
             audio_path = os.path.join(args.audio_dir, audio_file)
             try:
-                os.rename(audio_path, audio_path)
-                print('Access on file "' + audio_file +'" is available!')
-            except OSError as e:
-                print('Access-error on file "' + audio_file + '"! \n' + str(e))
+               testfile = open(audio_path, "r+")
+            except IOError:
+                print("Used")
+            testfile.close()
             """
             size1 = os.path.getsize(audio_path)
             time.sleep(1)
