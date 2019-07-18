@@ -111,10 +111,10 @@ if __name__ == "__main__":
             elif counter == 1 or counter == 5:
                 s = "/"
             elif counter == 2 or counter == 6:
-                s = "--"
+                s = "-"
             elif counter == 3 or counter == 7:
                 s = "\\"
-            print("Waiting for files" + s, end="\r")
+            print("Waiting for files " + s, end="\r")
             time.sleep(0.5)
             counter += 1
             if counter > 7:
