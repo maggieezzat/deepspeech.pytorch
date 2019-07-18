@@ -83,12 +83,12 @@ if __name__ == "__main__":
         audio_files = [
             f
             for f in os.listdir(args.audio_dir)
-            if os.path.isfile(os.path.join(args.audio_dir, f))
+            if os.path.isfile(os.path.join(args.audio_dir, f)) and ".wav" in f
         ]
         if len(audio_files) > 0:
             audio_file = audio_files[0]
             decoded_output, decoded_offsets = transcribe(
-                audio_file, parser, model, decoder, device
+                os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
             )
             transcription = decode_results(model, decoded_output, decoded_offsets)[
                 "output"
@@ -97,6 +97,6 @@ if __name__ == "__main__":
             line = audio_file + " --> " + transcription + "\n"
             with open("/speech/transcriptions.txt", "a") as the_file:
                 the_file.write(line)
-            os.remove(audio_file)
+            os.remove(os.path.join(args.audio_dir, audio_file))
         else:
             print("Waiting for files")
