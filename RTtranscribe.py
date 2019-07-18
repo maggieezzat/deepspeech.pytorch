@@ -15,6 +15,7 @@ from model import DeepSpeech
 import os
 import json
 from transcribe import transcribe
+import time
 
 
 def decode_results(model, decoded_output, decoded_offsets):
@@ -88,6 +89,7 @@ if __name__ == "__main__":
             and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
         ]
         if len(audio_files) > 0:
+            print()
             audio_file = audio_files[0]
             decoded_output, decoded_offsets = transcribe(
                 os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
@@ -96,9 +98,10 @@ if __name__ == "__main__":
                 "output"
             ][0]
             print(transcription)
-            line = audio_file + " --> " + transcription + "\n"
+            line = audio_file.split(".")[0] + " --> " + transcription + "\n"
             with open("/speech/transcriptions.txt", "a") as the_file:
                 the_file.write(line)
             os.remove(os.path.join(args.audio_dir, audio_file))
         else:
-            print("Waiting for files")
+            print("Waiting for files", end="\r")
+            time.sleep(1)
