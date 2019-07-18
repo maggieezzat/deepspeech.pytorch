@@ -82,8 +82,8 @@ if __name__ == "__main__":
     while True:
         audio_files = [
             f
-            for f in os.listdir(args.audio_path)
-            if os.path.isfile(os.path.join(args.audio_path, f))
+            for f in os.listdir(args.audio_dir)
+            if os.path.isfile(os.path.join(args.audio_dir, f))
         ]
         if len(audio_files) > 0:
             audio_file = audio_files[0]
