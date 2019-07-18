@@ -81,6 +81,8 @@ if __name__ == "__main__":
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     print("Starting")
+    counter = 0
+    s = "|"
     while True:
         audio_files = [
             f
@@ -102,6 +104,17 @@ if __name__ == "__main__":
             with open("/speech/transcriptions.txt", "a") as the_file:
                 the_file.write(line)
             os.remove(os.path.join(args.audio_dir, audio_file))
+            print()
         else:
-            print("Waiting for files", end="\r")
-            time.sleep(1)
+            if counter == 0 or counter == 4:
+                s = "|"
+            elif counter == 1 or counter == 5:
+                s = "/"
+            elif counter == 2 or counter == 6:
+                s = "--"
+            elif counter == 3 or counter == 7:
+                s = "\\"
+            print("Waiting for files" + s, end="\r")
+            time.sleep(0.5)
+            if counter >= 7:
+                counter = 0
