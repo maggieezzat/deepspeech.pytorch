@@ -3,7 +3,7 @@
 python -m multiproc train.py \
 --train-manifest "/home/GPUAdmin1/asr/train.csv" \
 --val-manifest "/home/GPUAdmin1/asr/dev.csv" \
---batch-size 14 \
+--batch-size 6 \
 --epochs 40 \
 --checkpoint \
 --checkpoint-per-batch 100 \
@@ -14,3 +14,4 @@ python -m multiproc train.py \
 --cuda \
 --model-path "/speech/ds_pytorch_models_lstm_5/deepspeech_final.pth" \
 --rnn-type "lstm"
+
