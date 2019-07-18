@@ -85,7 +85,6 @@ if __name__ == "__main__":
     s = "|"
     while True:
         try:
-            time.sleep(1)
             audio_files = [
                 f
                 for f in os.listdir(args.audio_dir)
