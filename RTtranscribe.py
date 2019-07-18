@@ -12,9 +12,11 @@ import torch
 
 from data.data_loader import SpectrogramParser
 from model import DeepSpeech
-import os.path
+import os
 import json
 from transcribe import transcribe
+import time
+
 
 def decode_results(model, decoded_output, decoded_offsets):
     results = {
@@ -35,7 +37,7 @@ def decode_results(model, decoded_output, decoded_offsets):
 
     for b in range(len(decoded_output)):
         for pi in range(min(args.top_paths, len(decoded_output[b]))):
-            result = {"transcription": decoded_output[b][pi]}
+            result = decoded_output[b][pi]
             if args.offsets:
                 result["offsets"] = decoded_offsets[b][pi].tolist()
             results["output"].append(result)
@@ -43,10 +45,11 @@ def decode_results(model, decoded_output, decoded_offsets):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="DeepSpeech transcription")
+    ALLOWED_EXTENSIONS = set(["wav", "mp3", "ogg", "webm"])
+    parser = argparse.ArgumentParser(description="RT transcription")
     parser = add_inference_args(parser)
     parser.add_argument(
-        "--audio-path", default="audio.wav", help="Audio files to predict on"
+        "--audio-dir", default="/speech/test_RT", help="Audio files to predict on"
     )
     parser.add_argument(
         "--offsets",
@@ -77,8 +80,28 @@ if __name__ == "__main__":
 
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
-    audio_files = (args.audio_path).split(",")
     print("Starting")
-    for af in audio_files:
-        decoded_output, decoded_offsets = transcribe(af, parser, model, decoder, device)
-        print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    while True:
+        audio_files = [
+            f
+            for f in os.listdir(args.audio_dir)
+            if os.path.isfile(os.path.join(args.audio_dir, f))
+            and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
+        ]
+        if len(audio_files) > 0:
+            print()
+            audio_file = audio_files[0]
+            decoded_output, decoded_offsets = transcribe(
+                os.path.join(args.audio_dir, audio_file), parser, model, decoder, device
+            )
+            transcription = decode_results(model, decoded_output, decoded_offsets)[
+                "output"
+            ][0]
+            print(transcription)
+            line = audio_file.split(".")[0] + " --> " + transcription + "\n"
+            with open("/speech/transcriptions.txt", "a") as the_file:
+                the_file.write(line)
+            os.remove(os.path.join(args.audio_dir, audio_file))
+        else:
+            print("Waiting for files", end="\r")
+            time.sleep(1)
