@@ -14,7 +14,32 @@ from data.data_loader import SpectrogramParser
 from model import DeepSpeech
 import os.path
 import json
-from transcribe import transcribe, decode_results
+from transcribe import transcribe
+
+def decode_results(model, decoded_output, decoded_offsets):
+    results = {
+        "output": [],
+        "_meta": {
+            "acoustic_model": {"name": os.path.basename(args.model_path)},
+            "language_model": {
+                "name": os.path.basename(args.lm_path) if args.lm_path else None
+            },
+            "decoder": {
+                "lm": args.lm_path is not None,
+                "alpha": args.alpha if args.lm_path is not None else None,
+                "beta": args.beta if args.lm_path is not None else None,
+                "type": args.decoder,
+            },
+        },
+    }
+
+    for b in range(len(decoded_output)):
+        for pi in range(min(args.top_paths, len(decoded_output[b]))):
+            result = {"transcription": decoded_output[b][pi]}
+            if args.offsets:
+                result["offsets"] = decoded_offsets[b][pi].tolist()
+            results["output"].append(result)
+    return results
 
 
 if __name__ == "__main__":
