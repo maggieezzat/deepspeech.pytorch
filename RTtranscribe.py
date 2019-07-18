@@ -116,5 +116,6 @@ if __name__ == "__main__":
                 s = "\\"
             print("Waiting for files" + s, end="\r")
             time.sleep(0.5)
-            if counter >= 7:
+            counter += 1
+            if counter > 7:
                 counter = 0
