@@ -52,6 +52,11 @@ if __name__ == "__main__":
         "--audio-dir", default="/speech/test_RT", help="Audio files to predict on"
     )
     parser.add_argument(
+        "--transcription",
+        default="/speech/transcriptions.txt",
+        help="Transcription file",
+    )
+    parser.add_argument(
         "--offsets",
         dest="offsets",
         action="store_true",
@@ -112,7 +117,7 @@ if __name__ == "__main__":
             ][0]
             print(transcription)
             line = audio_file.split(".")[0] + " --> " + transcription + "\n"
-            with open("/speech/transcriptions.txt", "a") as the_file:
+            with open(args.transcription, "a") as the_file:
                 the_file.write(line)
             os.remove(audio_path)
             print()
