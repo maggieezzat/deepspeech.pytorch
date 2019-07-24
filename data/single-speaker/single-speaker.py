@@ -31,19 +31,13 @@ def gen_csv(root_dir = dir):
         for line in lines:
             i+=1
             path = join(root_dir, line[0])
-            text = line[1]
-
-            t2 = line[2]
-            if not (text == t2):
-                error+=1
-
+            text = line[2]
 
             trans = clean_sentence(text)
             csv_list.append( (path, text) )
             print("File " +  str(i) + " / 7427", end='\r')
 
     print()
-    print(str(error))
     print("Writing CSV File:")
     df = pandas.DataFrame(data=csv_list)
     output_file = "/home/GPUAdmin1/asr/train_csvs/single_speaker.csv"
