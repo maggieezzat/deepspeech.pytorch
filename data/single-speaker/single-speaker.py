@@ -23,6 +23,7 @@ def gen_csv(root_dir = dir):
     csv_list = []
 
     trans = root_dir + "transcript.txt"
+    error = 0
     with open(trans, 'r') as f:
         lines = csv.reader(f, delimiter='|')
 
@@ -34,14 +35,15 @@ def gen_csv(root_dir = dir):
 
             t2 = line[2]
             if not (text == t2):
-                print("error")
+                error+=1
 
 
-        trans = clean_sentence(text)
-        csv_list.append( (path, text) )
-        print("File " +  str(i) + " / " +str(len(lines)), end='\r')
+            trans = clean_sentence(text)
+            csv_list.append( (path, text) )
+            print("File " +  str(i) + " / ", end='\r')
 
     print()
+    print(str(error))
     print("Writing CSV File:")
     df = pandas.DataFrame(data=csv)
     output_file = "/home/GPUAdmin1/asr/train_csvs/single_speaker.csv"
