@@ -33,8 +33,8 @@ def gen_csv(root_dir = dir):
             path = join(root_dir, line[0])
             text = line[2]
 
-            trans = clean_sentence(text)
-            csv_list.append( (path, text) )
+            clean_text = clean_sentence(text)
+            csv_list.append( (path, clean_text) )
             print("File " +  str(i) + " / 7427", end='\r')
 
     print()
