@@ -22,7 +22,7 @@ def gen_csv(root_dir = dir):
 
     csv = []
 
-    trans = join(root_dir, "/transcript.txt")
+    trans = root_dir + "transcript.txt"
     with open(trans, 'r') as f:
         lines = csv.reader(f, delimiter='|')
 
