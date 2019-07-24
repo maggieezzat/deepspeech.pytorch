@@ -20,7 +20,7 @@ dir = "/speech/german-single-speaker-speech-dataset/"
 
 def gen_csv(root_dir = dir):
 
-    csv = []
+    csv_list = []
 
     trans = root_dir + "transcript.txt"
     with open(trans, 'r') as f:
@@ -38,7 +38,7 @@ def gen_csv(root_dir = dir):
 
 
         trans = clean_sentence(text)
-        csv.append( (path, text) )
+        csv_list.append( (path, text) )
         print("File " +  str(i) + " / " +str(len(lines)), end='\r')
 
     print()
