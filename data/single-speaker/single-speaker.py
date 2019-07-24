@@ -16,7 +16,7 @@ sys.path.insert(0, parent_dir)
 from clean_text import clean_sentence
 
 
-dir = "/speech/speech/german-single-speaker-speech-dataset/"
+dir = "/speech/german-single-speaker-speech-dataset/"
 
 def gen_csv(root_dir = dir):
 
