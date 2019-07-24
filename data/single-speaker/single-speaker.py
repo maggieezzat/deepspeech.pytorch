@@ -40,12 +40,12 @@ def gen_csv(root_dir = dir):
 
             trans = clean_sentence(text)
             csv_list.append( (path, text) )
-            print("File " +  str(i) + " / ", end='\r')
+            print("File " +  str(i) + " / 7427", end='\r')
 
     print()
     print(str(error))
     print("Writing CSV File:")
-    df = pandas.DataFrame(data=csv)
+    df = pandas.DataFrame(data=csv_list)
     output_file = "/home/GPUAdmin1/asr/train_csvs/single_speaker.csv"
     df.to_csv(output_file, header=False, index=False, sep=",")
 
