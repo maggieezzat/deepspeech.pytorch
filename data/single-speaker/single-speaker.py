@@ -26,15 +26,15 @@ def gen_csv(root_dir = dir):
     with open(trans, 'r') as f:
         lines = csv.reader(f, delimiter='|')
 
-    i=0
-    for line in lines:
-        i+=1
-        path = join(root_dir, line[0])
-        text = line[1]
+        i=0
+        for line in lines:
+            i+=1
+            path = join(root_dir, line[0])
+            text = line[1]
 
-        t2 = line[2]
-        if not (text == t2):
-            print("error")
+            t2 = line[2]
+            if not (text == t2):
+                print("error")
 
 
         trans = clean_sentence(text)
