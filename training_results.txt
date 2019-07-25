@@ -46,6 +46,14 @@ Training Summary Epoch: [14]    Time taken (s): 5119    Average Loss 1.784
 Validation Summary Epoch: [14]  Average WER 25.802      Average CER 6.350
 
 
+#Added movies data, single-speaker data, --augment flag
+Training Summary Epoch: [14]    Time taken (s): 3166    Average Loss 9.937
+Validation Summary Epoch: [14]  Average WER 24.956      Average CER 6.132
+Learning rate annealed to: 0.000096
+
+
+
+
 ****************************************
 #Test Results after Epoch 8:
 #Without Language Model (Greedy Decoder) - Test Set = Tuda + Common Voice:
