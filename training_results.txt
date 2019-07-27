@@ -57,6 +57,9 @@ Validation Summary Epoch: [15]  Average WER 24.554      Average CER 6.032
 Training Summary Epoch: [16]	Time taken (s): 30435	Average Loss 8.603
 Validation Summary Epoch: [16]	Average WER 23.290	Average CER 5.703
 
+Training Summary Epoch: [17]	Time taken (s): 40969	Average Loss 8.051
+Validation Summary Epoch: [17]	Average WER 23.610	Average CER 5.840	
+Learning rate annealed to: 0.000072
 
 ****************************************
 #Test Results after Epoch 8:
