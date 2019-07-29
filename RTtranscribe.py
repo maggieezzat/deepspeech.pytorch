@@ -10,11 +10,11 @@ from decoder import GreedyDecoder
 
 import torch
 
-from data.data_loader import SpectrogramParser
+from data_loaderWin import SpectrogramParser
 from model import DeepSpeech
 import os
 import json
-from transcribe import transcribe
+from transcribeWin import transcribe
 import time
 
 
