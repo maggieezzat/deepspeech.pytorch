@@ -1,7 +1,7 @@
 def add_decoder_args(parser):
     beam_args = parser.add_argument_group("Beam Decode Options",
                                           "Configurations options for the CTC Beam Search decoder")
-    beam_args.add_argument('--top-paths', default=1, type=int, help='number of beams to return')
+    beam_args.add_argument('--top-paths', default=100, type=int, help='number of beams to return')
     beam_args.add_argument('--beam-width', default=10, type=int, help='Beam width to use')
     beam_args.add_argument('--lm-path', default=None, type=str,
                            help='Path to an (optional) kenlm language model for use with beam search (req\'d with trie)')
