@@ -140,6 +140,8 @@ class BeamCTCDecoder(Decoder):
 
         strings = self.convert_to_strings(out, seq_lens)
         offsets = self.convert_tensor(offsets, seq_lens)
+        print("FROM BEAM")
+        print(len(strings[0]))
         return strings, offsets
 
 
