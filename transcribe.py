@@ -77,6 +77,4 @@ if __name__ == '__main__':
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
-    print("FROM TRANSCRIBE")
-    print(len(decoded_output))
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
