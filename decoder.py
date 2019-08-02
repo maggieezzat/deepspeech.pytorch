@@ -21,13 +21,14 @@ from six.moves import xrange
 from rescoring import rescore_sent
 from opts import add_decoder_args,add_inference_args
 import argparse
-
+"""
 parser = argparse.ArgumentParser(description='DeepSpeech decoder')
 parser = add_inference_args(parser)
 parser.add_argument('--audio-path', default='audio.wav',
                         help='Audio file to predict on')
 parser = add_decoder_args(parser)
 args = parser.parse_args()
+"""
 class Decoder(object):
     """
     Basic decoder class from which all other decoders inherit. Implements several
