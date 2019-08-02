@@ -13,6 +13,7 @@ def add_decoder_args(parser):
     beam_args.add_argument('--cutoff-prob', default=1.0, type=float,
                            help='Cutoff probability in pruning,default 1.0, no pruning.')
     beam_args.add_argument('--lm-workers', default=1, type=int, help='Number of LM processes to use')
+    beam_args.add_argument('--rescore', dest='rescore', action='store_true', help='Use language model rescoring')
     return parser
 
 

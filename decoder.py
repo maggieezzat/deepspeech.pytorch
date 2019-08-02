@@ -18,8 +18,11 @@
 import Levenshtein as Lev
 import torch
 from six.moves import xrange
+from rescoring import rescore_sent
+from opts import add_decoder_args
 
-
+parser = add_decoder_args(parser)
+args = parser.parse_args()
 class Decoder(object):
     """
     Basic decoder class from which all other decoders inherit. Implements several
@@ -140,8 +143,9 @@ class BeamCTCDecoder(Decoder):
 
         strings = self.convert_to_strings(out, seq_lens)
         offsets = self.convert_tensor(offsets, seq_lens)
-        print("FROM BEAM")
-        print(len(strings[0]))
+        if(args.rescore):
+            print("HI there")
+            strings = rescore_sent(strings)
         return strings, offsets
 
 
