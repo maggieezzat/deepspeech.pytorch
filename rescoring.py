@@ -11,7 +11,6 @@ def rescore_sent(utterances, no_paths = 100 ,rescoring_lm = "/lm_corpus/train_ma
     for utterance in range(len(utterances)):
         maxScore = float("-inf")
         maxIndex = -1
-        print("rescore")
         for i in range(min(no_paths,len(utterances[utterance]))):
             score =   model.score(utterances[utterance][i])
             if(score > maxScore):

@@ -156,7 +156,6 @@ class BeamCTCDecoder(Decoder):
         strings = self.convert_to_strings(out, seq_lens)
         offsets = self.convert_tensor(offsets, seq_lens)
         if(args.rescore):
-            print("HI there")
             strings = rescore_sent(strings)
         return strings, offsets
 
