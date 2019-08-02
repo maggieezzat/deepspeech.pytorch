@@ -23,6 +23,7 @@ from opts import add_decoder_args
 import argparse
 
 parser = argparse.ArgumentParser(description='DeepSpeech decoder')
+parser = add_inference_args(parser)
 parser = add_decoder_args(parser)
 args = parser.parse_args()
 class Decoder(object):
