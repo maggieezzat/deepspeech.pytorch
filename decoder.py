@@ -19,7 +19,7 @@ import Levenshtein as Lev
 import torch
 from six.moves import xrange
 from rescoring import rescore_sent
-from opts import add_decoder_args
+from opts import add_decoder_args,add_inference_args
 import argparse
 
 parser = argparse.ArgumentParser(description='DeepSpeech decoder')
