@@ -20,7 +20,7 @@ import torch
 from six.moves import xrange
 from rescoring import rescore_sent
 from opts import add_decoder_args
-
+import argparse
 
 parser = argparse.ArgumentParser(description='DeepSpeech decoder')
 parser = add_decoder_args(parser)
