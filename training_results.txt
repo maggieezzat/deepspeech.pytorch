@@ -15,19 +15,19 @@ Training Summary Epoch: [4]     Time taken (s): 672     Average Loss 18.209
 Validation Summary Epoch: [4]   Average WER 34.519      Average CER 8.456
 Learning rate annealed to: 0.000225
 
-Validation Summary Epoch: [5]	Average WER 32.162	Average CER 7.801	
+Validation Summary Epoch: [5]	Average WER 32.162	Average CER 7.801
 Learning rate annealed to: 0.000205
 
-Validation Summary Epoch: [6]	Average WER 29.811	Average CER 7.368	
+Validation Summary Epoch: [6]	Average WER 29.811	Average CER 7.368
 Learning rate annealed to: 0.000186
 
-Validation Summary Epoch: [7]	Average WER 28.487	Average CER 6.903	
+Validation Summary Epoch: [7]	Average WER 28.487	Average CER 6.903
 Learning rate annealed to: 0.000169
 
 Validation Summary Epoch: [8]   Average WER 27.907      Average CER 6.927
 Learning rate annealed to: 0.000154
 
-Validation Summary Epoch: [9]	Average WER 26.624	Average CER 6.543	
+Validation Summary Epoch: [9]	Average WER 26.624	Average CER 6.543
 Learning rate annealed to: 0.000140
 
 Validation Summary Epoch: [10]  Average WER 27.005      Average CER 6.662
@@ -36,10 +36,10 @@ Learning rate annealed to: 0.000127
 Validation Summary Epoch: [11]  Average WER 26.004      Average CER 6.413
 Learning rate annealed to: 0.000116
 
-Validation Summary Epoch: [12]	Average WER 25.658	Average CER 6.320	
+Validation Summary Epoch: [12]	Average WER 25.658	Average CER 6.320
 Learning rate annealed to: 0.000105
 
-Validation Summary Epoch: [13]	Average WER 25.499	Average CER 6.282	
+Validation Summary Epoch: [13]	Average WER 25.499	Average CER 6.282
 Learning rate annealed to: 0.000096
 
 Training Summary Epoch: [14]    Time taken (s): 5119    Average Loss 1.784
@@ -58,11 +58,11 @@ Training Summary Epoch: [16]	Time taken (s): 30435	Average Loss 8.603
 Validation Summary Epoch: [16]	Average WER 23.290	Average CER 5.703
 
 Training Summary Epoch: [17]	Time taken (s): 40969	Average Loss 8.051
-Validation Summary Epoch: [17]	Average WER 23.610	Average CER 5.840	
+Validation Summary Epoch: [17]	Average WER 23.610	Average CER 5.840
 Learning rate annealed to: 0.000072
 
-Training Summary Epoch: [18]	Time taken (s): 40957	Average Loss 7.382	
-Validation Summary Epoch: [18]	Average WER 22.919	Average CER 5.605	
+Training Summary Epoch: [18]	Time taken (s): 40957	Average Loss 7.382
+Validation Summary Epoch: [18]	Average WER 22.919	Average CER 5.605
 Learning rate annealed to: 0.000065
 
 
@@ -76,7 +76,9 @@ Test Summary    Average WER 42.813      Average CER 11.761
 
 
 
-#With Language Model: 
+#With Language Model:
+(Wrong)
+->
 # 3-gram LM, beam-width 10, alpha 0.9, beta 0.3 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 22.191      Average CER 12.094
 
@@ -97,6 +99,8 @@ Test Summary    Average WER 20.947      Average CER 10.455
 
 # 3-gram LM, beam-width 100, alpha 0.9, beta 0.3 - Test Set = Tuda only:
 Test Summary    Average WER 18.890      Average CER 9.222
+<-
+(Wrong)
 
 [====Using SRILM====]
 (ngram-count to create both lm for mary and train, and ngram -mix-lm with different weights to mary)
@@ -131,13 +135,13 @@ Test Summary    Average WER 19.466      Average CER 7.085
 # 4-gram LM (Mary+10*train) , beam-width 150, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.496      Average CER 7.098
 
-# 4-gram LM (Mary+train) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
-Test Summary    Average WER 19.273      Average CER 6.941	
+# 4-gram LM (Mary+train) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 19.273      Average CER 6.941
 
-# 4-gram LM (Mary+train) , beam-width 250, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
-Test Summary    Average WER 19.172      Average CER 6.854	
+# 4-gram LM (Mary+train) , beam-width 250, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 19.172      Average CER 6.854
 
-# 4-gram LM (Mary+train) , beam-width 350, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:	
+# 4-gram LM (Mary+train) , beam-width 350, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 19.003      Average CER 6.727
 
 # 4-gram LM (Mary) , beam-width 100, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
@@ -154,6 +158,9 @@ Test Summary    Average WER 19.092      Average CER 7.301
 
 # 4-gram LM (Mary+train+ 5_million_web+ Wiki) , beam-width 350, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 17.831      Average CER 6.552
+
+# 4-gram LM (Mary+train) , beam-width 500, alpha 0.9, beta 0.3 - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 17.074      Average CER 6.020
 
 ****************************************
 

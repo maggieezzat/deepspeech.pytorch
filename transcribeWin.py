@@ -20,25 +20,27 @@ def decode_results(model, decoded_output, decoded_offsets):
     results = {
         "output": [],
         "_meta": {
-            "acoustic_model": {"name": os.path.basename(args.model_path)},
+            "acoustic_model": {
+                "name": os.path.basename(args.model_path)
+            },
             "language_model": {
-                "name": os.path.basename(args.lm_path) if args.lm_path else None
+                "name": os.path.basename(args.lm_path) if args.lm_path else None,
             },
             "decoder": {
                 "lm": args.lm_path is not None,
                 "alpha": args.alpha if args.lm_path is not None else None,
                 "beta": args.beta if args.lm_path is not None else None,
                 "type": args.decoder,
-            },
-        },
+            }
+        }
     }
 
     for b in range(len(decoded_output)):
         for pi in range(min(args.top_paths, len(decoded_output[b]))):
-            result = {"transcription": decoded_output[b][pi]}
+            result = {'transcription': decoded_output[b][pi]}
             if args.offsets:
-                result["offsets"] = decoded_offsets[b][pi].tolist()
-            results["output"].append(result)
+                result['offsets'] = decoded_offsets[b][pi].tolist()
+            results['output'].append(result)
     return results
 
 
@@ -53,6 +55,8 @@ def transcribe(audio_path, parser, model, decoder, device):
 
 
 if __name__ == "__main__":
+    import time 
+    t1 = time.time()
     parser = argparse.ArgumentParser(description="DeepSpeech transcription")
     parser = add_inference_args(parser)
     parser.add_argument(
@@ -90,4 +94,7 @@ if __name__ == "__main__":
     decoded_output, decoded_offsets = transcribe(
         args.audio_path, parser, model, decoder, device
     )
-    print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    string = decode_results(model, decoded_output, decoded_offsets)
+
+    print(string)
+    print(time.time()- t1)
