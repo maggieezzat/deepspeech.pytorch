@@ -7,9 +7,7 @@ def rescore_sent(utterances, rescoring_lm ,no_paths=100):
     to return the most probable one
     """
     rescoring_results = [[] for j in range(len(utterances))]
-    print("=== Loading rescoring model ===")
     model = kenlm.LanguageModel(rescoring_lm)
-    print("=== Start rescoring ===")
     for utterance in range(len(utterances)):
         maxScore = float("-inf")
         maxIndex = -1

@@ -165,6 +165,9 @@ Test Summary    Average WER 17.074      Average CER 6.020
 # 6-gram LM (Mary+train) , beam-width 500, alpha 0.9, beta 0.3 - Test Set = Tuda + Common Voice:
 Test Summary    Average WER 17.069      Average CER 6.014
 
+# 4-gram LM (Mary+train) [Rescoring with 4-gram LM (Mary+train+ 5_million_web+ Wiki) ] , beam-width 500, alpha 0.9, beta 0.2 - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 20.831      Average CER 7.304
+
 ****************************************
 
 ##############################################################################
