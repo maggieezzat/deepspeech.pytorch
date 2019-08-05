@@ -1,5 +1,5 @@
 import Levenshtein as Lev
-
+from data.clean_text import clean_sentence
 
 def werC(s1, s2):
     """
