@@ -56,7 +56,6 @@ special_replacers = {
     "m³": "kubikmeter",
     "km²": "quadratkilometer",
     "m²": "quadratmeter",
-    "<UNK>": ""
 }
 
 replacements = {}
