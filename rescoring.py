@@ -1,7 +1,7 @@
 import kenlm
 
 
-def rescore_sent(utterances, no_paths = 100 ,rescoring_lm = "/lm_corpus/train_mary.binary"):
+def rescore_sent(utterances, no_paths = 100 ,rescoring_lm = "/lm_corpus/mt_sixgram.binary"):
     """
     takes as an input the output sentences from the beam search lm and scores them with a bigger lm
     to return the most probable one
@@ -14,11 +14,12 @@ def rescore_sent(utterances, no_paths = 100 ,rescoring_lm = "/lm_corpus/train_ma
         for i in range(min(no_paths,len(utterances[utterance]))):
             score =   model.score(utterances[utterance][i])
             if(score > maxScore):
-                print(score)
-                print(maxScore)
+                #print(score)
+                #print(maxScore)
                 maxScore = score
                 maxIndex = i
         rescoring_results[utterance].append(utterances[utterance][maxIndex])
+        print(rescoring_results[utterance])
             
     return rescoring_results
     
