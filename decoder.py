@@ -201,7 +201,7 @@ class BeamCTCDecoder(Decoder):
         if args.rescore:
             from rescoring import rescore_sent
 
-            strings = rescore_sent(strings)
+            strings = rescore_sent(strings,args.rescore-lm)
         return strings, offsets
 
 

@@ -14,6 +14,7 @@ def add_decoder_args(parser):
                            help='Cutoff probability in pruning,default 1.0, no pruning.')
     beam_args.add_argument('--lm-workers', default=1, type=int, help='Number of LM processes to use')
     beam_args.add_argument('--rescore', dest='rescore', action='store_true', help='Use language model rescoring')
+    beam_args.add_argument('--rescore-lm',default = "/lm_corpus/all_4gram.binary", dest='rescore-lm'type =str, help='Language model path used for rescoring')
     return parser
 
 

@@ -1,7 +1,7 @@
 import kenlm
 
 
-def rescore_sent(utterances, no_paths=100, rescoring_lm="/lm_corpus/mt_sixgram.binary"):
+def rescore_sent(utterances, rescoring_lm ,no_paths=100):
     """
     takes as an input the output sentences from the beam search lm and scores them with a bigger lm
     to return the most probable one
