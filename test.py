@@ -27,7 +27,7 @@ if __name__ == '__main__':
     model = load_model(device, args.model_path, args.cuda)
 
     #model = torch.nn.DataParallel(model)
-
+    print("=== Loading the model ===")
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
 
@@ -39,10 +39,12 @@ if __name__ == '__main__':
     else:
         decoder = None
     target_decoder = GreedyDecoder(model.labels, blank_index=model.labels.index('_'))
+    print("=== Loading the data ===")
     test_dataset = SpectrogramDataset(audio_conf=model.audio_conf, manifest_filepath=args.test_manifest,
                                       labels=model.labels, normalize=True)
     test_loader = AudioDataLoader(test_dataset, batch_size=args.batch_size,
                                   num_workers=args.num_workers)
+    print("=== Start testing ===")
     total_cer, total_wer, num_tokens, num_chars = 0, 0, 0, 0
     output_data = []
     for i, (data) in tqdm(enumerate(test_loader), total=len(test_loader)):
