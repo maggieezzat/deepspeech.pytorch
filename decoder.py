@@ -15,26 +15,46 @@
 # ----------------------------------------------------------------------------
 # Modified to support pytorch Tensors
 
+import argparse
+
 import Levenshtein as Lev
 import torch
 from six.moves import xrange
-from rescoring import rescore_sent
-from opts import add_decoder_args,add_inference_args
-import argparse
 
-parser = argparse.ArgumentParser(description='DeepSpeech decoder')
+from opts import add_decoder_args, add_inference_args
+
+parser = argparse.ArgumentParser(description="DeepSpeech decoder")
 parser = add_inference_args(parser)
-parser.add_argument('--audio-path', default='audio.wav',
-                       help='Audio file to predict on')
-parser.add_argument('--test-manifest', metavar='DIR',
-                    help='path to validation manifest csv', default='data/test_manifest.csv')
-parser.add_argument('--batch-size', default=20, type=int, help='Batch size for training')
-parser.add_argument('--num-workers', default=4, type=int, help='Number of workers used in dataloading')
-parser.add_argument('--verbose', action="store_true", help="print out decoded output and error of each sample")
-parser.add_argument('--output-path', default=None, type=str, help="Where to save raw acoustic output")
+parser.add_argument(
+    "--audio-path", default="audio.wav", help="Audio file to predict on"
+)
+parser.add_argument(
+    "--test-manifest",
+    metavar="DIR",
+    help="path to validation manifest csv",
+    default="data/test_manifest.csv",
+)
+parser.add_argument(
+    "--batch-size", default=20, type=int, help="Batch size for training"
+)
+parser.add_argument(
+    "--num-workers", default=4, type=int, help="Number of workers used in dataloading"
+)
+parser.add_argument(
+    "--verbose",
+    action="store_true",
+    help="print out decoded output and error of each sample",
+)
+parser.add_argument(
+    "--output-path", default=None, type=str, help="Where to save raw acoustic output"
+)
 parser = add_decoder_args(parser)
-parser.add_argument('--save-output', action="store_true", help="Saves output of model from test")
+parser.add_argument(
+    "--save-output", action="store_true", help="Saves output of model from test"
+)
 args = parser.parse_args()
+
+
 class Decoder(object):
     """
     Basic decoder class from which all other decoders inherit. Implements several
@@ -51,9 +71,11 @@ class Decoder(object):
         self.labels = labels
         self.int_to_char = dict([(i, c) for (i, c) in enumerate(labels)])
         self.blank_index = blank_index
-        space_index = len(labels)  # To prevent errors in decode, we add an out of bounds index for the space
-        if ' ' in labels:
-            space_index = labels.index(' ')
+        space_index = len(
+            labels
+        )  # To prevent errors in decode, we add an out of bounds index for the space
+        if " " in labels:
+            space_index = labels.index(" ")
         self.space_index = space_index
 
     def wer(self, s1, s2):
@@ -74,7 +96,7 @@ class Decoder(object):
         w1 = [chr(word2char[w]) for w in s1.split()]
         w2 = [chr(word2char[w]) for w in s2.split()]
 
-        return Lev.distance(''.join(w1), ''.join(w2))
+        return Lev.distance("".join(w1), "".join(w2))
 
     def cer(self, s1, s2):
         """
@@ -84,7 +106,7 @@ class Decoder(object):
             s1 (string): space-separated sentence
             s2 (string): space-separated sentence
         """
-        s1, s2, = s1.replace(' ', ''), s2.replace(' ', '')
+        s1, s2, = s1.replace(" ", ""), s2.replace(" ", "")
         return Lev.distance(s1, s2)
 
     def decode(self, probs, sizes=None):
@@ -103,15 +125,34 @@ class Decoder(object):
 
 
 class BeamCTCDecoder(Decoder):
-    def __init__(self, labels, lm_path=None, alpha=0, beta=0, cutoff_top_n=40, cutoff_prob=1.0, beam_width=100,
-                 num_processes=4, blank_index=0):
+    def __init__(
+        self,
+        labels,
+        lm_path=None,
+        alpha=0,
+        beta=0,
+        cutoff_top_n=40,
+        cutoff_prob=1.0,
+        beam_width=100,
+        num_processes=4,
+        blank_index=0,
+    ):
         super(BeamCTCDecoder, self).__init__(labels)
         try:
             from ctcdecode import CTCBeamDecoder
         except ImportError:
             raise ImportError("BeamCTCDecoder requires paddledecoder package.")
-        self._decoder = CTCBeamDecoder(labels, lm_path, alpha, beta, cutoff_top_n, cutoff_prob, beam_width,
-                                       num_processes, blank_index)
+        self._decoder = CTCBeamDecoder(
+            labels,
+            lm_path,
+            alpha,
+            beta,
+            cutoff_top_n,
+            cutoff_prob,
+            beam_width,
+            num_processes,
+            blank_index,
+        )
 
     def convert_to_strings(self, out, seq_len):
         results = []
@@ -120,9 +161,11 @@ class BeamCTCDecoder(Decoder):
             for p, utt in enumerate(batch):
                 size = seq_len[b][p]
                 if size > 0:
-                    transcript = ''.join(map(lambda x: self.int_to_char[x.item()], utt[0:size]))
+                    transcript = "".join(
+                        map(lambda x: self.int_to_char[x.item()], utt[0:size])
+                    )
                 else:
-                    transcript = ''
+                    transcript = ""
                 utterances.append(transcript)
             results.append(utterances)
         return results
@@ -155,7 +198,9 @@ class BeamCTCDecoder(Decoder):
 
         strings = self.convert_to_strings(out, seq_lens)
         offsets = self.convert_tensor(offsets, seq_lens)
-        if(args.rescore):
+        if args.rescore:
+            from rescoring import rescore_sent
+
             strings = rescore_sent(strings)
         return strings, offsets
 
@@ -164,13 +209,17 @@ class GreedyDecoder(Decoder):
     def __init__(self, labels, blank_index=0):
         super(GreedyDecoder, self).__init__(labels, blank_index)
 
-    def convert_to_strings(self, sequences, sizes=None, remove_repetitions=False, return_offsets=False):
+    def convert_to_strings(
+        self, sequences, sizes=None, remove_repetitions=False, return_offsets=False
+    ):
         """Given a list of numeric sequences, returns the corresponding strings"""
         strings = []
         offsets = [] if return_offsets else None
         for x in xrange(len(sequences)):
             seq_len = sizes[x] if sizes is not None else len(sequences[x])
-            string, string_offsets = self.process_string(sequences[x], seq_len, remove_repetitions)
+            string, string_offsets = self.process_string(
+                sequences[x], seq_len, remove_repetitions
+            )
             strings.append([string])  # We only return one path
             if return_offsets:
                 offsets.append([string_offsets])
@@ -180,16 +229,20 @@ class GreedyDecoder(Decoder):
             return strings
 
     def process_string(self, sequence, size, remove_repetitions=False):
-        string = ''
+        string = ""
         offsets = []
         for i in range(size):
             char = self.int_to_char[sequence[i].item()]
             if char != self.int_to_char[self.blank_index]:
                 # if this char is a repetition and remove_repetitions=true, then skip
-                if remove_repetitions and i != 0 and char == self.int_to_char[sequence[i - 1].item()]:
+                if (
+                    remove_repetitions
+                    and i != 0
+                    and char == self.int_to_char[sequence[i - 1].item()]
+                ):
                     pass
                 elif char == self.labels[self.space_index]:
-                    string += ' '
+                    string += " "
                     offsets.append(i)
                 else:
                     string = string + char
@@ -209,6 +262,10 @@ class GreedyDecoder(Decoder):
             offsets: time step per character predicted
         """
         _, max_probs = torch.max(probs, 2)
-        strings, offsets = self.convert_to_strings(max_probs.view(max_probs.size(0), max_probs.size(1)), sizes,
-                                                   remove_repetitions=True, return_offsets=True)
+        strings, offsets = self.convert_to_strings(
+            max_probs.view(max_probs.size(0), max_probs.size(1)),
+            sizes,
+            remove_repetitions=True,
+            return_offsets=True,
+        )
         return strings, offsets
