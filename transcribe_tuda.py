@@ -7,8 +7,7 @@ if(not os.path.exists("/speech/missing.txt")):
     with open("/home/GPUAdmin1/asr/test.csv","rb") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            row = row.decode("utf-8-sig")
-            os.system("bash /data/home/GPUAdmin1/kaldi/egs/tuda/decode_wav.sh "+ row[0])
+            os.system("bash /data/home/GPUAdmin1/kaldi/egs/tuda/decode_wav.sh "+ row[0].decode("utf-8-sig"))
             #give the server some time
             #time.sleep(0.25)
 
