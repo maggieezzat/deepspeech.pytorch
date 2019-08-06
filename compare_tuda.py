@@ -80,7 +80,7 @@ with open("/speech/kaldi_transcriptions.txt", "r", encoding="utf-8-sig") as txt:
         transcribed_paths.append(split[0])
         references.append(test[split[0]])
 
-if len(transcripts) != len(references):
+if len(transcripts) != len(test):
     print("NOT ALL DATA IS TRANSCRIBED")
     with open("/speech/missing.txt", "a") as f:
         for key in test:
