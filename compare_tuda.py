@@ -73,6 +73,7 @@ references = []
 with open("/speech/kaldi_transcriptions.txt","r") as txt:
     for line in txt:
         split = line.split("\t",1)
+        split[1] = split[1].replace("<UNK>","")
         transcripts.append(clean_sentence(split[1]))
         transcribed_paths.append(split[0])
         references.append(test[split[0]])
