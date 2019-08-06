@@ -4,7 +4,7 @@ import time
 #given that the worker and server are already running
 
 if(not os.path.exists("/speech/missing.txt")):
-    with open("/home/GPUAdmin1/asr/test.csv",encoding="utf-8-sig") as csv_file:
+    with open("/home/GPUAdmin1/asr/test.csv","r",encoding="utf-8-sig") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
             os.system("bash /data/home/GPUAdmin1/kaldi/egs/tuda/decode_wav.sh "+ row[0])
