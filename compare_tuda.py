@@ -82,7 +82,7 @@ with open("/speech/kaldi_transcriptions.txt", "r", encoding="utf-8-sig") as txt:
 
 if len(transcripts) != len(test):
     print("NOT ALL DATA IS TRANSCRIBED")
-    with open("/speech/missing.txt", "a") as f:
+    with open("/speech/missing.txt", "w") as f:
         for key in test:
             if key not in transcribed_paths:
                 f.write(key + "\n")
