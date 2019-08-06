@@ -2,6 +2,7 @@ import csv
 import Levenshtein as Lev
 from data.clean_text import clean_sentence
 
+
 def werC(s1, s2):
     """
     Computes the Word Error Rate, defined as the edit distance between the
@@ -57,33 +58,34 @@ def compare(transcripts, references):
 
     return (wer, cer)
 
-
     ## TODO remove <UNK>
     ## TODO clean sentence
+
+
 test = {}
 with open("/home/GPUAdmin1/asr/test.csv") as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
+    csv_reader = csv.reader(csv_file, delimiter=",")
     for row in csv_reader:
-        test.add(row[0],row[1])
+        test[row[0]] = row[1]
 
 transcripts = []
 transcribed_paths = []
 references = []
 
-with open("/speech/kaldi_transcriptions.txt","r") as txt:
+with open("/speech/kaldi_transcriptions.txt", "r") as txt:
     for line in txt:
-        split = line.split("\t",1)
-        split[1] = split[1].replace("<UNK>","")
+        split = line.split("\t", 1)
+        split[1] = split[1].replace("<UNK>", "")
         transcripts.append(clean_sentence(split[1]))
         transcribed_paths.append(split[0])
         references.append(test[split[0]])
 
-if(len(transcripts) != len(references)):
+if len(transcripts) != len(references):
     print("NOT ALL DATA IS TRANSCRIBED")
     with open("/speech/missing.txt", "a") as f:
         for key in test:
-            if(key not in transcribed_paths):
-                f.write(key+"\n")
+            if key not in transcribed_paths:
+                f.write(key + "\n")
 
     print("missing wav files found in /speech/missing.txt")
 
@@ -91,4 +93,3 @@ if(len(transcripts) != len(references)):
 else:
     compare(transcripts, references)
 
-                        
