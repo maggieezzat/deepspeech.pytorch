@@ -63,7 +63,7 @@ def compare(transcripts, references):
 
 
 test = {}
-with open("/home/GPUAdmin1/asr/test.csv") as csv_file:
+with open("/home/GPUAdmin1/asr/test.csv", encoding="utf-8-sig") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=",")
     for row in csv_reader:
         test[row[0]] = row[1]
@@ -72,7 +72,7 @@ transcripts = []
 transcribed_paths = []
 references = []
 
-with open("/speech/kaldi_transcriptions.txt", "r") as txt:
+with open("/speech/kaldi_transcriptions.txt", "r", encoding="utf-8-sig") as txt:
     for line in txt:
         split = line.split("\t", 1)
         split[1] = split[1].replace("<UNK>", "")
@@ -91,5 +91,5 @@ if len(transcripts) != len(references):
 
 
 else:
-    compare(transcripts, references)
+    print(compare(transcripts, references))
 
