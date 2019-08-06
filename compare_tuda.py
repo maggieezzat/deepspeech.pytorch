@@ -61,7 +61,7 @@ def compare(transcripts, references):
     ## TODO remove <UNK>
     ## TODO clean sentence
 test = {}
-with open("home/GPUAdmin1/asr/test.csv") as csv_file:
+with open("/home/GPUAdmin1/asr/test.csv") as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     for row in csv_reader:
         test.add(row[0],row[1])
