@@ -94,7 +94,11 @@ if __name__ == '__main__':
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         with open(output_file, 'w+') as trans:
+            i=0
             for item in content:
+                i+=1
+                if i>=5:
+                    break
                 filename=item.split(',')[0]
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
