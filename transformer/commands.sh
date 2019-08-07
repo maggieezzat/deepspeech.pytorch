@@ -1,7 +1,7 @@
 USR_DIR=/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/
 PROBLEM=asr_correction
 MODEL=transformer
-HPARAMS=transformer_tiny
+HPARAMS=transformer_big
 DATA_DIR=$HOME/t2t_data
 TMP_DIR=/tmp/t2t_datagen
 mkdir -p $DATA_DIR $TMP_DIR

@@ -66,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/german-single-speaker-transcriptions/german-single-speaker-transcriptions.csv', 
+    parser.add_argument('--transcriptions-path', default='/speech/epoch13_transcriptions/german-single-speaker-transcriptions.csv', 
                         help='Path to save transcriptions of audio files')
     
     
@@ -90,7 +90,7 @@ if __name__ == '__main__':
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         i=0
-        with open(output_file, 'w+') as trans:
+        with open(output_file, 'a') as trans:
             for item in content:
                 i=i+1
                 filename=item.split(',')[0]
