@@ -88,8 +88,10 @@ if __name__ == '__main__':
     output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.txt"
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
+        i=0
         with open(output_file, 'w+') as trans:
             for item in content:
+                i=i+1
                 filename=item.split(',')[0]
                 print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
