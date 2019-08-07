@@ -89,7 +89,7 @@ if __name__ == '__main__':
         with open(out_file, 'w') as f:
             f.write(decoded_output)
         
-        t2t_decoder.main(data_dir="",
+        t2t_decoder.main(data_dir="/data/home/GPUAdmin1/t2t_data",
         problem="asr_correction",
         model="transformer",
         hparams_set="transformer_big",
