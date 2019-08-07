@@ -89,6 +89,7 @@ if __name__ == '__main__':
     #    os.makedirs(args.transcriptions_path)
 
     #files = os.listdir(args.audio_dir_path)
+    print(args.transcriptions_path)
     output_file=os.path.join(args.transcriptions_path, "/german-single-speaker-transcriptions.txt")
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
