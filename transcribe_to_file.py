@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
-    output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.txt"
+    output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.csv"
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         i=0
