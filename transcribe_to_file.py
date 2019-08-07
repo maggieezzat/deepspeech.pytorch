@@ -104,7 +104,8 @@ if __name__ == '__main__':
                 print(type(decoded_output[0][0]))
                 print(type(filename))
                 print(type(ground_truth))
-                trans.write(str(filename) + "," + str(decoded_output[0][0]) + str(ground_truth) + "," + '\n')  
+                trans.write(str(filename) + "," +  "," + str(ground_truth) +  '\n')  
+                #str(decoded_output[0][0]) +
 
     #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
     #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
