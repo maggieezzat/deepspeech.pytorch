@@ -69,6 +69,8 @@ if __name__ == '__main__':
     device = torch.device("cuda" if args.cuda else "cpu")
     model = load_model(device, args.model_path, args.cuda)
 
+    print(args.auto_correct)
+
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
 
@@ -83,6 +85,7 @@ if __name__ == '__main__':
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
     if args.auto_correct == True:
+        print("hello")
         from tensor2tensor.bin import t2t_decoder
         
         out_file = '/data/home/GPUAdmin1/asr/greedy_decoder_output.txt' 
