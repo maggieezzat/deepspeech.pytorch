@@ -1,6 +1,7 @@
 #!/bin/bash
 
 python -m multiproc train.py \
+--visdom \
 --train-manifest "/home/GPUAdmin1/asr/train.csv" \
 --val-manifest "/home/GPUAdmin1/asr/dev.csv" \
 --batch-size 14 \
