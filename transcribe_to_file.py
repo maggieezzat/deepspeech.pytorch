@@ -85,24 +85,15 @@ if __name__ == '__main__':
 
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
-    #if not os.path.exists(args.transcriptions_path):
-    #    os.makedirs(args.transcriptions_path)
-
-    #files = os.listdir(args.audio_dir_path)
-    print(args.transcriptions_path)
     output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.txt"
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         with open(output_file, 'w+') as trans:
-            i=0
             for item in content:
-                i+=1
-                if i>=5:
-                    break
                 filename=item.split(',')[0]
+                print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth)  
 
-    #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
-    #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    print("Done transcribing all files ")
