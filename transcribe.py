@@ -61,7 +61,7 @@ if __name__ == '__main__':
                         help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
-    parser.add_argument('--auto-correct', default=False,
+    parser.add_argument('--auto-correct', default=True,
                         help='Use transformer auto correction on decoded output')
     
     parser = add_decoder_args(parser)
@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
-    if args.auto_correct == "True":
+    if args.auto_correct == True:
         print("hello")
         from tensor2tensor.bin import t2t_decoder
         
