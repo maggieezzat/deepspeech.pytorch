@@ -62,7 +62,7 @@ if __name__ == '__main__':
     #                    help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
-    parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/', 
+    parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
                         help='Path of csv of audio files to transcribe')
     
     parser.add_argument('--transcriptions-path', default='/speech/german-single-speaker-transcriptions/', 
