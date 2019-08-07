@@ -99,5 +99,7 @@ if __name__ == '__main__':
         decode_to_file="/data/home/GPUAdmin1/asr/transformer_decoder_output.txt",
         t2t_usr_dir="/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
 
+        print("hi")
+
 
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
