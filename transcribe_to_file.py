@@ -62,10 +62,10 @@ if __name__ == '__main__':
     #                    help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
-    parser.add_argument('--audio-dir-path', default='/speech/german-data-single-speaker/', 
-                        help='Path of audio files to transcribe')
+    parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/', 
+                        help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/german-data-single-speaker-transcriptions/', 
+    parser.add_argument('--transcriptions-path', default='/speech/german-single-speaker-transcriptions/', 
                         help='Path to save transcriptions of audio files')
     
     
@@ -88,12 +88,15 @@ if __name__ == '__main__':
     if not os.path.exists(args.transcriptions_path):
         os.makedirs(args.transcriptions_path)
 
-    files = os.listdir(args.audio_dir_path)
-    output_file=os.join(args.transcriptions_path, "/german-data-single-speaker-transcriptions.txt")
-    with open(output_file, 'w+'):
-        for filename in files:
-            decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
-            output_file.write(filename + ","+ decoded_output+'\n')  
+    #files = os.listdir(args.audio_dir_path)
+    output_file=os.join(args.transcriptions_path, "/german-single-speaker-transcriptions.txt")
+    with open(args.audio_csv_path, 'r') as csv_file:
+        content=csv_file.readlines()
+        with open(output_file, 'w+') as trans:
+            for item in content:
+                filename=item.split(',')[0]
+                decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
+                trans.write(filename + ","+ decoded_output+'\n')  
 
     #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
     #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
