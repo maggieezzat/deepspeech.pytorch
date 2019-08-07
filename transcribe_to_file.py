@@ -93,7 +93,7 @@ if __name__ == '__main__':
         with open(output_file, 'a') as trans:
             for item in content:
                 i=i+1
-                if i<3864:
+                if i<8945:
                     continue
                 filename=item.split(',')[0]
                 print("transcribing: "+ filename, end = '\r')
