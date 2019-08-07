@@ -60,6 +60,10 @@ if __name__ == '__main__':
     parser.add_argument('--audio-path', default='audio.wav',
                         help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
+    
+    parser.add_argument('--auto-correct', default=False,
+                        help='Use transformer auto correction on decoded output')
+    
     parser = add_decoder_args(parser)
     args = parser.parse_args()
     device = torch.device("cuda" if args.cuda else "cpu")
@@ -77,4 +81,11 @@ if __name__ == '__main__':
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
+
+    if args.auto_correct == True:
+        from tensor2tensor.bin import t2t_decoder
+        t2t_decoder()
+
+
+
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
