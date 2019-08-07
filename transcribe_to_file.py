@@ -92,7 +92,7 @@ if __name__ == '__main__':
     output_file=os.path.join(args.transcriptions_path, "/german-single-speaker-transcriptions.txt")
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
-        with open(output_file, 'w+') as trans:
+        with open(output_file, 'wb') as trans:
             for item in content:
                 filename=item.split(',')[0]
                 ground_truth=item.split(',')[1]
