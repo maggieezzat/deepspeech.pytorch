@@ -11,6 +11,7 @@ from decoder import GreedyDecoder
 import torch
 
 from data.data_loader import SpectrogramParser
+#from data_loaderWin import SpectrogramParser
 from model import DeepSpeech
 import os.path
 import os
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/german-single-speaker-transcriptions/', 
+    parser.add_argument('--transcriptions-path', default='/speech/german-single-speaker-transcriptions/german-single-speaker-transcriptions.csv', 
                         help='Path to save transcriptions of audio files')
     
     
@@ -85,7 +86,7 @@ if __name__ == '__main__':
 
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
-    output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.csv"
+    output_file=args.transcriptions_path
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         i=0
