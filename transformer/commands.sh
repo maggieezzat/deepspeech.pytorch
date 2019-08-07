@@ -27,6 +27,8 @@ t2t-trainer \
 
 BEAM_SIZE=4
 ALPHA=0.6
+DECODE_FILE=$DATA_DIR/asr_correction_data_to_decode.txt
+
 echo "hanake hatte allem korperschmuk den einem japanisches medbchen sützhen drücpennd und liegend zeugen muss" >> $DECODE_FILE
 #hanake hatte allen körperschmuck den ein japanisches mädchen sitzend trippelnd und liegend zeigen muss
 echo "um zulegen göttlichen schönhaiten der fergänglickeit getzil zu werden ie hal war biegsam wie alne reie fel dur" >> $DECODE_FILE
@@ -36,7 +38,7 @@ echo "ürer aun nur kut wi die flügel eilnes noch nicht fluge sperrerlings so h
 echo "zu aurbeutetdu sie vorsichtig wie unter eimer glausglocke geng sie abends mit ihrer diemnerin auf dem hohen holzschund zum theautur" >> $DECODE_FILE
 #so arbeitete sie vorsichtig wie unter einer glasglocke ging sie abends mit ihrer dienerin auf den hohen holzschuhen zum theater
 
-DECODE_FILE=$DATA_DIR/asr_correction_data_to_decode.txt
+
 
 t2t-decoder \
   --data_dir=$DATA_DIR \
