@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 print(decoded_output)
-                print(groud_truth)
+                print(ground_truth)
                 print(type(decoded_output))
                 print(type(filename))
                 print(type(ground_truth))
