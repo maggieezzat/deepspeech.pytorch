@@ -83,11 +83,18 @@ with open("/speech/kaldi_transcriptions.txt", "r", encoding="utf-8-sig") as txt:
 if len(transcripts) != len(test):
     print("NOT ALL DATA IS TRANSCRIBED")
     with open("/speech/missing.txt", "w") as f:
-        for key in test:
-            if key not in transcribed_paths:
-                f.write(key + "\n")
+        with open("/speech/missing2.txt", "w") as f2:
+            counter = 0
+            for key in test:
+                if key not in transcribed_paths:
+                    if counter%2 ==0 :
+                        f.write(key + "\n") 
+                    else :  
+                        f2.write(key + "\n") 
+                    counter +=1 
+                            
 
-    print("missing wav files found in /speech/missing.txt")
+    print("missing wav files found in /speech/missing.txt and missing2.txt")
 
 
 else:
