@@ -52,6 +52,7 @@ parser = add_decoder_args(parser)
 parser.add_argument(
     "--save-output", action="store_true", help="Saves output of model from test"
 )
+parser = add_training_args(parser)
 args = parser.parse_args()
 
 
@@ -200,7 +201,6 @@ class BeamCTCDecoder(Decoder):
         offsets = self.convert_tensor(offsets, seq_lens)
         if args.rescore:
             from rescoring import rescore_sent
-
             strings = rescore_sent(strings,args.rescore_lm)
         return strings, offsets
 
