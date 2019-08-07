@@ -99,7 +99,7 @@ if __name__ == '__main__':
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 print(decoded_output)
-                trans.write(filename + "," + decoded_output + ground_truth + "," + '\n')  
+                trans.write(filename + "," + decoded_output[0][0] + ground_truth + "," + '\n')  
 
     #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
     #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
