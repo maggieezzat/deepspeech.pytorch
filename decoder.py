@@ -21,40 +21,7 @@ import Levenshtein as Lev
 import torch
 from six.moves import xrange
 
-from opts import add_decoder_args, add_inference_args,add_training_args
-
-parser = argparse.ArgumentParser(description="DeepSpeech decoder")
-parser = add_inference_args(parser)
-parser.add_argument(
-    "--audio-path", default="audio.wav", help="Audio file to predict on"
-)
-parser.add_argument(
-    "--test-manifest",
-    metavar="DIR",
-    help="path to validation manifest csv",
-    default="data/test_manifest.csv",
-)
-parser.add_argument(
-    "--batch-size", default=20, type=int, help="Batch size for training"
-)
-parser.add_argument(
-    "--num-workers", default=4, type=int, help="Number of workers used in dataloading"
-)
-parser.add_argument(
-    "--verbose",
-    action="store_true",
-    help="print out decoded output and error of each sample",
-)
-parser.add_argument(
-    "--output-path", default=None, type=str, help="Where to save raw acoustic output"
-)
-parser = add_decoder_args(parser)
-parser.add_argument(
-    "--save-output", action="store_true", help="Saves output of model from test"
-)
-parser = add_training_args(parser)
-args = parser.parse_args()
-
+from opts import add_decoder_args, add_inference_args
 
 class Decoder(object):
     """
@@ -201,6 +168,39 @@ class BeamCTCDecoder(Decoder):
         offsets = self.convert_tensor(offsets, seq_lens)
         if args.rescore:
             from rescoring import rescore_sent
+
+            parser = argparse.ArgumentParser(description="DeepSpeech decoder")
+            parser = add_inference_args(parser)
+            parser.add_argument(
+                "--audio-path", default="audio.wav", help="Audio file to predict on"
+            )
+            parser.add_argument(
+                "--test-manifest",
+                metavar="DIR",
+                help="path to validation manifest csv",
+                default="data/test_manifest.csv",
+            )
+            parser.add_argument(
+                "--batch-size", default=20, type=int, help="Batch size for training"
+            )
+            parser.add_argument(
+                "--num-workers", default=4, type=int, help="Number of workers used in dataloading"
+            )
+            parser.add_argument(
+                "--verbose",
+                action="store_true",
+                help="print out decoded output and error of each sample",
+            )
+            parser.add_argument(
+                "--output-path", default=None, type=str, help="Where to save raw acoustic output"
+            )
+            parser = add_decoder_args(parser)
+            parser.add_argument(
+                "--save-output", action="store_true", help="Saves output of model from test"
+            )
+            args = parser.parse_args()
+
+
             strings = rescore_sent(strings,args.rescore_lm)
         return strings, offsets
 
