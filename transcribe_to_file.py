@@ -93,19 +93,12 @@ if __name__ == '__main__':
     output_file=args.transcriptions_path + "/german-single-speaker-transcriptions.txt"
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
-        with open(output_file, 'wb') as trans:
+        with open(output_file, 'w+') as trans:
             for item in content:
                 filename=item.split(',')[0]
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
-                print(decoded_output)
-                print(ground_truth)
-                print(type(decoded_output[0]))
-                print(type(decoded_output[0][0]))
-                print(type(filename))
-                print(type(ground_truth))
-                trans.write(str(filename) + "," +  "," + str(ground_truth) +  '\n')  
-                #str(decoded_output[0][0]) +
+                trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth +  '\n')  
 
     #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
     #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
