@@ -84,7 +84,7 @@ if __name__ == '__main__':
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
-    if args.auto_correct == True:
+    if args.auto_correct == "True":
         print("hello")
         from tensor2tensor.bin import t2t_decoder
         
