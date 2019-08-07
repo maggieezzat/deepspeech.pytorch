@@ -84,11 +84,11 @@ if __name__ == '__main__':
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
+    '''
     #if args.auto_correct == True:
-    print("hello")
     from tensor2tensor.bin import t2t_decoder
     
-    out_file = '/data/home/GPUAdmin1/asr/greedy_decoder_output.txt' 
+    out_file = "/data/home/GPUAdmin1/asr/greedy_decoder_output.txt"
     with open(out_file, 'w') as f:
         f.write(decoded_output)
     
@@ -101,8 +101,5 @@ if __name__ == '__main__':
     decode_from_file=out_file,
     decode_to_file="/data/home/GPUAdmin1/asr/transformer_decoder_output.txt",
     t2t_usr_dir="/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
-
-    print("hi")
-
-
+    '''
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
