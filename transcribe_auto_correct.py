@@ -61,6 +61,9 @@ if __name__ == '__main__':
                         help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
+    parser.add_argument('--auto-correct', default=True,
+                        help='Use transformer auto correction on decoded output')
+    
     parser = add_decoder_args(parser)
     args = parser.parse_args()
     device = torch.device("cuda" if args.cuda else "cpu")
@@ -80,4 +83,25 @@ if __name__ == '__main__':
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
+
+    
+    if args.auto_correct == True:
+        from tensor2tensor.bin import t2t_decoder
+        print("done importing")
+        exit(0)
+    
+    out_file = "/data/home/GPUAdmin1/asr/greedy_decoder_output.txt"
+    with open(out_file, 'w') as f:
+        f.write(decoded_output)
+    
+    t2t_decoder.main(data_dir="/data/home/GPUAdmin1/t2t_data",
+    problem="asr_correction",
+    model="transformer",
+    hparams_set="transformer_big",
+    output_dir="/data/home/GPUAdmin1/t2t_train/asr_correction",
+    decode_hparams="beam_size=4,alpha=0.6",
+    decode_from_file=out_file,
+    decode_to_file="/data/home/GPUAdmin1/asr/transformer_decoder_output.txt",
+    t2t_usr_dir="/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
+    
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
