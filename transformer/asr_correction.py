@@ -48,7 +48,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
                 print("Skipping")
                 continue
               yield {"inputs": prediction, "targets": truth }
-    for i in range(0,100)
+    for i in range(0,100):
       prediction = ""
       truth = ""
       yield {"inputs": prediction, "targets": truth }
