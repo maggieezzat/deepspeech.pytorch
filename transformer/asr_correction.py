@@ -2,6 +2,7 @@ import re
 from tensor2tensor.data_generators import problem
 from tensor2tensor.data_generators import text_problems
 from tensor2tensor.utils import registry
+import os
 
 @registry.register_problem
 class AsrCorrection(text_problems.Text2TextProblem):
@@ -22,10 +23,10 @@ class AsrCorrection(text_problems.Text2TextProblem):
     # 10% evaluation data
     return [{
         "split": problem.DatasetSplit.TRAIN,
-        "shards": 8,
+        "shards": 9,
     }, {
         "split": problem.DatasetSplit.EVAL,
-        "shards": 2,
+        "shards": 1,
     }]
 
   def generate_samples(self, data_dir, tmp_dir, dataset_split):
@@ -33,9 +34,16 @@ class AsrCorrection(text_problems.Text2TextProblem):
     del tmp_dir
     del dataset_split
 
-    with open('/speech/german-single-speaker-transcriptions/german-single-speaker-transcriptions.csv', 'r') as f:
-        content = f.readlines()
-        for row in content:
-            prediction = row.split(',')[1]
-            truth = row.split(',')[2]
-            yield {"inputs": prediction, "targets": truth }
+    root_dir="/speech/epoch13_transcriptions/"
+    csv_files = os.listdir(root_dir)
+    for csv_file in csv_files:
+      with open(csv_file, 'r') as f:
+          content = f.readlines()
+          for row in content:
+              prediction = row.split(',')[1]
+              truth = row.split(',')[2]
+              print(prediction)
+              if prediction == "" or prediction == " ":
+                print("Skipping")
+                continue
+              yield {"inputs": prediction, "targets": truth }
