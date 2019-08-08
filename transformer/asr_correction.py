@@ -10,7 +10,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
 
   @property
   def approx_vocab_size(self):
-    return 2**13  # ~8k
+    return 2**15  # ~8k
 
   @property
   def is_generate_per_split(self):
