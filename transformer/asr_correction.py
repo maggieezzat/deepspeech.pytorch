@@ -43,9 +43,9 @@ class AsrCorrection(text_problems.Text2TextProblem):
           for row in content:
               prediction = row.split(',')[1]
               truth = row.split(',')[2]
-              print(prediction)
+              #print(prediction)
               if prediction == "" or prediction == " ":
-                print("Skipping")
+                #print("Skipping")
                 continue
               yield {"inputs": prediction, "targets": truth }
     for i in range(0,100):
