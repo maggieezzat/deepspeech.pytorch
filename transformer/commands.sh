@@ -20,7 +20,7 @@ t2t-trainer \
   --problem=$PROBLEM \
   --model=$MODEL \
   --hparams_set=$HPARAMS \
-  --train_steps=10000 \
+  --train_steps=100000 \
   --eval_steps=100 \
   --t2t_usr_dir=$USR_DIR
 
