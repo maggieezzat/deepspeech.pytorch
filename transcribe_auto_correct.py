@@ -85,14 +85,13 @@ if __name__ == '__main__':
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
     
-    if args.auto_correct == True:
-        from tensor2tensor.bin import t2t_decoder
-        print("done importing")
-        exit(0)
+    from tensor2tensor.bin import t2t_decoder
+    print("done importing")
+    #exit(0)
     
     out_file = "/data/home/GPUAdmin1/asr/greedy_decoder_output.txt"
     with open(out_file, 'w') as f:
-        f.write(decoded_output)
+        f.write(decoded_output[0][0])
     
     t2t_decoder.main(data_dir="/data/home/GPUAdmin1/t2t_data",
     problem="asr_correction",
