@@ -37,7 +37,8 @@ class AsrCorrection(text_problems.Text2TextProblem):
     root_dir="/speech/epoch13_transcriptions/"
     csv_files = os.listdir(root_dir)
     for csv_file in csv_files:
-      with open(csv_file, 'r') as f:
+      filename = root_dir + csv_files
+      with open(filename, 'r') as f:
           content = f.readlines()
           for row in content:
               prediction = row.split(',')[1]
