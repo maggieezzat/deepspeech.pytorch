@@ -64,7 +64,7 @@ if __name__ == '__main__':
             # add output to data array, and continue
             output_data.append((out.cpu().numpy(), output_sizes.numpy()))
 
-        decoded_output, _ = decoder.decode(out, output_sizes)
+        decoded_output, _ = decoder.decode(out, output_sizes, args.rescore)
         target_strings = target_decoder.convert_to_strings(split_targets)
         for x in range(len(target_strings)):
             transcript, reference = decoded_output[x][0], target_strings[x][0]

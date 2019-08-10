@@ -151,7 +151,7 @@ class BeamCTCDecoder(Decoder):
             results.append(utterances)
         return results
 
-    def decode(self, probs, sizes=None):
+    def decode(self, probs, sizes=None, rescore=False):
         """
         Decodes probability output using ctcdecode package.
         Arguments:
@@ -166,7 +166,7 @@ class BeamCTCDecoder(Decoder):
 
         strings = self.convert_to_strings(out, seq_lens)
         offsets = self.convert_tensor(offsets, seq_lens)
-        if args.rescore:
+        if rescore:
             from rescoring import rescore_sent
 
             parser = argparse.ArgumentParser(description="DeepSpeech decoder")
