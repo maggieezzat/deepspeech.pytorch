@@ -87,7 +87,8 @@ if __name__ == '__main__':
                 print(transcript)
                 print("##############")
                 print(correction)
-                transcript = correction
+                if correction != "":
+                    transcript = correction
 
 
             wer_inst = decoder.wer(transcript, reference)
