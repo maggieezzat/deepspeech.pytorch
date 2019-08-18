@@ -67,22 +67,38 @@ if __name__ == '__main__':
 
         decoded_output, _ = decoder.decode(out, output_sizes, args.rescore)
 
-        if args.auto_correct:
-            greedy_output = "/data/home/GPUAdmin1/greedy_data_to_decode.txt"
-            with open(greedy_output, 'r+') as f:
-                f.truncate(0)
-                f.write(decoded_output[0][0])
-            os.system("./transformer/t2t_decode.sh /data/home/GPUAdmin1/greedy_data_to_decode.txt /data/home/GPUAdmin1/asr/transformer_decoder.txt ")
-            print(decoded_output)
-            print(type(decoded_output))
-            print(len(decoded_output))
-            print(len(decoded_output[0]))
-
-
-
         target_strings = target_decoder.convert_to_strings(split_targets)
         for x in range(len(target_strings)):
+
+
+            if args.auto_correct:
+                greedy_output = "/data/home/GPUAdmin1/greedy_data_to_decode.txt"
+                with open(greedy_output, 'r+') as f:
+                    f.truncate(0)
+                    f.write(decoded_output[x][0])
+                os.system("./transformer/t2t_decode.sh /data/home/GPUAdmin1/greedy_data_to_decode.txt /data/home/GPUAdmin1/asr/transformer_decoder.txt")
+                transformer_output = "/data/home/GPUAdmin1/asr/transformer_decoder.txt"
+                correction = ""
+                with open(transformer_ouput, 'r+') as f:
+                    correction = f.readline()
+                    f.truncate(0)
+                print(decoded_output)
+                print(type(decoded_output))
+                print(len(decoded_output))
+                print(len(decoded_output[0]))
+                print(correction)
+
+
+
+
+
+
+
+
             transcript, reference = decoded_output[x][0], target_strings[x][0]
+            print("##########")
+            print(transcript)
+            print(correction)
             wer_inst = decoder.wer(transcript, reference)
             cer_inst = decoder.cer(transcript, reference)
             total_wer += wer_inst
