@@ -89,6 +89,5 @@ if __name__ == '__main__':
         with open(greedy_output, 'w') as f:
             f.write(decoded_output[0][0])
         
-        #os.system("t2t-decoder --data_dir=/data/home/GPUAdmin1/t2t_data --problem=asr_correction --model=transformer --hparams_set=transformer_big --output_dir=~/t2t_train/asr_correction --decode_hparams=\"beam_size=4,alpha=0.6\" --decode_from_file=/data/home/GPUAdmin1/asr_correction_data_to_decode.txt --decode_to_file=/data/home/GPUAdmin1/asr/asr_correction_decoder.txt --t2t_usr_dir=/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
         os.system("./transformer/t2t_decode.sh /data/home/GPUAdmin1/greedy_data_to_decode.txt /data/home/GPUAdmin1/asr/transformer_decoder.txt ")
 
