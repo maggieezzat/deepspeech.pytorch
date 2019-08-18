@@ -83,6 +83,8 @@ if __name__ == '__main__':
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
 
     if args.auto_correct:
+        print("autocorrecting")
+        print("###############")
         out_file = "/data/home/GPUAdmin1/asr_correction_data_to_decode.txt"
         with open(out_file, 'w') as f:
             f.write(decoded_output[0][0])
