@@ -74,6 +74,9 @@ Test Summary    Average WER 34.337      Average CER 9.160
 #Without Language Model (Greedy Decoder) - Test Set = Tuda only:
 Test Summary    Average WER 42.813      Average CER 11.761
 
+After epoch 19 
+#Without Language Model (Greedy Decoder) - Test Set = Tuda + Common Voice:
+Test Summary    Average WER 30.053      Average CER 7.953
 
 
 #With Language Model:
