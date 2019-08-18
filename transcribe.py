@@ -68,8 +68,6 @@ if __name__ == '__main__':
     device = torch.device("cuda" if args.cuda else "cpu")
     model = load_model(device, args.model_path, args.cuda)
 
-    print(args.auto_correct)
-
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
 
