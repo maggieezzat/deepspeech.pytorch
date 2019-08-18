@@ -22,7 +22,8 @@ t2t-trainer \
   --hparams_set=$HPARAMS \
   --train_steps=100000 \
   --eval_steps=100 \
-  --t2t_usr_dir=$USR_DIR
+  --t2t_usr_dir=$USR_DIR \
+  --export_saved_model=True
 
 
 BEAM_SIZE=4
@@ -50,13 +51,35 @@ Inference results OUTPUT: um zu den göttlichen schönheiten der vergänglichkei
 Inference results INPUT: hanake hatte allem korperschmuk den einem japanisches medbchen stzhen drcpennd und liegend zeugen muss
 Inference results OUTPUT: hanake hatte allen körperschmuck den ein japanisches mädchen sitzend trippelnd und liegend zeigen muss
 
-t2t-decoder \
-  --data_dir=$DATA_DIR \
-  --problem=$PROBLEM \
-  --model=$MODEL \
-  --hparams_set=$HPARAMS \
-  --output_dir=~/t2t_train/asr_correction \
-  --decode_hparams="beam_size=$BEAM_SIZE,alpha=$ALPHA" \
-  --decode_from_file=$DECODE_FILE \
-  --decode_to_file=/data/home/GPUAdmin1/asr/asr_correction_decoder.txt \
-  --t2t_usr_dir=$USR_DIR
+/speech/german-single-speaker-speech-dataset/achtgesichterambiwasse/achtgesichterambiwasse_0014.wav,
+die imsommo über die berge on tioten zum gesucht zu ihr an den sükamen,
+die im sommer über die berge von kioto zum besuch zu ihr an den see kamen
+
+/speech/german-single-speaker-speech-dataset/achtgesichterambiwasse/achtgesichterambiwasse_0017.wav,
+umtie sid tiefe mit schrauben auffülten,
+und die seetiefe mit schrauben aufwühlten
+
+Inference results INPUT: die imsommo uber die berge on tioten zum gesucht zu ihr an den sukamen
+Inference results OUTPUT: die haben sie die alte zu den
+Inference results INPUT: umtie sid tiefe mit schrauben auffulten
+Inference results OUTPUT: wenn sie mit einem n n
+
+/speech/german-single-speaker-speech-dataset/achtgesichterambiwasse/achtgesichterambiwasse_0068.wav,
+und immer wenden der fugen sorgen sollte ich liebe duch,
+und immer wenn der vogel sagen sollte ich liebe dich
+
+/speech/german-single-speaker-speech-dataset/achtgesichterambiwasse/achtgesichterambiwasse_0069.wav,
+i bdach te irso unheimlich knarrend das ist er morkt ruselte,
+dann lachte er so unheimlich knarrend dass es der magd gruselte
+
+
+  t2t-decoder \
+    --data_dir=$DATA_DIR \
+    --problem=$PROBLEM \
+    --model=$MODEL \
+    --hparams_set=$HPARAMS \
+    --output_dir=~/t2t_train/asr_correction \
+    --decode_hparams="beam_size=$BEAM_SIZE,alpha=$ALPHA" \
+    --decode_from_file=$DECODE_FILE \
+    --decode_to_file=/data/home/GPUAdmin1/asr/asr_correction_decoder.txt \
+    --t2t_usr_dir=$USR_DIR

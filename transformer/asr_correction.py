@@ -10,7 +10,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
 
   @property
   def approx_vocab_size(self):
-    return 2**15  # ~8k
+    return 2**15  # ~32k
 
   @property
   def is_generate_per_split(self):
@@ -43,12 +43,10 @@ class AsrCorrection(text_problems.Text2TextProblem):
           for row in content:
               prediction = row.split(',')[1]
               truth = row.split(',')[2]
-              #print(prediction)
               if prediction == "" or prediction == " ":
-                #print("Skipping")
                 continue
               yield {"inputs": prediction, "targets": truth }
-    for i in range(0,100):
-      prediction = ""
-      truth = ""
-      yield {"inputs": prediction, "targets": truth }
+    #for i in range(0,100):
+    #  prediction = ""
+    #  truth = ""
+    #  yield {"inputs": prediction, "targets": truth }
