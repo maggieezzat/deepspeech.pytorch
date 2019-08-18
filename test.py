@@ -3,7 +3,7 @@ import argparse
 import numpy as np
 import torch
 from tqdm import tqdm
-
+import os
 from data.data_loader import SpectrogramDataset, AudioDataLoader
 from decoder import GreedyDecoder
 from opts import add_decoder_args, add_inference_args
@@ -84,19 +84,9 @@ if __name__ == '__main__':
                 with open(transformer_ouput, 'r+') as f:
                     correction = f.readline()
                     f.truncate(0)
-
                 transcript = correction
-                #print(decoded_output)
-                #print(type(decoded_output))
-                #print(len(decoded_output))
-                #print(len(decoded_output[0]))
-                #print(correction)
 
-            
-            
-            #print("##########")
-            #print(transcript)
-            #print(correction)
+
             wer_inst = decoder.wer(transcript, reference)
             cer_inst = decoder.cer(transcript, reference)
             total_wer += wer_inst
