@@ -89,12 +89,8 @@ if __name__ == '__main__':
     output_file=args.transcriptions_path
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
-        i=0
         with open(output_file, 'a') as trans:
             for item in content:
-                i=i+1
-                if i>=8945:
-                    break
                 filename=item.split(',')[0]
                 print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
