@@ -19,8 +19,6 @@ parser.add_argument('--verbose', action="store_true", help="print out decoded ou
 parser.add_argument('--output-path', default=None, type=str, help="Where to save raw acoustic output")
 parser = add_decoder_args(parser)
 parser.add_argument('--save-output', action="store_true", help="Saves output of model from test")
-parser.add_argument('--auto-correct', default=False,
-                        help='Use transformer auto correction on decoded output')
 args = parser.parse_args()
 
 if __name__ == '__main__':
@@ -28,6 +26,7 @@ if __name__ == '__main__':
     device = torch.device("cuda" if args.cuda else "cpu")
     model = load_model(device, args.model_path, args.cuda)
 
+    #model = torch.nn.DataParallel(model)
     print("=== Loading the model ===")
     if args.decoder == "beam":
         from decoder import BeamCTCDecoder
@@ -66,20 +65,6 @@ if __name__ == '__main__':
             output_data.append((out.cpu().numpy(), output_sizes.numpy()))
 
         decoded_output, _ = decoder.decode(out, output_sizes, args.rescore)
-
-        if args.auto_correct:
-            greedy_output = "/data/home/GPUAdmin1/greedy_data_to_decode.txt"
-            with open(greedy_output, 'r+') as f:
-                f.truncate(0)
-                f.write(decoded_output[0][0])
-            os.system("./transformer/t2t_decode.sh /data/home/GPUAdmin1/greedy_data_to_decode.txt /data/home/GPUAdmin1/asr/transformer_decoder.txt ")
-            print(decoded_output)
-            print(type(decoded_output))
-            print(len(decoded_output))
-            print(len(decoded_output[0]))
-
-
-
         target_strings = target_decoder.convert_to_strings(split_targets)
         for x in range(len(target_strings)):
             transcript, reference = decoded_output[x][0], target_strings[x][0]
