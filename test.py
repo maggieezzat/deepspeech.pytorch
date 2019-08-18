@@ -65,11 +65,13 @@ if __name__ == '__main__':
             # add output to data array, and continue
             output_data.append((out.cpu().numpy(), output_sizes.numpy()))
 
-        decoded_output, _ = decoder.decode(out, output_sizes, args.rescore)
+        #decoded_output, _ = decoder.decode(out, output_sizes, args.rescore)
+        decoded_output, _ = decoder.decode(out, output_sizes)
 
         target_strings = target_decoder.convert_to_strings(split_targets)
         for x in range(len(target_strings)):
 
+            transcript, reference = decoded_output[x][0], target_strings[x][0]
 
             if args.auto_correct:
                 greedy_output = "/data/home/GPUAdmin1/greedy_data_to_decode.txt"
@@ -82,23 +84,19 @@ if __name__ == '__main__':
                 with open(transformer_ouput, 'r+') as f:
                     correction = f.readline()
                     f.truncate(0)
-                print(decoded_output)
-                print(type(decoded_output))
-                print(len(decoded_output))
-                print(len(decoded_output[0]))
-                print(correction)
 
+                transcript = correction
+                #print(decoded_output)
+                #print(type(decoded_output))
+                #print(len(decoded_output))
+                #print(len(decoded_output[0]))
+                #print(correction)
 
-
-
-
-
-
-
-            transcript, reference = decoded_output[x][0], target_strings[x][0]
-            print("##########")
-            print(transcript)
-            print(correction)
+            
+            
+            #print("##########")
+            #print(transcript)
+            #print(correction)
             wer_inst = decoder.wer(transcript, reference)
             cer_inst = decoder.cer(transcript, reference)
             total_wer += wer_inst
