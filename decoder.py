@@ -249,7 +249,7 @@ class GreedyDecoder(Decoder):
                     offsets.append(i)
         return string, torch.tensor(offsets, dtype=torch.int)
 
-    def decode(self, probs, sizes=None):
+    def decode(self, probs, sizes=None, rescore=False):
         """
         Returns the argmax decoding given the probability matrix. Removes
         repeated elements in the sequence, as well as blanks.
