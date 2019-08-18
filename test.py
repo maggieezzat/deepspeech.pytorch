@@ -84,6 +84,9 @@ if __name__ == '__main__':
                 with open(transformer_output, 'r+') as f:
                     correction = f.readline()
                     f.truncate(0)
+                print(transcript)
+                print("##############")
+                print(correction)
                 transcript = correction
 
 
