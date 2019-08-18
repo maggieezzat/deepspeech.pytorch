@@ -81,7 +81,7 @@ if __name__ == '__main__':
                 os.system("./transformer/t2t_decode.sh /data/home/GPUAdmin1/greedy_data_to_decode.txt /data/home/GPUAdmin1/asr/transformer_decoder.txt")
                 transformer_output = "/data/home/GPUAdmin1/asr/transformer_decoder.txt"
                 correction = ""
-                with open(transformer_ouput, 'r+') as f:
+                with open(transformer_output, 'r+') as f:
                     correction = f.readline()
                     f.truncate(0)
                 transcript = correction
