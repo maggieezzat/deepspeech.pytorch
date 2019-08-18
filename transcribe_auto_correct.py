@@ -14,6 +14,7 @@ from data.data_loader import SpectrogramParser
 from model import DeepSpeech
 import os.path
 import json
+import os
 
 
 def decode_results(model, decoded_output, decoded_offsets):
@@ -82,27 +83,33 @@ if __name__ == '__main__':
 
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
-    #decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
+    decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
 
     
-    from tensor2tensor.bin import t2t_decoder
+    #from tensor2tensor.bin import t2t_decoder
     #print("done importing")
     #exit(0)
     
-    out_file = "/data/home/GPUAdmin1/asr/greedy_decoder_output.txt"
+    out_file = "/data/home/GPUAdmin1/asr_correction_data_to_decode.txt"
     with open(out_file, 'w') as f:
-         f.write("Hello World")
-    #    f.write(decoded_output[0][0])
+        f.write(decoded_output[0][0])
+    #     f.write("Hello World")
+        
+
     
-    t2t_decoder.main(
-    #data_dir="/data/home/GPUAdmin1/t2t_data",
-    problem="asr_correction",
-    model="transformer",
-    hparams_set="transformer_big",
-    output_dir="/data/home/GPUAdmin1/t2t_train/asr_correction",
-    decode_hparams="beam_size=4,alpha=0.6",
-    decode_from_file="/data/home/GPUAdmin1/asr/greedy_decoder_output.txt",
-    decode_to_file="/data/home/GPUAdmin1/asr/transformer_decoder_output.txt",
-    t2t_usr_dir="/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
-    
-    print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    #print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    os.system("USR_DIR=/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/")
+    os.system("PROBLEM=asr_correction")
+    os.system("MODEL=transformer")
+    os.system("HPARAMS=transformer_big")
+
+    os.system("DATA_DIR=$HOME/t2t_data")
+    os.system("TMP_DIR=/tmp/t2t_datagen")
+    os.system("mkdir -p $DATA_DIR $TMP_DIR")
+
+    os.system("BEAM_SIZE=4")
+    os.system("ALPHA=0.6")
+    os.system("DECODE_FILE=/data/home/GPUAdmin1/asr_correction_data_to_decode.txt")
+
+    os.system("t2t-decoder --data_dir=$DATA_DIR --problem=$PROBLEM --model=$MODEL --hparams_set=$HPARAMS --output_dir=~/t2t_train/asr_correction --decode_hparams=\"beam_size=$BEAM_SIZE,alpha=$ALPHA\" --decode_from_file=$DECODE_FILE --decode_to_file=/data/home/GPUAdmin1/asr/asr_correction_decoder.txt --t2t_usr_dir=$USR_DIR")
+

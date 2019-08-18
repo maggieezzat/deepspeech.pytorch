@@ -26,6 +26,20 @@ t2t-trainer \
   --export_saved_model=True
 
 
+  t2t-trainer \
+  --generate_data \
+  --data_dir=~/t2t_data \
+  --output_dir=~/t2t_train/asr_correction_eval \
+  --problem=$PROBLEM \
+  --model=$MODEL \
+  --hparams_set=$HPARAMS \
+  --train_steps=100000 \
+  --eval_steps=100 \
+  --t2t_usr_dir=$USR_DIR \
+  --export_saved_model=True \
+  --save_checkpoints_secs=120
+
+
 BEAM_SIZE=4
 ALPHA=0.6
 DECODE_FILE=$DATA_DIR/asr_correction_data_to_decode.txt
