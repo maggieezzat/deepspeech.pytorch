@@ -3,7 +3,7 @@ PROBLEM=asr_correction
 MODEL=transformer
 HPARAMS=transformer_big
 DATA_DIR=$HOME/t2t_data
-OUT_DIR=$HOME/t2t_train/asr_correction
+OUT_DIR=/t2t_train/asr_correction
  
 CUDA_VISIBLE_DEVICES=0 t2t-trainer \
 --data_dir=$DATA_DIR \
