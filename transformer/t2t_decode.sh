@@ -4,7 +4,7 @@ PROBLEM=asr_correction
 MODEL=transformer
 HPARAMS=transformer_big
 DATA_DIR=$HOME/t2t_data
-OUT_DIR=$HOME/t2t_train/asr_correction
+OUT_DIR=/t2t_train/asr_correction
   
 BEAM_SIZE=4
 ALPHA=0.6
