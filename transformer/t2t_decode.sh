@@ -11,7 +11,7 @@ ALPHA=0.6
 DECODE_FILE=$1
 OUT_FILE=$2
 
-t2t-decoder \
+CUDA_VISIBLE_DEVICES=1 t2t-decoder \
 --data_dir=$DATA_DIR \
 --problem=$PROBLEM \
 --model=$MODEL \
