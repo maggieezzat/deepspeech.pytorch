@@ -87,7 +87,7 @@ if __name__ == '__main__':
                 print(transcript)
                 print("##############")
                 print(correction)
-                if correction != "":
+                if correction != "" and transcript != "":
                     transcript = correction
 
 
