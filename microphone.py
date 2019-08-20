@@ -1,8 +1,10 @@
-import wave
-import time
-import pyaudio
 import argparse
+import os
+import time
+import wave
 from datetime import datetime
+
+import pyaudio
 
 parser = argparse.ArgumentParser(description="Microphone")
 parser.add_argument("--audio-dir", default="/speech/test_RT", help="where to save")
@@ -18,6 +20,8 @@ counter = 0
 audio = pyaudio.PyAudio()
 # where to save
 rootdir = args.audio_dir + "/"
+if not os.path.exists(rootdir):
+    os.mkdir(rootdir)
 while 1:
     ts = time.time()
     st = datetime.fromtimestamp(ts).strftime("%Y-%m-%d-t-%H-%M-%S")
