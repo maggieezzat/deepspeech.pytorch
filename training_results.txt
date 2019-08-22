@@ -189,6 +189,8 @@ Test Summary    Average WER 15.587      Average CER 5.806
 # 5-gram LM (Mary+train+ 5_million_web+ Wiki) , beam-width 500, alpha 0.9, beta 0.2 - Test Set = Tuda no Realtek:
 Test Summary    Average WER 14.912      Average CER 4.724
 
+# 5-gram LM (Mary+train+ 5_million_web+ Wiki) , beam-width 200, alpha 0.9, beta 0.2 - Test Set = Tuda no Realtek:
+Test Summary    Average WER 15.875      Average CER 5.206
 
 ****************************************
 
