@@ -90,10 +90,14 @@ if __name__ == '__main__':
     parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     output_file=args.transcriptions_path
+    counter=0
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         with open(output_file, 'a') as trans:
             for item in content:
+                counter+=1
+                if counter <= 11504:
+                    continue
                 filename=item.split(',')[0]
                 print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
