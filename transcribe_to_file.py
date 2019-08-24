@@ -66,8 +66,11 @@ if __name__ == '__main__':
     parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/epoch13_transcriptions/german-single-speaker-transcriptions.csv', 
+    parser.add_argument('--transcriptions-path', default='/speech/epoch13_top10/german-single-speaker-transcriptions.csv', 
                         help='Path to save transcriptions of audio files')
+
+    parser.add_argument('--top-results', default=10, 
+                        help='number of most probable transcriptions to save')
     
     
     parser = add_decoder_args(parser)

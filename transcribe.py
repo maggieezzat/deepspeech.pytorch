@@ -81,6 +81,10 @@ if __name__ == '__main__':
 
     decoded_output, decoded_offsets = transcribe(args.audio_path, parser, model, decoder, device)
     print(json.dumps(decode_results(model, decoded_output, decoded_offsets)))
+    print(type(decoded_output))
+    print(len(decoded_output))
+    print(type(decoded_output[0]))
+    print(len(decoded_output[0]))
 
     if args.auto_correct:
         greedy_output = "/data/home/GPUAdmin1/greedy_data_to_decode.txt"
