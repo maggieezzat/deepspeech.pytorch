@@ -66,11 +66,11 @@ if __name__ == '__main__':
     parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/epoch13_top10/german-single-speaker-transcriptions.csv', 
+    parser.add_argument('--transcriptions-path', default='/speech/epoch13_5gram_transcriptions/german-single-speaker-transcriptions.csv', 
                         help='Path to save transcriptions of audio files')
 
-    parser.add_argument('--top-results', default=10, 
-                        help='number of most probable transcriptions to save')
+    #parser.add_argument('--top-results', default=10, 
+    #                    help='number of most probable transcriptions to save')
     
     
     parser = add_decoder_args(parser)
@@ -95,12 +95,13 @@ if __name__ == '__main__':
         with open(output_file, 'a') as trans:
             for item in content:
                 filename=item.split(',')[0]
-                print("transcribing: "+ filename, end = '\r')
+                #print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 for i in range(0,50)
                     if len(decoded_output[0]) > i:
                         trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
+                        print(i)
                     else:
                         break 
 
