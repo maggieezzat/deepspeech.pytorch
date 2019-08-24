@@ -1,9 +1,9 @@
 USR_DIR=/data/home/GPUAdmin1/asr/deepspeech.pytorch/transformer/
 PROBLEM=asr_correction
 MODEL=transformer
-HPARAMS=transformer_big
+HPARAMS=transformer_base_single_gpu
 DATA_DIR=$HOME/t2t_data
-OUT_DIR=/t2t_train/asr_correction
+OUT_DIR=/t2t_train/asr_correction_smalltran
  
 CUDA_VISIBLE_DEVICES=0 t2t-trainer \
 --data_dir=$DATA_DIR \

@@ -1,21 +1,19 @@
 import argparse
+import json
+import os
+import time
 import warnings
-
-from opts import add_decoder_args, add_inference_args
-from utils import load_model
-
-warnings.simplefilter("ignore")
-
-from decoder import GreedyDecoder
 
 import torch
 
 from data_loaderWin import SpectrogramParser
+from decoder import GreedyDecoder
 from model import DeepSpeech
-import os
-import json
+from opts import add_decoder_args, add_inference_args
 from transcribeWin import transcribe
-import time
+from utils import load_model
+
+warnings.simplefilter("ignore")
 
 
 def decode_results(model, decoded_output, decoded_offsets):
@@ -88,40 +86,59 @@ if __name__ == "__main__":
     print("Starting")
     counter = 0
     s = "|"
+    enter = False
     while True:
-        audio_files = [
-            f
-            for f in os.listdir(args.audio_dir)
-            if os.path.isfile(os.path.join(args.audio_dir, f))
-            and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
-        ]
-        if len(audio_files) > 0:
-            audio_file = audio_files[0]
-            audio_path = os.path.join(args.audio_dir, audio_file)
+        try:
+            audio_files = [
+                f
+                for f in os.listdir(args.audio_dir)
+                if os.path.isfile(os.path.join(args.audio_dir, f))
+                and ((f.split(".")[1]).lower() in ALLOWED_EXTENSIONS)
+            ]
+            if len(audio_files) > 0:
+                audio_file = audio_files[0]
+                audio_path = os.path.join(args.audio_dir, audio_file)
 
-            size1 = os.path.getsize(audio_path)
-            time.sleep(1)
-            size2 = os.path.getsize(audio_path)
-            if size1 != size2:
-                continue
-            try:
-                os.rename(audio_path, audio_path)
-                print("Reading file : " + audio_file)
-            except OSError as e:
-                print('Access-error on file "' + audio_file + '"! \n' + str(e))
-            decoded_output, decoded_offsets = transcribe(
-                audio_path, parser, model, decoder, device
-            )
-            transcription = decode_results(model, decoded_output, decoded_offsets)[
-                "output"
-            ][0]
-            print(transcription)
-            line = audio_file.split(".")[0] + " --> " + transcription + "\n"
-            with open(args.transcription, "a") as the_file:
-                the_file.write(line)
-            os.remove(audio_path)
-            print()
-        else:
+                size1 = os.path.getsize(audio_path)
+                time.sleep(1)
+                size2 = os.path.getsize(audio_path)
+                if size1 != size2:
+                    continue
+                try:
+                    os.rename(audio_path, audio_path)
+                    print("Reading file : " + audio_file)
+                except OSError as e:
+                    print('Access-error on file "' + audio_file + '"! \n' + str(e))
+                decoded_output, decoded_offsets = transcribe(
+                    audio_path, parser, model, decoder, device
+                )
+                transcription = decode_results(model, decoded_output, decoded_offsets)[
+                    "output"
+                ][0]
+                print(transcription)
+                line = audio_file.split(".")[0] + " --> " + transcription + "\n"
+                with open(args.transcription, "a") as the_file:
+                    the_file.write(line)
+                os.remove(audio_path)
+                print()
+            else:
+                if(enter):
+                    print()
+                    enter = False
+                if counter == 0 or counter == 4:
+                    s = "|"
+                elif counter == 1 or counter == 5:
+                    s = "/"
+                elif counter == 2 or counter == 6:
+                    s = "-"
+                elif counter == 3 or counter == 7:
+                    s = "\\"
+                print("Waiting for files " + s, end="\r")
+                time.sleep(0.5)
+                counter += 1
+                if counter > 7:
+                    counter = 0
+        except:
             if counter == 0 or counter == 4:
                 s = "|"
             elif counter == 1 or counter == 5:
@@ -130,8 +147,9 @@ if __name__ == "__main__":
                 s = "-"
             elif counter == 3 or counter == 7:
                 s = "\\"
-            print("Waiting for files " + s, end="\r")
+            print("Please start the microphone script " + s, end="\r")
             time.sleep(0.5)
             counter += 1
             if counter > 7:
                 counter = 0
+            enter = True
