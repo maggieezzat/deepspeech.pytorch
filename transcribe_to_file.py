@@ -95,13 +95,13 @@ if __name__ == '__main__':
         with open(output_file, 'a') as trans:
             for item in content:
                 filename=item.split(',')[0]
-                #print("transcribing: "+ filename, end = '\r')
+                print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 for i in range(0,50):
                     if len(decoded_output[0]) > i:
                         trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
-                        print(i)
+                        #print(i)
                     else:
                         break 
 
