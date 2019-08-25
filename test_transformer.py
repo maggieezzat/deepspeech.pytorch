@@ -73,6 +73,7 @@ if __name__ == '__main__':
         target_strings_copy = target_decoder.convert_to_strings(split_targets)
         
         for x in range(len(target_strings)):
+            print("1st pass decoding :" + str(x) + "/" + str(len(target_strings)))
 
             transcript, reference = decoded_output[x][0], target_strings[x][0]
             if args.auto_correct:
