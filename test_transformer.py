@@ -80,7 +80,7 @@ if __name__ == '__main__':
                 greedy_output = "/speech/data_to_decode.txt"
                 with open(greedy_output, 'a') as f:
                     if transcript != "":
-                        f.write(decoded_output[x][0])
+                        f.write(decoded_output[x][0] + "\n")
                     else:
                         target_strings_copy.remove(target_strings_copy[x])
                         wer_inst = decoder.wer(transcript, reference)
