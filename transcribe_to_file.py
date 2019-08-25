@@ -102,7 +102,6 @@ if __name__ == '__main__':
                 for i in range(0,100):
                     if len(decoded_output[0]) > i:
                         trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
-                        #print(i)
                     else:
                         break 
 
