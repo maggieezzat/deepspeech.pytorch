@@ -76,19 +76,19 @@ if __name__ == '__main__':
             print("1st pass decoding :" + str(x) + "/" + str(len(target_strings)))
 
             transcript, reference = decoded_output[x][0], target_strings[x][0]
-            if args.auto_correct:
-                greedy_output = "/speech/data_to_decode.txt"
-                with open(greedy_output, 'a') as f:
-                    if transcript != "":
-                        f.write(decoded_output[x][0] + "\n")
-                    else:
-                        target_strings_copy.remove(target_strings_copy[x])
-                        wer_inst = decoder.wer(transcript, reference)
-                        cer_inst = decoder.cer(transcript, reference)
-                        total_wer += wer_inst
-                        total_cer += cer_inst
-                        num_tokens += len(reference.split())
-                        num_chars += len(reference)
+            #if args.auto_correct:
+            greedy_output = "/speech/data_to_decode.txt"
+            with open(greedy_output, 'a') as f:
+                if transcript != "":
+                    f.write(decoded_output[x][0] + "\n")
+                else:
+                    target_strings_copy.remove(target_strings_copy[x])
+                    wer_inst = decoder.wer(transcript, reference)
+                    cer_inst = decoder.cer(transcript, reference)
+                    total_wer += wer_inst
+                    total_cer += cer_inst
+                    num_tokens += len(reference.split())
+                    num_chars += len(reference)
 
             
               
@@ -101,8 +101,8 @@ if __name__ == '__main__':
         corrections = [x.strip() for x in corrections]
 
         i = 0
-        for item in range(len(correction)):
-            transcript = correction[i]
+        for item in range(len(corrections)):
+            transcript = corrections[i]
             
             reference = target_strings_copy[i]
             
