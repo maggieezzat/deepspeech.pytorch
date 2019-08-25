@@ -69,6 +69,9 @@ if __name__ == '__main__':
         #decoded_output, _ = decoder.decode(out, output_sizes)
 
         target_strings = target_decoder.convert_to_strings(split_targets)
+        
+        target_strings_copy = target_decoder.convert_to_strings(split_targets)
+        
         for x in range(len(target_strings)):
 
             transcript, reference = decoded_output[x][0], target_strings[x][0]
@@ -77,6 +80,15 @@ if __name__ == '__main__':
                 with open(greedy_output, 'a') as f:
                     if transcript != "":
                         f.write(decoded_output[x][0])
+                    else:
+                        target_strings_copy.remove(target_strings_copy[x])
+                        wer_inst = decoder.wer(transcript, reference)
+                        cer_inst = decoder.cer(transcript, reference)
+                        total_wer += wer_inst
+                        total_cer += cer_inst
+                        num_tokens += len(reference.split())
+                        num_chars += len(reference)
+
             
               
         os.system("./transformer/t2t_decode.sh /speech/data_to_decode.txt /speech/transformer_big_75K_output.txt")
@@ -87,16 +99,22 @@ if __name__ == '__main__':
 
         corrections = [x.strip() for x in corrections]
 
-        wer_inst = decoder.wer(transcript, reference)
-        cer_inst = decoder.cer(transcript, reference)
-        total_wer += wer_inst
-        total_cer += cer_inst
-        num_tokens += len(reference.split())
-        num_chars += len(reference)
-        if args.verbose:
-            print("Ref:", reference.lower())
-            print("Hyp:", transcript.lower())
-            print("WER:", float(wer_inst) / len(reference.split()), "CER:", float(cer_inst) / len(reference), "\n")
+        i = 0
+        for item in range(len(correction)):
+            transcript = correction[i]
+            
+            reference = target_strings_copy[i]
+            
+            wer_inst = decoder.wer(transcript, reference)
+            cer_inst = decoder.cer(transcript, reference)
+            total_wer += wer_inst
+            total_cer += cer_inst
+            num_tokens += len(reference.split())
+            num_chars += len(reference)
+            if args.verbose:
+                print("Ref:", reference.lower())
+                print("Hyp:", transcript.lower())
+                print("WER:", float(wer_inst) / len(reference.split()), "CER:", float(cer_inst) / len(reference), "\n")
 
     wer = float(total_wer) / num_tokens
     cer = float(total_cer) / num_chars
