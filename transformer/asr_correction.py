@@ -34,7 +34,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
     del tmp_dir
     del dataset_split
 
-    root_dir="/speech/epoch13_transcriptions/"
+    root_dir="/speech/epoch13_5gram_transcriptions/"
     csv_files = os.listdir(root_dir)
     for csv_file in csv_files:
       filename = root_dir + csv_file

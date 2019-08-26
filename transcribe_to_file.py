@@ -94,15 +94,20 @@ if __name__ == '__main__':
     with open(args.audio_csv_path, 'r') as csv_file:
         content=csv_file.readlines()
         with open(output_file, 'a') as trans:
+            counter=0
             for item in content:
+                #counter+=1
+                #if counter <= 1 :
+                #    continue
                 filename=item.split(',')[0]
                 print("transcribing: "+ filename, end = '\r')
                 ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
-                for i in range(0,100):
-                    if len(decoded_output[0]) > i:
-                        trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
-                    else:
-                        break 
+                #for i in range(0,100):
+                #    if len(decoded_output[0]) > i:
+                #        trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
+                #    else:
+                #        break 
+                trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth)
 
     print("Done transcribing all files ")
