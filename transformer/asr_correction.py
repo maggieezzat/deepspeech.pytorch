@@ -26,15 +26,22 @@ class AsrCorrection(text_problems.Text2TextProblem):
         "shards": 9,
     }, {
         "split": problem.DatasetSplit.EVAL,
-        "shards": 0,
+        "shards": 1,
     }]
 
   def generate_samples(self, data_dir, tmp_dir, dataset_split):
     del data_dir
     del tmp_dir
-    del dataset_split
+    #del dataset_split
+    
+    train = dataset_split == problem.DatasetSplit.TRAIN
 
-    root_dir="/speech/epoch13_5gram_transcriptions/train/"
+    if train:
+      print("TRAIN")
+      root_dir="/speech/epoch13_5gram_transcriptions/train/"
+    else:
+      print("VAL")
+      root_dir="/speech/epoch13_5gram_transcriptions/dev/"
     csv_files = os.listdir(root_dir)
     for csv_file in csv_files:
       filename = root_dir + csv_file
