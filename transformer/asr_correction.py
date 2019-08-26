@@ -15,7 +15,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
   @property
   def is_generate_per_split(self):
     # generate_data will shard the data into TRAIN and EVAL for us.
-    return False
+    return True
 
   @property
   def dataset_splits(self):
@@ -26,7 +26,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
         "shards": 9,
     }, {
         "split": problem.DatasetSplit.EVAL,
-        "shards": 1,
+        "shards": 0,
     }]
 
   def generate_samples(self, data_dir, tmp_dir, dataset_split):
@@ -34,7 +34,7 @@ class AsrCorrection(text_problems.Text2TextProblem):
     del tmp_dir
     del dataset_split
 
-    root_dir="/speech/epoch13_5gram_transcriptions/"
+    root_dir="/speech/epoch13_5gram_transcriptions/train/"
     csv_files = os.listdir(root_dir)
     for csv_file in csv_files:
       filename = root_dir + csv_file
