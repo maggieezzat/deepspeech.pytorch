@@ -14,7 +14,7 @@ for file_dir in file_paths:
         for row in csv_reader:
             filename = row[0]
             transcript = row[1]
-            all_data.append((filename, transcript))
+            all_data.append((filename, transcript,row[2]))
 
 count = 1
 old_file = all_data[0][0]
