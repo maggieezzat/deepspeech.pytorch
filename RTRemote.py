@@ -56,24 +56,29 @@ if __name__ == "__main__":
                     print("Reading file : " + audio_file)
                 except OSError as e:
                     print('Access-error on file "' + audio_file + '"! \n' + str(e))
+
+                # suggested edit : use python requests lib instead
                 try:
-                    response = (
-                        subprocess.check_output(
+                    with open(os.devnull, "w") as devnull:
+                        response = subprocess.check_output(
                             'curl -X POST http://52.250.111.102:8888/transcribe -H "Content-type: multipart/form-data" -F "file=@'
                             + audio_path
-                            + '"'
+                            + '"',
+                            stderr=devnull,
                         )
-                    )
                 except:
                     print("Please Start the server")
-                    time.sleep(60)
+                    time.sleep(30)
                 response = json.loads(response.decode("utf-8", "ignore"))
-                
-                if response["status"] is "error":
+                print(response["status"])
+                if response["status"] == "error":
                     print(response["message"])
                     continue
-                else:
+                elif response["status"] == "OK":
                     transcription = response["transcription"][0][0]
+                else:
+                    print("Well, that was not expected")
+                    continue
 
                 print(transcription)
                 line = audio_file.split(".")[0] + " --> " + transcription + "\n"
