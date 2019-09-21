@@ -1,5 +1,6 @@
 import argparse
 import os
+import sys
 import time
 import wave
 from datetime import datetime
@@ -7,8 +8,14 @@ from datetime import datetime
 import pyaudio
 
 parser = argparse.ArgumentParser(description="Microphone")
-parser.add_argument("--audio-dir", default="/speech/test_RT", help="where to save")
+parser.add_argument(
+    "--audio-dir", help=" Dir to where to save, must be the same in RT script"
+)
 args = parser.parse_args()
+
+if args.audio_dir is None:
+    parser.print_help()
+    sys.exit()
 
 FORMAT = pyaudio.paInt16
 CHANNELS = 1

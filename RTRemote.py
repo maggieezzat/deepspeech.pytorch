@@ -1,52 +1,19 @@
 import argparse
 import json
 import os
+import subprocess
 import sys
 import time
 import warnings
 
 import torch
 
-from data_loaderWin import SpectrogramParser
-from decoder import GreedyDecoder
-from model import DeepSpeech
-from opts import add_decoder_args, add_inference_args
-from transcribeWin import transcribe
-from utils import load_model
-
 warnings.simplefilter("ignore")
-
-
-def decode_results(model, decoded_output, decoded_offsets):
-    results = {
-        "output": [],
-        "_meta": {
-            "acoustic_model": {"name": os.path.basename(args.model_path)},
-            "language_model": {
-                "name": os.path.basename(args.lm_path) if args.lm_path else None
-            },
-            "decoder": {
-                "lm": args.lm_path is not None,
-                "alpha": args.alpha if args.lm_path is not None else None,
-                "beta": args.beta if args.lm_path is not None else None,
-                "type": args.decoder,
-            },
-        },
-    }
-
-    for b in range(len(decoded_output)):
-        for pi in range(min(args.top_paths, len(decoded_output[b]))):
-            result = decoded_output[b][pi]
-            if args.offsets:
-                result["offsets"] = decoded_offsets[b][pi].tolist()
-            results["output"].append(result)
-    return results
 
 
 if __name__ == "__main__":
     ALLOWED_EXTENSIONS = set(["wav", "mp3", "ogg", "webm"])
-    parser = argparse.ArgumentParser(description="RT transcription")
-    parser = add_inference_args(parser)
+    parser = argparse.ArgumentParser(description="RT Remote transcription")
     parser.add_argument(
         "--audio-dir", help="Dir to audio files to predict on, the same in mic script"
     )
@@ -57,33 +24,11 @@ if __name__ == "__main__":
         action="store_true",
         help="Returns time offset information",
     )
-    parser = add_decoder_args(parser)
     args = parser.parse_args()
 
-    if args.audio_dir is None or args.transcription is None or args.model_path is None:
+    if args.audio_dir is None or args.transcription is None:
         parser.print_help()
         sys.exit()
-
-    device = torch.device("cuda" if args.cuda else "cpu")
-    model = load_model(device, args.model_path, args.cuda)
-
-    if args.decoder == "beam":
-        from decoder import BeamCTCDecoder
-
-        decoder = BeamCTCDecoder(
-            model.labels,
-            lm_path=args.lm_path,
-            alpha=args.alpha,
-            beta=args.beta,
-            cutoff_top_n=args.cutoff_top_n,
-            cutoff_prob=args.cutoff_prob,
-            beam_width=args.beam_width,
-            num_processes=args.lm_workers,
-        )
-    else:
-        decoder = GreedyDecoder(model.labels, blank_index=model.labels.index("_"))
-
-    parser = SpectrogramParser(model.audio_conf, normalize=True)
 
     print("Starting")
     counter = 0
@@ -111,12 +56,25 @@ if __name__ == "__main__":
                     print("Reading file : " + audio_file)
                 except OSError as e:
                     print('Access-error on file "' + audio_file + '"! \n' + str(e))
-                decoded_output, decoded_offsets = transcribe(
-                    audio_path, parser, model, decoder, device
-                )
-                transcription = decode_results(model, decoded_output, decoded_offsets)[
-                    "output"
-                ][0]
+                try:
+                    response = (
+                        subprocess.check_output(
+                            'curl -X POST http://52.250.111.102:8888/transcribe -H "Content-type: multipart/form-data" -F "file=@'
+                            + audio_path
+                            + '"'
+                        )
+                    )
+                except:
+                    print("Please Start the server")
+                    time.sleep(60)
+                response = json.loads(response.decode("utf-8", "ignore"))
+                
+                if response["status"] is "error":
+                    print(response["message"])
+                    continue
+                else:
+                    transcription = response["transcription"][0][0]
+
                 print(transcription)
                 line = audio_file.split(".")[0] + " --> " + transcription + "\n"
                 with open(args.transcription, "a") as the_file:
