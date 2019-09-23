@@ -5,7 +5,8 @@ import subprocess
 import sys
 import time
 import warnings
-
+import requests
+import requests.exceptions
 import torch
 
 warnings.simplefilter("ignore")
@@ -51,26 +52,30 @@ if __name__ == "__main__":
                 size2 = os.path.getsize(audio_path)
                 if size1 != size2:
                     continue
+                
                 try:
                     os.rename(audio_path, audio_path)
                     print("Reading file : " + audio_file)
                 except OSError as e:
                     print('Access-error on file "' + audio_file + '"! \n' + str(e))
-
+                    continue
+                
                 # suggested edit : use python requests lib instead
                 try:
-                    with open(os.devnull, "w") as devnull:
-                        response = subprocess.check_output(
-                            'curl -X POST http://52.250.111.102:8888/transcribe -H "Content-type: multipart/form-data" -F "file=@'
-                            + audio_path
-                            + '"',
-                            stderr=devnull,
-                        )
-                except:
+                    URL = "http://52.250.111.102:8888/transcribe"
+                    f = open(audio_path, 'rb')
+                    files = {'file': f}
+                    response = requests.post(URL, files=files)
+                    f.close()
+                        
+                except(requests.exceptions.ConnectionError, requests.exceptions.Timeout):
                     print("Please Start the server")
-                    time.sleep(30)
-                response = json.loads(response.decode("utf-8", "ignore"))
-                print(response["status"])
+                    f.close()
+                    time.sleep(3)
+                    continue
+
+                #response = json.loads(response.decode("utf-8", "ignore"))
+                response = response.json()
                 if response["status"] == "error":
                     print(response["message"])
                     continue
@@ -80,11 +85,14 @@ if __name__ == "__main__":
                     print("Well, that was not expected")
                     continue
 
-                print(transcription)
                 line = audio_file.split(".")[0] + " --> " + transcription + "\n"
                 with open(args.transcription, "a") as the_file:
                     the_file.write(line)
-                os.remove(audio_path)
+                try:
+                     os.remove(audio_path)
+                except:
+                    print("remove not working")
+                print(transcription)
                 print()
             else:
                 if enter:
