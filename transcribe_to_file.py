@@ -66,7 +66,7 @@ if __name__ == '__main__':
     parser.add_argument('--audio-csv-path', default='/speech/dispatcher_data_sample/dispatcher_sample.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/dispatcher_data_sample/dispatcher_sample_text/dispatcher_sample_text.txt', 
+    parser.add_argument('--transcriptions-path', default='/speech/dispatcher_data_sample/dispatcher_sample_text/dispatcher_sample_text.csv', 
                         help='Path to save transcriptions of audio files')
 
     
