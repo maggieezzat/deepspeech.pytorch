@@ -63,15 +63,12 @@ if __name__ == '__main__':
     #                    help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
-    parser.add_argument('--audio-csv-path', default='/data/home/GPUAdmin1/asr/train_csvs/single_speaker.csv', 
+    parser.add_argument('--audio-csv-path', default='/speech/dispatcher_data_sample/dispatcher_sample.csv', 
                         help='Path of csv of audio files to transcribe')
     
-    parser.add_argument('--transcriptions-path', default='/speech/epoch13_5gram_transcriptions/german-single-speaker-transcriptions.csv', 
+    parser.add_argument('--transcriptions-path', default='/speech/dispatcher_data_sample/dispatcher_sample_text/dispatcher_sample_text.txt', 
                         help='Path to save transcriptions of audio files')
 
-    #parser.add_argument('--top-results', default=10, 
-    #                    help='number of most probable transcriptions to save')
-    
     
     parser = add_decoder_args(parser)
     args = parser.parse_args()
@@ -96,18 +93,17 @@ if __name__ == '__main__':
         with open(output_file, 'a') as trans:
             counter=0
             for item in content:
-                #counter+=1
-                #if counter <= 1 :
-                #    continue
-                filename=item.split(',')[0]
+                #filename=item.split(',')[0]
+                filename=item
                 print("transcribing: "+ filename, end = '\r')
-                ground_truth=item.split(',')[1]
+                #ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
                 #for i in range(0,100):
                 #    if len(decoded_output[0]) > i:
                 #        trans.write(filename + "," + decoded_output[0][i] + "," + ground_truth)
                 #    else:
                 #        break 
-                trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth)
+                #trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth)
+                trans.write(filename + "," + decoded_output[0][0])
 
     print("Done transcribing all files ")
