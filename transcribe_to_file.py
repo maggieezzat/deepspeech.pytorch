@@ -63,7 +63,7 @@ if __name__ == '__main__':
     #                    help='Audio file to predict on')
     parser.add_argument('--offsets', dest='offsets', action='store_true', help='Returns time offset information')
     
-    parser.add_argument('--audio-csv-path', default='/speech/dispatcher_data_sample/dispatcher_sample.csv', 
+    parser.add_argument('--audio-csv-path', default='/speech/dispatcher_data_sample/audio_files/dispatcher_sample.csv', 
                         help='Path of csv of audio files to transcribe')
     
     parser.add_argument('--transcriptions-path', default='/speech/dispatcher_data_sample/dispatcher_sample_text/dispatcher_sample_text.csv', 
@@ -104,6 +104,6 @@ if __name__ == '__main__':
                 #    else:
                 #        break 
                 #trans.write(filename + "," + decoded_output[0][0] + "," + ground_truth)
-                trans.write(filename + "," + decoded_output[0][0])
+                trans.write(filename + "," + decoded_output[0][0] + "\n")
 
     print("Done transcribing all files ")
