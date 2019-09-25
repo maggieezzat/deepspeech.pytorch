@@ -5,6 +5,7 @@ import subprocess
 import sys
 import time
 import warnings
+
 import requests
 import requests.exceptions
 import torch
@@ -16,9 +17,11 @@ if __name__ == "__main__":
     ALLOWED_EXTENSIONS = set(["wav", "mp3", "ogg", "webm"])
     parser = argparse.ArgumentParser(description="RT Remote transcription")
     parser.add_argument(
-        "--audio-dir", help="Dir to audio files to predict on, the same in mic script"
+        "-a",
+        "--audio-dir",
+        help="Dir to audio files to predict on, the same in mic script",
     )
-    parser.add_argument("--transcription", help="Transcription file")
+    parser.add_argument("-t", "--transcription", help="Transcription file")
     parser.add_argument(
         "--offsets",
         dest="offsets",
@@ -35,8 +38,18 @@ if __name__ == "__main__":
     counter = 0
     s = "|"
     enter = False
+    URL = "http://52.250.111.102:8888/transcribe"
+    server = True
     while True:
         try:
+            if server:
+                try:
+                    r = requests.get(URL)
+                    server = False
+                except requests.exceptions.ConnectionError:
+                    print("Please Start the server")
+                    time.sleep(10)
+                    continue
             audio_files = [
                 f
                 for f in os.listdir(args.audio_dir)
@@ -52,29 +65,32 @@ if __name__ == "__main__":
                 size2 = os.path.getsize(audio_path)
                 if size1 != size2:
                     continue
-                
+
                 try:
                     os.rename(audio_path, audio_path)
                     print("Reading file : " + audio_file)
                 except OSError as e:
                     print('Access-error on file "' + audio_file + '"! \n' + str(e))
                     continue
-                
+
                 # suggested edit : use python requests lib instead
                 try:
-                    URL = "http://52.250.111.102:8888/transcribe"
-                    f = open(audio_path, 'rb')
-                    files = {'file': f}
+                    f = open(audio_path, "rb")
+                    files = {"file": f}
                     response = requests.post(URL, files=files)
-                    f.close()
-                        
-                except(requests.exceptions.ConnectionError, requests.exceptions.Timeout):
-                    print("Please Start the server")
-                    f.close()
-                    time.sleep(3)
-                    continue
 
-                #response = json.loads(response.decode("utf-8", "ignore"))
+                except (
+                    requests.exceptions.ConnectionError,
+                    requests.exceptions.Timeout,
+                ):
+                    print("Please Start the server")
+                    time.sleep(3)
+                    server = True
+                    continue
+                finally:
+                    f.close()
+
+                # response = json.loads(response.decode("utf-8", "ignore"))
                 response = response.json()
                 if response["status"] == "error":
                     print(response["message"])
@@ -86,10 +102,19 @@ if __name__ == "__main__":
                     continue
 
                 line = audio_file.split(".")[0] + " --> " + transcription + "\n"
+
+                if not os.path.isfile(args.transcription):
+                    if not os.path.isdir(args.transcription):
+                        parser.print_help()
+                        sys.exit()
+                    args.transcription = os.path.join(
+                        args.transcription, "transcription.txt"
+                    )
+
                 with open(args.transcription, "a") as the_file:
                     the_file.write(line)
                 try:
-                     os.remove(audio_path)
+                    os.remove(audio_path)
                 except:
                     print("remove not working")
                 print(transcription)
