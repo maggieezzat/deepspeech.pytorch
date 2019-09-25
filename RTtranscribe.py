@@ -48,9 +48,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="RT transcription")
     parser = add_inference_args(parser)
     parser.add_argument(
-        "--audio-dir", help="Dir to audio files to predict on, the same in mic script"
+        "-a",
+        "--audio-dir",
+        help="Dir to audio files to predict on, the same in mic script",
     )
-    parser.add_argument("--transcription", help="Transcription file")
+    parser.add_argument("-t", "--transcription", help="Transcription file")
     parser.add_argument(
         "--offsets",
         dest="offsets",

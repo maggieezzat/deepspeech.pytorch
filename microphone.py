@@ -9,7 +9,7 @@ import pyaudio
 
 parser = argparse.ArgumentParser(description="Microphone")
 parser.add_argument(
-    "--audio-dir", help=" Dir to where to save, must be the same in RT script"
+    "-a", "--audio-dir", help=" Dir to where to save, must be the same in RT script"
 )
 args = parser.parse_args()
 
