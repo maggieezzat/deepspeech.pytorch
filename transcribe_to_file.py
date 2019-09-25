@@ -94,7 +94,7 @@ if __name__ == '__main__':
             counter=0
             for item in content:
                 #filename=item.split(',')[0]
-                filename=item
+                filename=item.strip()
                 print("transcribing: "+ filename, end = '\r')
                 #ground_truth=item.split(',')[1]
                 decoded_output, decoded_offsets = transcribe(filename, parser, model, decoder, device) 
